@@ -1,0 +1,10 @@
+.header {
+    grid-area: header;
+    background-color: cadetblue;
+    padding: 10px;
+}
+
+.headerLogo {
+    display: block;
+    width: 50px;
+}

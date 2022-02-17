@@ -1,0 +1,36 @@
+.dialogs {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    grid-template-rows: auto 1fr;
+    grid-template-areas: 'header header';
+}
+
+.title {
+    grid-area: header;
+}
+
+.list {
+    margin: 0;
+    padding: 0;
+    border-right: solid 1px black;
+}
+
+.list li {
+    list-style-type: none;
+    padding: 5px;
+    margin: 0;
+}
+
+.item {
+    text-decoration: none;
+    color: black;
+}
+
+.item h4 {
+
+}
+
+.messages p {
+    padding: 5px 15px;
+    margin: 0;
+}
