@@ -1,13 +1,16 @@
 import React, {FC} from 'react';
 import styles from './Message.module.css';
+import {MessagesProps} from "../../../Redux/State";
 
-export interface IUserMessage {
-    message: string;
-}
+//** Styles from MUI **//
+import {Avatar, Card} from "@mui/material";
 
-const Message: FC<IUserMessage> = ({message}) => {
+const Message: FC<MessagesProps> = ({message}) => {
     return (
-        <p>{message}</p>
+        <Card sx={{marginBottom: '1rem', padding: '0.4rem'}}>
+            <Avatar alt="avatar" src="#" component={'span'}/>
+            <p>{message}</p>
+        </Card>
     )
 }
 

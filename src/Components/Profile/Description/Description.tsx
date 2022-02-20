@@ -1,11 +1,12 @@
 import React from 'react';
 import classes from './Description.module.css';
+import {Avatar, ListItem} from "@mui/material";
 
 const Description = () => {
     return (
-        <div className={classes.content}>
-            <h2>Avatar + description</h2>
-        </div>
+        <ListItem className={classes.content} sx={{padding: '0.5rem'}}>
+            <Avatar></Avatar>
+        </ListItem>
     )
 }
 

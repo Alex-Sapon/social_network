@@ -4,9 +4,14 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-// State data
-import {state} from './Redux/State';
+import {MessagesProps, PostsProps, state, UsersProps} from "./Redux/State";
 
-ReactDOM.render(<App state={state}/>, document.getElementById('root'));
+export type PagesProps = {
+    posts?: PostsProps[]
+    users?: UsersProps[]
+    messages?: MessagesProps[]
+}
+
+ReactDOM.render(<App posts={state.posts} users={state.users} messages={state.messages}/>, document.getElementById('root'));
 
 reportWebVitals();

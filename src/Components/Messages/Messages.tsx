@@ -1,20 +1,23 @@
 import React, {FC} from 'react';
 import styles from './Messages.module.css';
-import Message, {IUserMessage} from './Message/Message';
+import Message from './Message/Message';
 import DialogUser from "./DialogUser/DialogUser";
+import {PagesProps} from "../../index";
 
+//** Styles from MUI **//
+import {Box, Typography} from "@mui/material";
 
-const Messages: FC = () => {
+const Messages: FC<PagesProps> = ({users, messages}) => {
     return (
-        <div className={styles.dialogs}>
-            <h2 className={styles.title}>Messages</h2>
+        <Box className={styles.dialogs} sx={{flexGrow: 1}}>
+            <h3 className={styles.title}>Your friends</h3>
             <ul className={styles.list}>
-                {props.users.map((user) => <DialogUser key={user.id} id={user.id} name={user.name}/>)}
+                {users?.map(user => <DialogUser key={user.id} id={user.id} name={user.name}/>)}
             </ul>
-            <div className={styles.messages}>
-                {props.messages.map((text, key) => <Message key={key} message={text.message}/>)}
-            </div>
-        </div>
+            <Typography className={styles.messages} sx={{padding: '0px 20px'}}>
+                {messages?.map(text => <Message message={text.message}/>)}
+            </Typography>
+        </Box>
     )
 }
 

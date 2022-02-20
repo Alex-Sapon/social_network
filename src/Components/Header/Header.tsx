@@ -1,12 +1,23 @@
 import React, {FC} from 'react';
 import classes from './Header.module.css';
+import {AppBar, Toolbar, Typography, Box} from "@mui/material";
+
+const headerStyles = {
+    flexGrow: 1,
+    marginBottom: "15px"
+}
 
 const Header: FC = () => {
     return (
-        <header className={classes.header}>
-            <img className={classes.headerLogo} src="https://www.freepnglogos.com/uploads/logo-3d-png/3d-company-logos-design-logo-online-2.png"
-                 alt="logo"/>
-        </header>
+        <Box sx={headerStyles}>
+            <AppBar position="static">
+                <Toolbar variant="dense">
+                    <Typography variant="h6" color="inherit" component="div">
+                        Social network
+                    </Typography>
+                </Toolbar>
+            </AppBar>
+        </Box>
     )
 }
 

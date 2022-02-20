@@ -1,15 +1,11 @@
 import React, {FC} from 'react';
 import styles from './DialogUser.module.css';
 import {NavLink} from "react-router-dom";
+import {UsersProps} from "../../../Redux/State";
 
-type UserListProps = {
-    id: number;
-    name: string;
-}
-
-const DialogUser: FC<UserListProps> = ({id, name}) => {
+const DialogUser: FC<UsersProps> = (props) => {
     return (
-        <li><NavLink className={styles.item} to={`${id}`}>{name}</NavLink></li>
+        <li><NavLink className={styles.item} to={`${props.id}`}>{props.name}</NavLink></li>
     )
 }
 

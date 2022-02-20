@@ -1,32 +1,40 @@
 import React, {FC} from 'react';
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 
+//** Styles **//
 import './App.css';
 
+//** Components **//
 import Header from "./Components/Header/Header";
 import Navbar from "./Components/Navbar/Navbar";
 import Profile from "./Components/Profile/Profile";
 import Messages from "./Components/Messages/Messages";
+import Friends from "./Components/Friends/Friends";
+import News from "./Components/News/News";
 import Music from "./Components/Music/Music";
 import Settings from "./Components/Settings/Settings";
 
-import {PagesProps} from "./Redux/State";
+//** Type of state **//
+import {PagesProps} from "./index";
 
-const App: FC<PagesProps> = (state) => {
+//** Styles from MUI **//
+import {Container} from "@mui/material";
+
+const App: FC<PagesProps> = ({posts, messages, users}) => {
     return (
         <BrowserRouter>
-            <div className='app'>
-                <Header/>
+            <Header/>
+            <Container sx={{display: 'flex', height: '100vh'}}>
                 <Navbar/>
-                <div className="app__content">
-                    <Routes>
-                        <Route path="/profile" element={<Profile posts={state.posts} />}/>
-                        <Route path="/messages/*" element={<Messages messages={state.messages} users={state.users}/>}/>
-                        <Route path="/music" element={<Music/>}/>
-                        <Route path="/settings" element={<Settings/>}/>
-                    </Routes>
-                </div>
-            </div>
+                <Routes>
+                    <Route path="/profile" element={<Profile posts={posts}/>}/>
+                    <Route path="/messages/*" element={<Messages messages={messages} users={users}/>}/>
+                    <Route path="/friends/*" element={<Friends users={users}/>}/>
+                    <Route path="/news/" element={<News/>}/>
+                    <Route path="/music" element={<Music/>}/>
+                    <Route path="/settings" element={<Settings/>}/>
+                </Routes>
+            </Container>
         </BrowserRouter>
     );
 }

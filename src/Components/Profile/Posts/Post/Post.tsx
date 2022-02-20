@@ -1,20 +1,18 @@
 import React, {FC} from 'react';
 import styles from './Post.module.css';
 import Rating from '../Rating/Rating';
+import {PostsProps} from "../../../../Redux/State";
 
-interface PostPropsType {
-    message: string;
-    num: number;
-    likesCount: number;
-}
+//** Styles from MUI **//
+import {Card} from "@mui/material";
 
-const Post: FC<PostPropsType> = ({message, num, likesCount}) => {
+const Post: FC<PostsProps> = ({id, message, likesCount}) => {
     return (
-        <div>
-            <h3>Post № {num}</h3>
+        <Card sx={{padding: '10px', marginBottom: '10px', width: '100%'}}>
+            <h3>Post № {id}</h3>
             <p>{message}</p>
             <Rating stars={likesCount}/>
-        </div>
+        </Card>
     )
 }
 
