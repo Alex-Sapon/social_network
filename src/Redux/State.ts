@@ -1,17 +1,15 @@
-import Messages from "../Components/Messages/Messages";
-
-export type PostsProps = {
+export interface PostsProps {
     id: number
     message: string
     likesCount: number
 }
 
-export type UsersProps = {
+export interface UsersProps {
     id: number
     name: string
 }
 
-export type MessagesProps = {
+export interface MessagesProps {
     message: string
 }
 
@@ -36,4 +34,13 @@ export const state = {
         {id: 4, name: 'Sergey'},
         {id: 5, name: 'Dima'}
     ]
+}
+
+export const addPost = (message: string) => {
+    let post: PostsProps = {
+        id: 5,
+        message: message,
+        likesCount: 1
+    }
+    state.posts.push(post)
 }

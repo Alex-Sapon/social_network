@@ -20,14 +20,14 @@ import {PagesProps} from "./index";
 //** Styles from MUI **//
 import {Container} from "@mui/material";
 
-const App: FC<PagesProps> = ({posts, messages, users}) => {
+const App: FC<PagesProps> = ({posts, messages, users, addPost}) => {
     return (
         <BrowserRouter>
             <Header/>
             <Container sx={{display: 'flex', height: '100vh'}}>
                 <Navbar/>
                 <Routes>
-                    <Route path="/profile" element={<Profile posts={posts}/>}/>
+                    <Route path="/profile" element={<Profile posts={posts} addPost={addPost}/>}/>
                     <Route path="/messages/*" element={<Messages messages={messages} users={users}/>}/>
                     <Route path="/friends/*" element={<Friends users={users}/>}/>
                     <Route path="/news/" element={<News/>}/>

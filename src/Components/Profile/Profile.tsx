@@ -4,11 +4,11 @@ import Posts from './Posts/Posts';
 import Description from "./Description/Description";
 import {PagesProps} from "../../index";
 
-const Profile: FC<PagesProps> = ({posts}) => {
+const Profile: FC<PagesProps> = ({posts, addPost}) => {
     return (
         <div className={styles.content}>
             <Description/>
-            <Posts posts={posts} />
+            <Posts posts={posts} addPost={addPost}/>
         </div>
     )
 }
