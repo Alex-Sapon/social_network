@@ -1,10 +1,8 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
 
-import {MessagesProps, PostsProps, state, addPost,UsersProps} from "./Redux/State";
+import {MessagesProps, PostsProps, UsersProps, state} from "./Redux/State";
+import {renderEntireTree} from "./render";
 
 export interface PagesProps {
     posts?: PostsProps[]
@@ -13,10 +11,5 @@ export interface PagesProps {
     addPost?: (message: string) => void
 }
 
-ReactDOM.render(<App
-    posts={state.posts}
-    users={state.users}
-    messages={state.messages}
-    addPost={addPost}/>, document.getElementById('root'));
+renderEntireTree({state});
 
-reportWebVitals();

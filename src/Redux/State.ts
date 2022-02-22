@@ -1,3 +1,5 @@
+import {renderEntireTree} from "../render";
+
 export interface PostsProps {
     id: number
     message: string
@@ -11,6 +13,10 @@ export interface UsersProps {
 
 export interface MessagesProps {
     message: string
+}
+
+export interface StateTypeProps {
+    state: typeof state
 }
 
 export const state = {
@@ -43,4 +49,5 @@ export const addPost = (message: string) => {
         likesCount: 1
     }
     state.posts.push(post)
+    renderEntireTree({state});
 }

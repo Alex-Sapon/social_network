@@ -7,8 +7,8 @@ import {PagesProps} from "../../index";
 const Profile: FC<PagesProps> = ({posts, addPost}) => {
     return (
         <div className={styles.content}>
-            <Description/>
-            <Posts posts={posts} addPost={addPost}/>
+            <Description addPost={addPost}/>
+            <Posts posts={posts}/>
         </div>
     )
 }
