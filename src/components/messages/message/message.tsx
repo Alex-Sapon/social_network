@@ -1,6 +1,6 @@
 import React, {FC} from 'react';
-import styles from './Message.module.css';
-import {MessagesProps} from "../../../Redux/State";
+import styles from './message.module.css';
+import {MessagesProps} from "../../../redux/state";
 
 //** Styles from MUI **//
 import {Avatar, Card} from "@mui/material";

@@ -39,15 +39,22 @@ export const state = {
         {id: 3, name: 'Illya'},
         {id: 4, name: 'Sergey'},
         {id: 5, name: 'Dima'}
-    ]
+    ],
+    textArea: ''
 }
 
-export const addPost = (message: string) => {
+export const addPost = () => {
     let post: PostsProps = {
         id: 5,
-        message: message,
+        message: state.textArea,
         likesCount: 1
     }
     state.posts.push(post)
+    state.textArea = '';
+    renderEntireTree({state});
+}
+
+export const updateNewPostText = (newText: string) => {
+    state.textArea = newText;
     renderEntireTree({state});
 }

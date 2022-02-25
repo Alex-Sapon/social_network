@@ -2,7 +2,7 @@ import React, {FC} from 'react';
 import {NavLink} from 'react-router-dom';
 
 //** Styles **//
-import classes from './Navbar.module.css';
+import classes from './navbar.module.css';
 
 //** Styles from MUI **//
 import {Box, List, ListItem, Typography} from '@mui/material';

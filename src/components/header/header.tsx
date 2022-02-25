@@ -1,5 +1,5 @@
 import React, {FC} from 'react';
-import classes from './Header.module.css';
+import classes from './header.module.css';
 import {AppBar, Toolbar, Typography, Box} from "@mui/material";
 
 const headerStyles = {
