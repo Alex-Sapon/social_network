@@ -15,7 +15,7 @@ const Messages: FC<PagesProps> = (state) => {
         <Box className={styles.dialogs} sx={{flexGrow: 1}}>
             <h3 className={styles.title}>Your friends</h3>
             <ul className={styles.list}>
-                {state.users?.map(user => <Dialog key={user.id} id={user.id} name={user.name}/>)}
+                {state.users?.map((user, i)=> <Dialog key={i} id={i + 1} name={user.name}/>)}
             </ul>
             <Typography className={styles.messages} sx={{padding: '0px 20px'}}>
                 {state.messages?.map(text => <Message message={text.message}/>)}

@@ -1,4 +1,8 @@
-import {renderEntireTree} from "../render";
+import {PagesProps} from "../index";
+
+let renderEntireTree = (state: PagesProps) => (
+    console.log('Hello')
+)
 
 export interface PostsProps {
     id: number
@@ -13,10 +17,6 @@ export interface UsersProps {
 
 export interface MessagesProps {
     message: string
-}
-
-export interface StateTypeProps {
-    state: typeof state
 }
 
 export const state = {
@@ -51,10 +51,15 @@ export const addPost = () => {
     }
     state.posts.push(post)
     state.textArea = '';
-    renderEntireTree({state});
+    renderEntireTree(state);
 }
 
-export const updateNewPostText = (newText: string) => {
+export const updateNewPost = (newText: string) => {
     state.textArea = newText;
-    renderEntireTree({state});
+    renderEntireTree(state);
+    console.log(state)
+}
+
+export const subscribe = (observer: (state: PagesProps) => void) => {
+    renderEntireTree = observer; // pattern observer
 }

@@ -1,11 +1,16 @@
 import React, {FC} from 'react';
 import Post from './post/post';
 import {PagesProps} from "../../../index";
+import {Typography} from "@mui/material";
 
 const Posts: FC<PagesProps> = ({posts}) => {
     return (
         <>
-            <h3>My posts</h3>
+            <Typography
+                variant="h4"
+                component="h4"
+                sx={{marginBottom: '1rem'}}
+            >My posts</Typography>
             <Post posts={posts}/>
         </>
     )

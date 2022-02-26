@@ -4,19 +4,27 @@ import Rating from '../rating/rating';
 import {PagesProps} from "../../../../index";
 
 //** Styles from MUI **//
-import {Card} from "@mui/material";
-
+import {Card, Typography} from "@mui/material";
+import {teal} from "@mui/material/colors";
 
 const Post: FC<PagesProps> = ({posts}) => {
     return (
         <>
             {posts?.map((post, i) =>
-                <Card key={i} sx={{
-                    padding: '10px',
-                    marginBottom: '10px',
-                    width: '100%'}}>
-                    <h3>Post № {post.id}</h3>
-                    <p>{post.message}</p>
+                <Card key={post.id} sx={{
+                    padding: '1rem',
+                    marginBottom: '1rem',
+                    bgcolor: teal[100]
+                }}>
+                    <Typography
+                        variant="h5"
+                        component="h5"
+                        sx={{marginBottom: '0.5rem'}}
+                    >Post № {i + 1}</Typography>
+                    <Typography
+                        component="p"
+                        sx={{marginBottom: '0.5rem'}}
+                    >{post.message}</Typography>
                     <Rating stars={post.likesCount}/>
                 </Card>
             )}

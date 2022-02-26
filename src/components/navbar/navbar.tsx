@@ -9,10 +9,10 @@ import {Box, List, ListItem, Typography} from '@mui/material';
 import {blue, red} from '@mui/material/colors';
 
 const navbarStyles = {
-    width: '250px',
     backgroundColor: blue[200],
     marginRight: "20px",
-    color: red[200]
+    color: red[200],
+    height: '100%'
 }
 
 const Navbar: FC = () => {

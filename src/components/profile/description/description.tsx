@@ -3,14 +3,14 @@ import styles from './description.module.css';
 import {PagesProps} from "../../../index";
 
 import {Avatar, Box, Button, ListItem} from "@mui/material";
-import {teal} from "@mui/material/colors";
+import {blueGrey} from "@mui/material/colors";
+import SendIcon from '@mui/icons-material/Send';
 
 const Description: FC<PagesProps> = (state) => {
     const textAreaRef = useRef<HTMLTextAreaElement>(null!);
 
     const addPost = () => {
         if (state.addPost) state.addPost();
-        // if (state.updateNewPostText) state.updateNewPostText('');
     }
 
     const onPostChange = () => {
@@ -19,16 +19,25 @@ const Description: FC<PagesProps> = (state) => {
     }
 
     return (
-        <Box sx={{width: 600, maxWidth: '100%'}}>
+        <Box>
             <ListItem sx={{padding: '0.5rem'}}>
                 <Avatar></Avatar>
             </ListItem>
             <form action="submit">
-                <textarea ref={textAreaRef} value={state.textArea} onChange={onPostChange}/>
+                <textarea
+                    ref={textAreaRef}
+                    value={state.textArea}
+                    onChange={onPostChange}/>
                 <Button
-                    size="small"
-                    variant='contained'
-                    sx={{bgcolor: teal[300]}}
+                    size="medium"
+                    variant="contained"
+                    sx={{
+                        marginBottom: "1rem",
+                        backgroundColor: blueGrey[50],
+                        color: blueGrey[700],
+                        '&:hover': {backgroundColor: blueGrey[200]}
+                    }}
+                    endIcon={<SendIcon/>}
                     onClick={addPost}
                 >Add post</Button>
             </form>

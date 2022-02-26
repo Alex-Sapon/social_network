@@ -14,31 +14,42 @@ import News from "./components/news/news";
 import Music from "./components/music/music";
 import Settings from "./components/settings/settings";
 
-//** Type of state **//
 import {PagesProps} from "./index";
 
-//** Styles from MUI **//
-import {Container} from "@mui/material";
+import {Container, Grid} from "@mui/material";
 
 const App: FC<PagesProps> = (state) => {
     return (
         <BrowserRouter>
             <Header/>
-            <Container sx={{display: 'flex', height: '100vh'}}>
-                <Navbar/>
-                <Routes>
-                    <Route path="/profile" element={<Profile
-                        posts={state.posts}
-                        addPost={state.addPost}
-                        textArea={state.textArea}
-                        updateNewPostText={state.updateNewPostText}/>}/>
-                    <Route path="/messages/*" element={<Messages messages={state.messages} users={state.users}/>}/>
-                    <Route path="/friends/*" element={<Friends users={state.users}/>}/>
-                    <Route path="/news/" element={<News/>}/>
-                    <Route path="/music" element={<Music/>}/>
-                    <Route path="/settings" element={<Settings/>}/>
-                </Routes>
+            <Container sx={{
+                height: '100vh'
+            }}>
+                <Grid
+                    container
+                    spacing={1}
+                    columns={12}>
+                    <Grid item sm={4} sx={{height: '100vh'}}>
+                        <Navbar/>
+                    </Grid>
+                    <Grid item xs={8}>
+                        <Routes>
+                            <Route path="/profile" element={<Profile
+                                posts={state.posts}
+                                addPost={state.addPost}
+                                textArea={state.textArea}
+                                updateNewPostText={state.updateNewPostText}/>}/>
+                            <Route path="/messages/*"
+                                   element={<Messages messages={state.messages} users={state.users}/>}/>
+                            <Route path="/friends/*" element={<Friends users={state.users}/>}/>
+                            <Route path="/news/" element={<News/>}/>
+                            <Route path="/music" element={<Music/>}/>
+                            <Route path="/settings" element={<Settings/>}/>
+                        </Routes>
+                    </Grid>
+                </Grid>
             </Container>
+
         </BrowserRouter>
     );
 }

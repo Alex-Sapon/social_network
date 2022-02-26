@@ -1,8 +1,8 @@
 import React from 'react';
 import './index.css';
-
-import {MessagesProps, PostsProps, UsersProps, state} from "./redux/state";
-import {renderEntireTree} from "./render";
+import {MessagesProps, PostsProps, UsersProps, state, updateNewPost, addPost, subscribe} from "./redux/state";
+import ReactDOM from "react-dom";
+import App from "./app";
 
 export interface PagesProps {
     posts?: PostsProps[]
@@ -13,5 +13,16 @@ export interface PagesProps {
     updateNewPostText?: (text: string) => void
 }
 
-renderEntireTree({state});
+const renderEntireTree = (state: PagesProps) => {
+    ReactDOM.render(<App
+        posts={state.posts}
+        users={state.users}
+        messages={state.messages}
+        textArea={state.textArea}
+        updateNewPostText={updateNewPost}
+        addPost={addPost}/>, document.getElementById('root'));
+};
+
+renderEntireTree(state);
+subscribe(renderEntireTree);
 
