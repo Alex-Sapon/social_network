@@ -1,35 +1,46 @@
 import React, {FC} from 'react';
 import {NavLink} from 'react-router-dom';
 
-//** Styles **//
+import {Divider, List, ListItem, ListItemText} from '@mui/material';
+import {red} from '@mui/material/colors';
 import classes from './navbar.module.css';
 
-//** Styles from MUI **//
-import {Box, List, ListItem, Typography} from '@mui/material';
-import {blue, red} from '@mui/material/colors';
-
 const navbarStyles = {
-    backgroundColor: blue[200],
-    marginRight: "20px",
+    backgroundColor: 'background.paper',
     color: red[200],
-    height: '100%'
+    width: '100%',
+    height: '100vh'
 }
 
 const Navbar: FC = () => {
     const setActiveClass = (navData: { isActive: boolean }): string => navData.isActive ? classes.active : classes.item;
     return (
-        <Box sx={navbarStyles}>
-            <nav>
-                <List>
-                    <ListItem><NavLink className={setActiveClass} to="/profile"><Typography variant={'h6'}>Profile</Typography></NavLink></ListItem>
-                    <ListItem><NavLink className={setActiveClass} to="/messages"><Typography variant={'h6'}>Messages</Typography></NavLink></ListItem>
-                    <ListItem><NavLink className={setActiveClass} to="/friends"><Typography variant={'h6'}>Friends</Typography></NavLink></ListItem>
-                    <ListItem><NavLink className={setActiveClass} to="/news"><Typography variant={'h6'}>News</Typography></NavLink></ListItem>
-                    <ListItem><NavLink className={setActiveClass} to="/music"><Typography variant={'h6'}>Music</Typography></NavLink></ListItem>
-                    <ListItem><NavLink className={setActiveClass} to="/settings"><Typography variant={'h6'}>Settings</Typography></NavLink></ListItem>
-                </List>
-            </nav>
-        </Box>
+        <List component="nav" aria-label="mailbox folders" sx={navbarStyles}>
+            <ListItem button>
+                <NavLink className={setActiveClass} to="/profile"><ListItemText primary={"Profile"}/></NavLink>
+            </ListItem>
+            <Divider light/>
+            <ListItem button>
+                <NavLink className={setActiveClass} to="/messages"><ListItemText primary={"Messages"}/></NavLink>
+            </ListItem>
+            <Divider light/>
+            <ListItem button>
+                <NavLink className={setActiveClass} to="/friends"><ListItemText primary={"Friends"}/></NavLink>
+            </ListItem>
+            <Divider light/>
+            <ListItem button>
+                <NavLink className={setActiveClass} to="/news"><ListItemText primary={"News"}/></NavLink>
+            </ListItem>
+            <Divider light/>
+            <ListItem button>
+                <NavLink className={setActiveClass} to="/music"><ListItemText primary={"Music"}/></NavLink>
+            </ListItem>
+            <Divider light/>
+            <ListItem button>
+                <NavLink className={setActiveClass} to="/settings"><ListItemText primary={"Settings"}/></NavLink>
+            </ListItem>
+            <Divider light/>
+        </List>
     )
 }
 

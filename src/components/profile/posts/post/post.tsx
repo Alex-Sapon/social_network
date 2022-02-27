@@ -1,20 +1,19 @@
 import React, {FC} from 'react';
-import styles from './post.module.css';
 import Rating from '../rating/rating';
-import {PagesProps} from "../../../../index";
+import {StateProps} from "../../../../redux/state";
 
-//** Styles from MUI **//
 import {Card, Typography} from "@mui/material";
 import {teal} from "@mui/material/colors";
+import styles from './post.module.css';
 
-const Post: FC<PagesProps> = ({posts}) => {
+const Post: FC<StateProps> = (state) => {
     return (
         <>
-            {posts?.map((post, i) =>
+            {state.posts?.map((post, i) =>
                 <Card key={post.id} sx={{
                     padding: '1rem',
                     marginBottom: '1rem',
-                    bgcolor: teal[100]
+                    backgroundColor: teal[50]
                 }}>
                     <Typography
                         variant="h5"

@@ -1,10 +1,9 @@
 import React, {FC} from 'react';
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 
-//** Styles **//
+import {Container, Grid} from "@mui/material";
 import './app.css';
 
-//** components **//
 import Header from "./components/header/header";
 import Navbar from "./components/navbar/navbar";
 import Profile from "./components/profile/profile";
@@ -14,34 +13,32 @@ import News from "./components/news/news";
 import Music from "./components/music/music";
 import Settings from "./components/settings/settings";
 
-import {PagesProps} from "./index";
+import {StorePropsType} from "./redux/state";
 
-import {Container, Grid} from "@mui/material";
-
-const App: FC<PagesProps> = (state) => {
+const App: FC<StorePropsType> = (state) => {
     return (
         <BrowserRouter>
             <Header/>
-            <Container sx={{
-                height: '100vh'
-            }}>
+            <Container sx={{height: '100vh'}}>
                 <Grid
                     container
-                    spacing={1}
+                    columnSpacing={{xs: 2, sm: 3, md: 5}}
                     columns={12}>
-                    <Grid item sm={4} sx={{height: '100vh'}}>
+                    <Grid item sm={3} sx={{height: '100vh'}}>
                         <Navbar/>
                     </Grid>
-                    <Grid item xs={8}>
+                    <Grid item xs={9}>
                         <Routes>
                             <Route path="/profile" element={<Profile
-                                posts={state.posts}
+                                state={state.state}
                                 addPost={state.addPost}
-                                textArea={state.textArea}
-                                updateNewPostText={state.updateNewPostText}/>}/>
+                                updateNewPost={state.updateNewPost}
+                            />}/>
                             <Route path="/messages/*"
-                                   element={<Messages messages={state.messages} users={state.users}/>}/>
-                            <Route path="/friends/*" element={<Friends users={state.users}/>}/>
+                                   element={<Messages
+                                       messages={state.state?.messages}
+                                       users={state.state?.users}/>}/>
+                            <Route path="/friends/*" element={<Friends users={state.state?.users}/>}/>
                             <Route path="/news/" element={<News/>}/>
                             <Route path="/music" element={<Music/>}/>
                             <Route path="/settings" element={<Settings/>}/>
@@ -49,7 +46,6 @@ const App: FC<PagesProps> = (state) => {
                     </Grid>
                 </Grid>
             </Container>
-
         </BrowserRouter>
     );
 }

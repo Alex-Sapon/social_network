@@ -3,7 +3,7 @@ import React, {FC} from "react";
 //** Styles from MUI **//
 import {Button, Card, CardActions, CardContent, CardMedia, Typography} from "@mui/material";
 
-const News = () => {
+const News: FC = () => {
     return (
         <Card sx={{maxWidth: 345, height: 330}}>
             <CardMedia
