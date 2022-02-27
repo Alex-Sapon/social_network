@@ -7,10 +7,7 @@ import styles from './profile.module.css';
 const Profile: FC<StorePropsType> = (state) => {
     return (
         <div className={styles.content}>
-            <Description
-                addPost={state.addPost}
-                state={state.state}
-                updateNewPost={state.updateNewPost}/>
+            <Description dispatch={state.dispatch} state={state.state}/>
             <Posts state={state.state}/>
         </div>
     )

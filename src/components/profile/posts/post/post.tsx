@@ -16,13 +16,12 @@ const Post: FC<StateProps> = (state) => {
                     backgroundColor: teal[50]
                 }}>
                     <Typography
-                        variant="h5"
-                        component="h5"
-                        sx={{marginBottom: '0.5rem'}}
+                        variant="subtitle1"
+                        sx={{marginBottom: '0.5rem', fontSize: '1.3rem'}}
                     >Post № {i + 1}</Typography>
                     <Typography
-                        component="p"
-                        sx={{marginBottom: '0.5rem'}}
+                        variant='body2'
+                        sx={{marginBottom: '0.5rem', fontSize: '1rem'}}
                     >{post.message}</Typography>
                     <Rating stars={post.likesCount}/>
                 </Card>

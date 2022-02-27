@@ -23,9 +23,13 @@ export interface StateProps {
 export interface StorePropsType {
     state?: StateProps
     getState?: () => object
-    addPost?: () => void
-    updateNewPost?: (newText: string) => void
     subscribe?: (state: StateProps) => void
+    dispatch?: (action: DispatchPropsType) => void
+}
+
+export interface DispatchPropsType {
+    type: string
+    newText?: string
 }
 
 export const store = {
@@ -52,27 +56,31 @@ export const store = {
         ],
         textArea: ''
     },
-    getState() {
-        return this._state;
-    },
-    addPost() {
-        let post: PostsProps = {
-            id: 5,
-            message: this._state.textArea,
-            likesCount: 1
-        }
-        this._state.posts.push(post)
-        this._state.textArea = '';
-        this._callSubscriber(this._state);
-    },
-    updateNewPost(newText: string) {
-        this._state.textArea = newText;
-        this._callSubscriber(this._state);
-    },
     _callSubscriber(state: StateProps) {
         console.log('State changed')
     },
+    getState() {
+        return this._state;
+    },
     subscribe(observer: (state: StateProps) => void) {
         this._callSubscriber = observer; // pattern observer
+    },
+    dispatch(action: DispatchPropsType) {
+        switch (action.type) {
+            case 'ADD-POST':
+                let post: PostsProps = {
+                    id: 5,
+                    message: this._state.textArea,
+                    likesCount: 1
+                }
+                this._state.posts.push(post)
+                this._state.textArea = '';
+                this._callSubscriber(this._state);
+                break;
+            case 'UPDATE-NEW-POST':
+                this._state.textArea = action.newText!; // ненулевой оператор выполнения
+                this._callSubscriber(this._state);
+                break;
+        }
     }
 }

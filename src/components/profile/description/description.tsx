@@ -1,7 +1,7 @@
 import React, {FC, useRef} from 'react';
 import {StorePropsType} from "../../../redux/state";
 
-import {Avatar, Box, Button, FormGroup, ListItem, TextField, Typography} from "@mui/material";
+import {Avatar, Box, Button, FormGroup, ListItem, Typography} from "@mui/material";
 import {blueGrey} from "@mui/material/colors";
 import SendIcon from '@mui/icons-material/Send';
 import styles from './description.module.css';
@@ -10,18 +10,19 @@ const Description: FC<StorePropsType> = (state) => {
     const textAreaRef = useRef<HTMLTextAreaElement>(null!);
 
     const addPost = () => {
-        if (state.addPost) state.addPost();
+        if (state.dispatch) state.dispatch({type: 'ADD-POST'});
     }
 
     const onPostChange = () => {
         const text = textAreaRef.current.value;
-        if (state.updateNewPost) state.updateNewPost(text);
+        if (state.dispatch) state.dispatch({type: 'UPDATE-NEW-POST', newText: text});
     }
 
     return (
         <Box>
             <ListItem sx={{padding: '0.5rem', marginBottom: '1rem'}}>
-                <Avatar sx={{marginRight: '1rem'}}></Avatar><Typography sx={{fontSize: '1.5rem'}}>Aleksandr Saponchik</Typography>
+                <Avatar sx={{marginRight: '1rem'}}></Avatar>
+                <Typography sx={{fontSize: '1.5rem'}}>Aleksandr Saponchik</Typography>
             </ListItem>
             <FormGroup sx={{marginBottom: '1rem'}}>
                 <textarea

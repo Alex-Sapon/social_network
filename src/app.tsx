@@ -31,13 +31,11 @@ const App: FC<StorePropsType> = (state) => {
                         <Routes>
                             <Route path="/profile" element={<Profile
                                 state={state.state}
-                                addPost={state.addPost}
-                                updateNewPost={state.updateNewPost}
+                                dispatch={state.dispatch}
                             />}/>
-                            <Route path="/messages/*"
-                                   element={<Messages
-                                       messages={state.state?.messages}
-                                       users={state.state?.users}/>}/>
+                            <Route path="/messages/*" element={<Messages
+                                messages={state.state?.messages}
+                                users={state.state?.users}/>}/>
                             <Route path="/friends/*" element={<Friends users={state.state?.users}/>}/>
                             <Route path="/news/" element={<News/>}/>
                             <Route path="/music" element={<Music/>}/>
