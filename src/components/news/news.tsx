@@ -1,6 +1,5 @@
 import React, {FC} from "react";
 
-//** Styles from MUI **//
 import {Button, Card, CardActions, CardContent, CardMedia, Typography} from "@mui/material";
 
 const News: FC = () => {

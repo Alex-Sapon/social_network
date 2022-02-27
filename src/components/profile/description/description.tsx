@@ -1,5 +1,5 @@
 import React, {FC, useRef} from 'react';
-import {StorePropsType} from "../../../redux/state";
+import {addPostActionCreator, onPostChangeActionCreator, StorePropsType} from "../../../redux/state";
 
 import {Avatar, Box, Button, FormGroup, ListItem, Typography} from "@mui/material";
 import {blueGrey} from "@mui/material/colors";
@@ -10,12 +10,12 @@ const Description: FC<StorePropsType> = (state) => {
     const textAreaRef = useRef<HTMLTextAreaElement>(null!);
 
     const addPost = () => {
-        if (state.dispatch) state.dispatch({type: 'ADD-POST'});
+        if (state.dispatch) state.dispatch(addPostActionCreator());
     }
 
     const onPostChange = () => {
         const text = textAreaRef.current.value;
-        if (state.dispatch) state.dispatch({type: 'UPDATE-NEW-POST', newText: text});
+        if (state.dispatch) state.dispatch(onPostChangeActionCreator(text));
     }
 
     return (

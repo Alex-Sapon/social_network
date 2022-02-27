@@ -5,8 +5,7 @@ import ReactDOM from "react-dom";
 import App from "./app";
 
 const renderEntireTree = (state: StateProps) => {
-    ReactDOM.render(<App state={state} dispatch={store.dispatch.bind(store)}
-    />, document.getElementById('root'));
+    ReactDOM.render(<App state={state} dispatch={store.dispatch.bind(store)}/>, document.getElementById('root'));
 };
 
 renderEntireTree(store.getState());

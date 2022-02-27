@@ -1,3 +1,6 @@
+const ADD_POST = 'ADD-POST';
+const UPDATE_NEW_POST = 'UPDATE-NEW-POST';
+
 export interface PostsProps {
     id: number
     message: string
@@ -84,3 +87,6 @@ export const store = {
         }
     }
 }
+
+export const addPostActionCreator = () => ({type: ADD_POST})
+export const onPostChangeActionCreator = (text: string) => ({type: UPDATE_NEW_POST, newText: text})
