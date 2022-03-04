@@ -34,8 +34,8 @@ const App: FC<StorePropsType> = (state) => {
                                 dispatch={state.dispatch}
                             />}/>
                             <Route path="/messages/*" element={<Messages
-                                messages={state.state?.messages}
-                                users={state.state?.users}/>}/>
+                                state={state.state}
+                                dispatch={state.dispatch}/>}/>
                             <Route path="/friends/*" element={<Friends users={state.state?.users}/>}/>
                             <Route path="/news/" element={<News/>}/>
                             <Route path="/music" element={<Music/>}/>

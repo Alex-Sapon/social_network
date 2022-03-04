@@ -20,11 +20,11 @@ const Description: FC<StorePropsType> = (state) => {
 
     return (
         <Box>
-            <ListItem sx={{padding: '0.5rem', marginBottom: '1rem'}}>
-                <Avatar sx={{marginRight: '1rem'}}></Avatar>
+            <ListItem sx={{p: '0.5rem', mb: '1rem'}}>
+                <Avatar sx={{mr: '1rem'}}></Avatar>
                 <Typography sx={{fontSize: '1.5rem'}}>Aleksandr Saponchik</Typography>
             </ListItem>
-            <FormGroup sx={{marginBottom: '1rem'}}>
+            <FormGroup sx={{mb: '1rem'}}>
                 <textarea
                     ref={textAreaRef}
                     value={state.state?.textArea}

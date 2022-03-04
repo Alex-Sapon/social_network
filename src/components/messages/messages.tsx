@@ -1,25 +1,42 @@
-import React, {FC} from 'react';
+import React, {FC, useRef} from 'react';
 import Message from './message/message';
 import Dialog from "./dialog/dialog";
 
-import {StateProps} from "../../redux/state";
+import {addMessageActionCreator, onMessageActionCreator, StorePropsType} from "../../redux/state";
 
-import {Box, Button, TextField, Typography} from "@mui/material";
+import {Box, Button, List, TextField, Typography} from "@mui/material";
 import {blueGrey} from "@mui/material/colors";
 import SendIcon from "@mui/icons-material/Send";
 import styles from './messages.module.css';
 
-const Messages: FC<StateProps> = (state) => {
+const Messages: FC<StorePropsType> = (state) => {
+    const addMessage = () => {
+        if (state.dispatch) state.dispatch(addMessageActionCreator());
+    }
+
+    const onMessageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const message = event.target.value;
+        if (state.dispatch) state.dispatch(onMessageActionCreator(message));
+    }
+
     return (
         <Box className={styles.dialogs} sx={{flexGrow: 1}}>
             <h3 className={styles.title}>Your friends</h3>
-            <ul className={styles.list}>
-                {state.users?.map((user, i) => <Dialog key={i} id={i + 1} name={user.name}/>)}
-            </ul>
+            <List>
+                {state.state?.users?.map((user, i) =>
+                    <Dialog key={i} id={user.id} name={user.name}/>
+                )}
+            </List>
             <Typography className={styles.messages} sx={{padding: '0px 20px'}}>
-                {state.messages?.map(text => <Message message={text.message}/>)}
-                <TextField fullWidth label="message" id="fullWidth" sx={{marginBottom: '1rem'}}/>
+                {state.state?.messages?.map((text, i) => <Message key={i} message={text.message}/>)}
+                <TextField
+                    value={state.newMessage}
+                    onChange={onMessageChange}
+                    fullWidth
+                    id="fullWidth"
+                    sx={{mb: '1rem'}}/>
                 <Button
+                    onClick={addMessage}
                     size="medium"
                     variant="contained"
                     sx={{

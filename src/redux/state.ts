@@ -1,5 +1,7 @@
 const ADD_POST = 'ADD-POST';
 const UPDATE_NEW_POST = 'UPDATE-NEW-POST';
+const ADD_MESSAGE = 'ADD-MESSAGE';
+const UPDATE_NEW_MESSAGE = 'UPDATE-NEW-MESSAGE';
 
 export interface PostsProps {
     id: number
@@ -28,11 +30,13 @@ export interface StorePropsType {
     getState?: () => object
     subscribe?: (state: StateProps) => void
     dispatch?: (action: DispatchPropsType) => void
+    newMessage?: string
 }
 
 export interface DispatchPropsType {
     type: string
     newText?: string
+    newMessage?: string
 }
 
 export const store = {
@@ -50,6 +54,7 @@ export const store = {
             {message: 'Buy, Dima!'},
             {message: 'Buy, Sasha!'}
         ],
+        newMessage: '',
         users: [
             {id: 1, name: 'Sasha'},
             {id: 2, name: 'Kate'},
@@ -70,7 +75,7 @@ export const store = {
     },
     dispatch(action: DispatchPropsType) {
         switch (action.type) {
-            case 'ADD-POST':
+            case ADD_POST:
                 let post: PostsProps = {
                     id: 5,
                     message: this._state.textArea,
@@ -80,13 +85,30 @@ export const store = {
                 this._state.textArea = '';
                 this._callSubscriber(this._state);
                 break;
-            case 'UPDATE-NEW-POST':
-                this._state.textArea = action.newText!; // ненулевой оператор выполнения
+            case UPDATE_NEW_POST:
+                this._state.textArea = action.newText!; // ненулевой оператор утверждения !
+                this._callSubscriber(this._state);
+                break;
+            case ADD_MESSAGE:
+                let messageBody: string = this._state.newMessage;
+                this._state.messages.push({message: messageBody})
+                this._state.newMessage = '';
+                this._callSubscriber(this._state);
+                break;
+            case UPDATE_NEW_MESSAGE:
+                this._state.newMessage = action.newMessage!; // ненулевой оператор утверждения !
                 this._callSubscriber(this._state);
                 break;
         }
     }
 }
 
-export const addPostActionCreator = () => ({type: ADD_POST})
-export const onPostChangeActionCreator = (text: string) => ({type: UPDATE_NEW_POST, newText: text})
+// функции, которые возвращают action (объект)
+
+// add posts
+export const addPostActionCreator = () => ({type: ADD_POST});
+export const onPostChangeActionCreator = (text: string) => ({type: UPDATE_NEW_POST, newText: text});
+
+// add message
+export const addMessageActionCreator = () => ({type: ADD_MESSAGE});
+export const onMessageActionCreator = (message: string) => ({type: UPDATE_NEW_MESSAGE, newMessage: message});
