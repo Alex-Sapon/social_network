@@ -1,21 +1,37 @@
 import React, {FC, useRef} from 'react';
-import {addPostActionCreator, onPostChangeActionCreator, StorePropsType} from "../../../redux/state";
+import {
+    addPostActionCreator,
+    DispatchProps,
+    onPostChangeActionCreator,
+    StateProps,
+} from "../../../redux/state";
 
-import {Avatar, Box, Button, FormGroup, ListItem, Typography} from "@mui/material";
+import {Avatar, Box, Button, FormGroup, Input, ListItem, Typography} from "@mui/material";
 import {blueGrey} from "@mui/material/colors";
 import SendIcon from '@mui/icons-material/Send';
 import styles from './description.module.css';
 
-const Description: FC<StorePropsType> = (state) => {
-    const textAreaRef = useRef<HTMLTextAreaElement>(null!);
+type DescriptionType = {
+    state: StateProps
+    dispatch: (action: DispatchProps) => void
+}
+
+const Description: FC<DescriptionType> = ({state, dispatch}) => {
+    const refTextArea = useRef<HTMLInputElement>(null!);
 
     const addPost = () => {
-        if (state.dispatch) state.dispatch(addPostActionCreator());
+        if (dispatch) dispatch(addPostActionCreator());
+    }
+
+    const keyPressHandler = (event: React.KeyboardEvent) => {
+        if (event.key === 'Enter') {
+            if (dispatch) dispatch(addPostActionCreator());
+        }
     }
 
     const onPostChange = () => {
-        const text = textAreaRef.current.value;
-        if (state.dispatch) state.dispatch(onPostChangeActionCreator(text));
+        const text = refTextArea.current.value;
+        if (dispatch) dispatch(onPostChangeActionCreator(text));
     }
 
     return (
@@ -25,10 +41,11 @@ const Description: FC<StorePropsType> = (state) => {
                 <Typography sx={{fontSize: '1.5rem'}}>Aleksandr Saponchik</Typography>
             </ListItem>
             <FormGroup sx={{mb: '1rem'}}>
-                <textarea
-                    ref={textAreaRef}
-                    value={state.state?.textArea}
-                    onChange={onPostChange}/>
+                <Input
+                    ref={refTextArea}
+                    value={state.textArea}
+                    onChange={onPostChange}
+                    onKeyPress={keyPressHandler}/>
                 <Button
                     size="medium"
                     variant="contained"

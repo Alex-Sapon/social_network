@@ -19,21 +19,14 @@ export interface MessagesProps {
 }
 
 export interface StateProps {
-    posts?: PostsProps[]
-    users?: UsersProps[]
+    posts: PostsProps[]
+    users: UsersProps[]
     messages?: MessagesProps[]
     textArea?: string
-}
-
-export interface StorePropsType {
-    state?: StateProps
-    getState?: () => object
-    subscribe?: (state: StateProps) => void
-    dispatch?: (action: DispatchPropsType) => void
     newMessage?: string
 }
 
-export interface DispatchPropsType {
+export interface DispatchProps {
     type: string
     newText?: string
     newMessage?: string
@@ -73,7 +66,7 @@ export const store = {
     subscribe(observer: (state: StateProps) => void) {
         this._callSubscriber = observer; // pattern observer
     },
-    dispatch(action: DispatchPropsType) {
+    dispatch(action: DispatchProps) {
         switch (action.type) {
             case ADD_POST:
                 let post: PostsProps = {

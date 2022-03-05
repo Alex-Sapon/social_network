@@ -1,19 +1,21 @@
 import React, {FC} from "react";
-import {StateProps} from "../../redux/state";
+import {UsersProps} from "../../redux/state";
 import Dialog from "../messages/dialog/dialog";
 
-//** Styles from MUI **//
-import {Avatar, Box, List, ListItem, TextField} from "@mui/material";
+import {Box, List, TextField} from "@mui/material";
 
-const Friends: FC<StateProps> = ({users}) => {
+type FriendsType = {
+    users: UsersProps[]
+}
+
+const Friends: FC<FriendsType> = ({users}) => {
     return (
         <Box>
             <TextField type={'search'} label="Search friend" variant="standard" fullWidth sx={{marginBottom: '2rem'}}/>
             <List>
-                {users?.map((user, i) => <ListItem>
-                    <Avatar sx={{marginRight: '1rem'}}></Avatar>
+                {users.map((user, i) =>
                     <Dialog key={i} id={user.id} name={user.name}/>
-                </ListItem>)}
+                )}
             </List>
         </Box>
     )

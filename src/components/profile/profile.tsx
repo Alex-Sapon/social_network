@@ -1,14 +1,19 @@
 import React, {FC} from 'react';
 import Posts from './posts/posts';
 import Description from "./description/description";
-import {StorePropsType} from "../../redux/state";
+import {DispatchProps, StateProps} from "../../redux/state";
 import styles from './profile.module.css';
 
-const Profile: FC<StorePropsType> = (state) => {
+type ProfileType = {
+    state: StateProps
+    dispatch: (action: DispatchProps) => void
+}
+
+const Profile: FC<ProfileType> = ({state, dispatch}) => {
     return (
         <div className={styles.content}>
-            <Description dispatch={state.dispatch} state={state.state}/>
-            <Posts state={state.state}/>
+            <Description dispatch={dispatch} state={state}/>
+            <Posts posts={state.posts}/>
         </div>
     )
 }
