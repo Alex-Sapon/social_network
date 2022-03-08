@@ -10,10 +10,10 @@ type PostType = {
     posts: PostsProps[]
 }
 
-const Post: FC<PostType> = ({posts}) => {
+const Post: FC<PostType> = (props) => {
     return (
         <>
-            {posts.map((post, i) =>
+            {props.posts.map((post, i) =>
                 <Card key={post.id} sx={{
                     padding: '1rem',
                     marginBottom: '1rem',

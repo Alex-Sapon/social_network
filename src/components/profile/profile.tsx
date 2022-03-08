@@ -1,11 +1,11 @@
 import React, {FC} from 'react';
 import Posts from './posts/posts';
 import Description from "./description/description";
-import {DispatchProps, StateProps} from "../../redux/state";
+import {DispatchProps, ProfilePageProps} from '../../redux/state';
 import styles from './profile.module.css';
 
 type ProfileType = {
-    state: StateProps
+    state: ProfilePageProps
     dispatch: (action: DispatchProps) => void
 }
 

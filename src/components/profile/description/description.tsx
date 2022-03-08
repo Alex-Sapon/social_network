@@ -1,51 +1,51 @@
-import React, {FC, useRef} from 'react';
-import {
-    addPostActionCreator,
-    DispatchProps,
-    onPostChangeActionCreator,
-    StateProps,
-} from "../../../redux/state";
+import React, {FC, useRef} from 'react'
+import {addPostActionCreator, onPostChangeActionCreator} from '../../../redux/profile-reducer'
+import {DispatchProps, ProfilePageProps} from '../../../redux/state'
 
-import {Avatar, Box, Button, FormGroup, Input, ListItem, Typography} from "@mui/material";
-import {blueGrey} from "@mui/material/colors";
-import SendIcon from '@mui/icons-material/Send';
-import styles from './description.module.css';
+import {Avatar, Box, Button, FormGroup, ListItem, Typography} from '@mui/material'
+import {blueGrey} from '@mui/material/colors'
+import SendIcon from '@mui/icons-material/Send'
+import styles from './description.module.css'
+
 
 type DescriptionType = {
-    state: StateProps
+    state: ProfilePageProps
     dispatch: (action: DispatchProps) => void
 }
 
 const Description: FC<DescriptionType> = ({state, dispatch}) => {
-    const refTextArea = useRef<HTMLInputElement>(null!);
+    const refInput = useRef<HTMLInputElement>(null!)
 
     const addPost = () => {
-        if (dispatch) dispatch(addPostActionCreator());
+        if (dispatch) dispatch(addPostActionCreator())
     }
 
     const keyPressHandler = (event: React.KeyboardEvent) => {
         if (event.key === 'Enter') {
-            if (dispatch) dispatch(addPostActionCreator());
+            if (dispatch) dispatch(addPostActionCreator())
         }
     }
 
     const onPostChange = () => {
-        const text = refTextArea.current.value;
-        if (dispatch) dispatch(onPostChangeActionCreator(text));
+        const text = refInput.current.value
+        if (dispatch) dispatch(onPostChangeActionCreator(text))
     }
 
     return (
         <Box>
             <ListItem sx={{p: '0.5rem', mb: '1rem'}}>
-                <Avatar sx={{mr: '1rem'}}></Avatar>
+                <Avatar sx={{mr: '1rem'}}
+                        src={'https://img.freepik.com/free-vector/bearded-man-avatar-man-vector-portrait_9385-36.jpg'}/>
                 <Typography sx={{fontSize: '1.5rem'}}>Aleksandr Saponchik</Typography>
             </ListItem>
             <FormGroup sx={{mb: '1rem'}}>
-                <Input
-                    ref={refTextArea}
-                    value={state.textArea}
+                <input
+                    className={styles.input}
+                    ref={refInput}
+                    value={state.newPost}
                     onChange={onPostChange}
-                    onKeyPress={keyPressHandler}/>
+                    onKeyPress={keyPressHandler}
+                />
                 <Button
                     size="medium"
                     variant="contained"
@@ -63,4 +63,4 @@ const Description: FC<DescriptionType> = ({state, dispatch}) => {
     )
 }
 
-export default Description;
+export default Description

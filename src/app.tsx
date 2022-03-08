@@ -13,10 +13,10 @@ import News from "./components/news/news";
 import Music from "./components/music/music";
 import Settings from "./components/settings/settings";
 
-import {DispatchProps, StateProps} from "./redux/state";
+import {DispatchProps, StoreProps} from "./redux/state";
 
 type AppType = {
-    state: StateProps
+    state: StoreProps
     dispatch: (action: DispatchProps) => void
 }
 
@@ -34,9 +34,9 @@ const App: FC<AppType> = (props) => {
                     </Grid>
                     <Grid item xs={9}>
                         <Routes>
-                            <Route path="/profile" element={<Profile state={props.state} dispatch={props.dispatch}/>}/>
-                            <Route path="/messages/*" element={<Messages state={props.state} dispatch={props.dispatch}/>}/>
-                            <Route path="/friends/*" element={<Friends users={props.state.users}/>}/>
+                            <Route path="/profile" element={<Profile state={props.state.profilePage} dispatch={props.dispatch}/>}/>
+                            <Route path="/messages/*" element={<Messages state={props.state.messagesPage} dispatch={props.dispatch}/>}/>
+                            <Route path="/friends/*" element={<Friends users={props.state.messagesPage.users}/>}/>
                             <Route path="/news/" element={<News/>}/>
                             <Route path="/music" element={<Music/>}/>
                             <Route path="/settings" element={<Settings/>}/>

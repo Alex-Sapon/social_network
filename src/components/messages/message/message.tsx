@@ -1,14 +1,14 @@
 import React, {FC} from 'react';
-import styles from './message.module.css';
 import {MessagesProps} from "../../../redux/state";
 
-import {Avatar, Card} from "@mui/material";
+import {Avatar, Card, Typography} from "@mui/material";
+import styles from './message.module.css';
 
 const Message: FC<MessagesProps> = ({message}) => {
     return (
         <Card sx={{mb: '1rem', padding: '0.4rem'}}>
-            <Avatar alt="avatar" src="#" component={'span'}/>
-            <p>{message}</p>
+            <Avatar alt="avatar" src="https://img.freepik.com/free-vector/bearded-man-avatar-man-vector-portrait_9385-36.jpg"/>
+            <Typography sx={{fontSize: '0.9rem'}}>{message}</Typography>
         </Card>
     )
 }
