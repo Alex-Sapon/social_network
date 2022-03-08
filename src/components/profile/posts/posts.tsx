@@ -1,6 +1,6 @@
 import React, {FC} from 'react';
 import Post from './post/post';
-import {PostsProps} from '../../../redux/state';
+import {PostsProps} from '../../../redux/store';
 import {Typography} from "@mui/material";
 
 type PostsType = {

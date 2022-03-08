@@ -1,7 +1,7 @@
 import React, {FC} from 'react';
 import Posts from './posts/posts';
 import Description from "./description/description";
-import {DispatchProps, ProfilePageProps} from '../../redux/state';
+import {DispatchProps, ProfilePageProps} from '../../redux/store';
 import styles from './profile.module.css';
 
 type ProfileType = {

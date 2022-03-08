@@ -1,9 +1,19 @@
-import {DispatchProps, PostsProps, ProfilePageProps} from './state'
+import {DispatchProps, PostsProps, ProfilePageProps} from './store'
 
 const ADD_POST = 'ADD-POST'
 const UPDATE_NEW_POST = 'UPDATE-NEW-POST'
 
-const profileReducer = (state: ProfilePageProps, action: DispatchProps) => {
+const initialState: ProfilePageProps = {
+    posts: [
+        {id: 1, message: 'It\'s my first post', likesCount: 3},
+        {id: 2, message: 'I want to learn React and TypeScript.', likesCount: 5},
+        {id: 3, message: 'I learn English every day.', likesCount: 3},
+        {id: 4, message: 'Hi, how are you?', likesCount: 4}
+    ],
+    newPost: ''
+}
+
+const profileReducer = (state = initialState, action: DispatchProps) => {
     switch (action.type) {
         case ADD_POST:
             let post: PostsProps = {

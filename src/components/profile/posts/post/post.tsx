@@ -1,6 +1,6 @@
 import React, {FC} from 'react';
 import Rating from '../rating/rating';
-import {PostsProps} from "../../../../redux/state";
+import {PostsProps} from "../../../../redux/store";
 
 import {Card, Typography} from "@mui/material";
 import {teal} from "@mui/material/colors";

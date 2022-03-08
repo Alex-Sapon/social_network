@@ -1,6 +1,11 @@
 import profileReducer from './profile-reducer';
 import messagesReducer from './messages-reducer';
 
+const ADD_POST = 'ADD-POST'
+const UPDATE_NEW_POST = 'UPDATE-NEW-POST'
+const ADD_MESSAGE = 'ADD-MESSAGE'
+const UPDATE_NEW_MESSAGE = 'UPDATE-NEW-MESSAGE'
+
 
 export interface PostsProps {
     id: number
@@ -85,4 +90,14 @@ export const store = {
         this._callSubscriber(this._state)
     }
 }
+
+// функции, которые возвращают action (объект)
+
+// add post
+export const addPostActionCreator = () => ({type: ADD_POST})
+export const onPostChangeActionCreator = (text: string) => ({type: UPDATE_NEW_POST, newPost: text})
+
+// add message
+export const addMessageActionCreator = () => ({type: ADD_MESSAGE});
+export const updateMessageActionCreator = (message: string) => ({type: UPDATE_NEW_MESSAGE, newMessage: message});
 

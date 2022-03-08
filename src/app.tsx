@@ -13,7 +13,7 @@ import News from "./components/news/news";
 import Music from "./components/music/music";
 import Settings from "./components/settings/settings";
 
-import {DispatchProps, StoreProps} from "./redux/state";
+import {DispatchProps, StoreProps} from "./redux/store";
 
 type AppType = {
     state: StoreProps

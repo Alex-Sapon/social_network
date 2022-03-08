@@ -1,5 +1,5 @@
 import React, {FC} from "react";
-import {UsersProps} from "../../redux/state";
+import {UsersProps} from "../../redux/store";
 import Dialog from "../messages/dialog/dialog";
 
 import {Box, List, TextField} from "@mui/material";

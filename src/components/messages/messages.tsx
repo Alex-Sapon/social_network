@@ -3,7 +3,7 @@ import Message from './message/message'
 import Dialog from "./dialog/dialog"
 
 import {addMessageActionCreator, updateMessageActionCreator} from '../../redux/messages-reducer';
-import {DispatchProps, MessagesPageProps} from '../../redux/state'
+import {DispatchProps, MessagesPageProps} from '../../redux/store'
 
 import {Box, Button, FormGroup, List, TextField, Typography} from "@mui/material"
 import {blueGrey} from "@mui/material/colors"

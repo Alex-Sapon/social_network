@@ -1,9 +1,27 @@
-import {DispatchProps, MessagesPageProps} from './state'
+import {DispatchProps, MessagesPageProps} from './store'
 
 const ADD_MESSAGE = 'ADD-MESSAGE'
 const UPDATE_NEW_MESSAGE = 'UPDATE-NEW-MESSAGE'
 
-const messagesReducer = (state: MessagesPageProps, action: DispatchProps) => {
+const initialState: MessagesPageProps = {
+    users: [
+        {id: 1, name: 'Sasha'},
+        {id: 2, name: 'Kate'},
+        {id: 3, name: 'Illya'},
+        {id: 4, name: 'Sergey'},
+        {id: 5, name: 'Dima'}
+    ],
+    messages: [
+        {message: 'Hello Dima, how are you?'},
+        {message: 'Not bad)) And you?'},
+        {message: 'I`m happy!'},
+        {message: 'Buy, Dima!'},
+        {message: 'Buy, Sasha!'}
+    ],
+    newMessage: ''
+}
+
+const messagesReducer = (state = initialState, action: DispatchProps) => {
     switch (action.type) {
         case ADD_MESSAGE:
             let messageBody: string = state.newMessage

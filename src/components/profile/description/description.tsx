@@ -1,6 +1,6 @@
 import React, {FC, useRef} from 'react'
 import {addPostActionCreator, onPostChangeActionCreator} from '../../../redux/profile-reducer'
-import {DispatchProps, ProfilePageProps} from '../../../redux/state'
+import {DispatchProps, ProfilePageProps} from '../../../redux/store'
 
 import {Avatar, Box, Button, FormGroup, ListItem, Typography} from '@mui/material'
 import {blueGrey} from '@mui/material/colors'
