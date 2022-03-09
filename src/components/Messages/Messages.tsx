@@ -1,50 +1,50 @@
 import React, {FC} from 'react'
-import Message from './message/message'
-import Dialog from "./dialog/dialog"
+import Message from './Message/Message'
+import Dialog from './Dialog/Dialog'
 
-import {addMessageActionCreator, updateMessageActionCreator} from '../../redux/messages-reducer';
-import {DispatchProps, MessagesPageProps} from '../../redux/store'
+import {MessagesProps, UsersProps} from '../../redux/redux-store'
 
-import {Box, Button, FormGroup, List, TextField, Typography} from "@mui/material"
-import {blueGrey} from "@mui/material/colors"
-import SendIcon from "@mui/icons-material/Send"
-import styles from './messages.module.css'
+import {Box, Button, FormGroup, List, TextField, Typography} from '@mui/material'
+import {blueGrey} from '@mui/material/colors'
+import SendIcon from '@mui/icons-material/Send'
+import styles from './Messages.module.css'
 
 type MessagesType = {
-    state: MessagesPageProps
-    dispatch: (action: DispatchProps) => void
+    users: UsersProps[]
+    messages: MessagesProps[]
+    newMessage: string
+    addMessageActionCreator: () => void
+    updateMessageActionCreator: (message: string) => void
 }
 
-const Messages: FC<MessagesType> = ({state, dispatch}) => {
-    const addMessage = () => {
-        if (dispatch) dispatch(addMessageActionCreator())
-    }
+const Messages: FC<MessagesType> = (props) => {
+    const addMessage = () => props.addMessageActionCreator()
 
     const keyPressHandler = (event: React.KeyboardEvent) => {
         if (event.key === 'Enter') {
-            if (dispatch) dispatch(addMessageActionCreator())
+            props.addMessageActionCreator()
         }
     }
 
     const onMessageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const message = event.target.value;
-        if (dispatch) dispatch(updateMessageActionCreator(message))
+        const message = event.target.value
+        props.updateMessageActionCreator(message)
     }
 
     return (
         <Box className={styles.dialogs} sx={{flexGrow: 1}}>
             <List>
                 <Typography sx={{fontSize: '1.5rem'}}>Your friends</Typography>
-                {state.users.map((user, i) =>
+                {props.users.map((user, i) =>
                     <Dialog key={i} id={user.id} name={user.name}/>
                 )}
             </List>
             <FormGroup sx={{padding: '20px'}}>
-                {state.messages.map((text, i) =>
+                {props.messages.map((text, i) =>
                     <Message key={i} message={text.message}/>
                 )}
                 <TextField
-                    value={state.newMessage}
+                    value={props.newMessage}
                     onChange={onMessageChange}
                     onKeyPress={keyPressHandler}
                     fullWidth
@@ -56,7 +56,7 @@ const Messages: FC<MessagesType> = ({state, dispatch}) => {
                     variant="contained"
                     sx={{
                         maxWidth: '160px',
-                        mb: "1rem",
+                        mb: '1rem',
                         backgroundColor: blueGrey[50],
                         color: blueGrey[700],
                         '&:hover': {backgroundColor: blueGrey[200]}

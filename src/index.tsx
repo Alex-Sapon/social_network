@@ -1,18 +1,16 @@
 import React from 'react';
-import './index.css';
-import {StoreProps} from './redux/store';
-import store from './redux/redux-store';
+import store, {StoreType} from './redux/redux-store';
 import ReactDOM from 'react-dom';
-import App from './app';
+import './index.css';
+import App from './App';
 
-const renderEntireTree = (state: StoreProps) => {
-    ReactDOM.render(<App state={state} dispatch={store.dispatch.bind(store)}/>, document.getElementById('root'));
+const renderEntireTree = (store: StoreType) => {
+    ReactDOM.render(<App store={store}/>, document.getElementById('root'));
 };
 
-renderEntireTree(store.getState());
+renderEntireTree(store);
 store.subscribe(() => {
-    const state = store.getState()
-    renderEntireTree(state)
-})
+    renderEntireTree(store)
+}) // когда state меняется, запрашиваем у store state и отдаем subscribe
 
 

@@ -2,7 +2,7 @@ import React, {FC} from 'react';
 import {MessagesProps} from "../../../redux/store";
 
 import {Avatar, Card, Typography} from "@mui/material";
-import styles from './message.module.css';
+import styles from './Message.module.css';
 
 const Message: FC<MessagesProps> = ({message}) => {
     return (

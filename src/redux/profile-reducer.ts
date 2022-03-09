@@ -1,11 +1,11 @@
-import {DispatchProps, PostsProps, ProfilePageProps} from './store'
+import {DispatchProps, PostsProps, ProfilePageProps} from './redux-store'
 
 const ADD_POST = 'ADD-POST'
 const UPDATE_NEW_POST = 'UPDATE-NEW-POST'
 
 const initialState: ProfilePageProps = {
     posts: [
-        {id: 1, message: 'It\'s my first post', likesCount: 3},
+        {id: 1, message: 'It\'s my first Post', likesCount: 3},
         {id: 2, message: 'I want to learn React and TypeScript.', likesCount: 5},
         {id: 3, message: 'I learn English every day.', likesCount: 3},
         {id: 4, message: 'Hi, how are you?', likesCount: 4}
@@ -34,8 +34,8 @@ const profileReducer = (state = initialState, action: DispatchProps) => {
 
 // функции, которые возвращают action (объект)
 
-// add post
+// add Post
 export const addPostActionCreator = () => ({type: ADD_POST})
-export const onPostChangeActionCreator = (text: string) => ({type: UPDATE_NEW_POST, newPost: text})
+export const updatePostChangeActionCreator = (text: string) => ({type: UPDATE_NEW_POST, newPost: text})
 
 export default profileReducer

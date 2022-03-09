@@ -1,4 +1,4 @@
-import {DispatchProps, MessagesPageProps} from './store'
+import {DispatchProps, MessagesPageProps} from './redux-store'
 
 const ADD_MESSAGE = 'ADD-MESSAGE'
 const UPDATE_NEW_MESSAGE = 'UPDATE-NEW-MESSAGE'
@@ -38,7 +38,7 @@ const messagesReducer = (state = initialState, action: DispatchProps) => {
 
 // функции, которые возвращают action (объект)
 
-// add message
+// add Message
 export const addMessageActionCreator = () => ({type: ADD_MESSAGE});
 export const updateMessageActionCreator = (message: string) => ({type: UPDATE_NEW_MESSAGE, newMessage: message});
 

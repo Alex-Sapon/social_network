@@ -1,10 +1,10 @@
 import React, {FC} from 'react';
-import Rating from '../rating/rating';
-import {PostsProps} from "../../../../redux/store";
+import Rating from '../Rating/Rating';
+import {PostsProps} from '../../../../redux/redux-store';
 
-import {Card, Typography} from "@mui/material";
-import {teal} from "@mui/material/colors";
-import styles from './post.module.css';
+import {Card, Typography} from '@mui/material';
+import {teal} from '@mui/material/colors';
+import styles from './Post.module.css';
 
 type PostType = {
     posts: PostsProps[]
@@ -22,7 +22,7 @@ const Post: FC<PostType> = (props) => {
                     <Typography variant="subtitle1" sx={{marginBottom: '0.5rem', fontSize: '1.3rem'}}>
                         Post № {i + 1}
                     </Typography>
-                    <Typography variant='body2' sx={{marginBottom: '0.5rem', fontSize: '1rem'}}>
+                    <Typography variant="body2" sx={{marginBottom: '0.5rem', fontSize: '1rem'}}>
                         {post.message}
                     </Typography>
                     <Rating stars={post.likesCount}/>

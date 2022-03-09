@@ -1,5 +1,6 @@
 import React, {FC} from 'react';
-interface StarsPropsType {
+
+type StarsPropsType = {
     stars: number
 }
 

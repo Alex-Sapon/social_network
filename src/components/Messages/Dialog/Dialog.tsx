@@ -1,5 +1,5 @@
 import React, {FC} from 'react';
-import styles from './dialog.module.css';
+import styles from './Dialog.module.css';
 import {NavLink} from "react-router-dom";
 import {UsersProps} from "../../../redux/store";
 

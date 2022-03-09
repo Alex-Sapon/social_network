@@ -3,7 +3,7 @@ import {NavLink} from 'react-router-dom';
 
 import {Divider, List, ListItem, ListItemText} from '@mui/material';
 import {red} from '@mui/material/colors';
-import classes from './navbar.module.css';
+import classes from './Navbar.module.css';
 
 const navbarStyles = {
     backgroundColor: 'background.paper',
