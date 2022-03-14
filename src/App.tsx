@@ -1,25 +1,25 @@
 import React, {FC} from 'react';
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 
-import {Container, Grid} from "@mui/material";
+import {Container, Grid} from '@mui/material';
 import './app.css';
 
-import Header from "./components/header/header";
-import Navbar from "./components/Navbar/Navbar";
-import Profile from "./components/Profile/Profile";
+import Header from './components/Header/Header';
+import Navbar from './components/Navbar/Navbar';
+import Profile from './components/Profile/Profile';
 import MessagesContainer from './components/Messages/MessagesContainer';
-import Friends from "./components/friends/friends";
-import News from "./components/News/News";
-import Music from "./components/Music/Music";
-import Settings from "./components/Settings/Settings";
+import Friends from './components/Friends/Friends';
+import News from './components/News/News';
+import Music from './components/Music/Music';
+import Settings from './components/Settings/Settings';
 
-import {StoreType} from "./redux/redux-store";
+import {StoreType} from './redux/redux-store';
 
 type AppType = {
     store: StoreType
 }
 
-const App: FC<AppType> = (props) => {
+const App: FC = () => {
     return (
         <BrowserRouter>
             <Header/>
@@ -33,9 +33,9 @@ const App: FC<AppType> = (props) => {
                     </Grid>
                     <Grid item xs={9}>
                         <Routes>
-                            <Route path="/profile" element={<Profile store={props.store}/>}/>
-                            <Route path="/messages/*" element={<MessagesContainer store={props.store}/>}/>
-                            <Route path="/friends/*" element={<Friends users={props.store.getState().messagesPage.users}/>}/>
+                            <Route path="/profile" element={<Profile/>}/>
+                            <Route path="/messages/*" element={<MessagesContainer/>}/>
+                            <Route path="/friends/*" element={<Friends/>}/>
                             <Route path="/news/" element={<News/>}/>
                             <Route path="/music" element={<Music/>}/>
                             <Route path="/settings" element={<Settings/>}/>

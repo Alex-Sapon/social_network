@@ -27,8 +27,7 @@ const Posts: FC<PostsType> = (props) => {
     }
 
     const onPostChange = () => {
-        const text = refInput.current.value
-        props.updatePostChangeActionCreator(text)
+        props.updatePostChangeActionCreator(refInput.current.value)
     }
 
     return (
@@ -42,19 +41,19 @@ const Posts: FC<PostsType> = (props) => {
                     onKeyPress={keyPressHandler}
                 />
                 <Button
-                    size="medium"
+                    size="small"
                     variant="contained"
                     sx={{
                         maxWidth: '150px',
-                        backgroundColor: blueGrey[50],
+                        bgcolor: blueGrey[50],
                         color: blueGrey[700],
-                        '&:hover': {backgroundColor: blueGrey[200]}
+                        '&:hover': {bgcolor: blueGrey[200]}
                     }}
                     endIcon={<SendIcon/>}
                     onClick={onAddPost}
                 >Add post</Button>
             </FormGroup>
-            <Typography variant="h4" component="h4" sx={{marginBottom: '1rem'}}>My posts</Typography>
+            <Typography variant="h4" component="h4" sx={{mb: '1rem'}}>My posts</Typography>
             <Post posts={props.posts}/>
         </>
     )

@@ -27,8 +27,7 @@ const Messages: FC<MessagesType> = (props) => {
     }
 
     const onMessageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const message = event.target.value
-        props.updateMessageActionCreator(message)
+        props.updateMessageActionCreator(event.target.value)
     }
 
     return (
@@ -44,22 +43,22 @@ const Messages: FC<MessagesType> = (props) => {
                     <Message key={i} message={text.message}/>
                 )}
                 <TextField
+                    size={'small'}
                     value={props.newMessage}
                     onChange={onMessageChange}
                     onKeyPress={keyPressHandler}
                     fullWidth
-                    id="fullWidth"
                     sx={{mb: '1rem'}}/>
                 <Button
                     onClick={addMessage}
-                    size="medium"
+                    size="small"
                     variant="contained"
                     sx={{
                         maxWidth: '160px',
                         mb: '1rem',
-                        backgroundColor: blueGrey[50],
+                        bgcolor: blueGrey[50],
                         color: blueGrey[700],
-                        '&:hover': {backgroundColor: blueGrey[200]}
+                        '&:hover': {bgcolor: blueGrey[200]}
                     }}
                     endIcon={<SendIcon/>}>
                     Add message

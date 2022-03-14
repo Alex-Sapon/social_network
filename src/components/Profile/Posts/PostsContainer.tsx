@@ -3,23 +3,29 @@ import Posts from './Posts';
 
 import {StoreType} from '../../../redux/redux-store';
 import {addPostActionCreator, updatePostChangeActionCreator} from '../../../redux/profile-reducer';
+import StoreContext from '../../../StoreContext';
 
 type PostsType = {
     props: StoreType
 }
 
-const PostsContainer: FC<PostsType> = ({props}) => {
-    const addPost = () => props.dispatch(addPostActionCreator())
-
-    const onPostChange = (text: string) => props.dispatch(updatePostChangeActionCreator(text))
-
+const PostsContainer: FC = () => {
     return (
-        <Posts
-            posts={props.getState().profilePage.posts}
-            newPost={props.getState().profilePage.newPost}
-            addPostActionCreator={addPost}
-            updatePostChangeActionCreator={onPostChange}
-        />
+        <StoreContext.Consumer>
+            {store => {
+                const addPost = () => store.dispatch(addPostActionCreator())
+                const onPostChange = (text: string) => store.dispatch(updatePostChangeActionCreator(text))
+
+                return (
+                    <Posts
+                        posts={store.getState().profilePage.posts}
+                        newPost={store.getState().profilePage.newPost}
+                        addPostActionCreator={addPost}
+                        updatePostChangeActionCreator={onPostChange}
+                    />
+                )
+            }}
+        </StoreContext.Consumer>
     )
 }
 

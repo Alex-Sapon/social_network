@@ -16,13 +16,15 @@ const initialState: ProfilePageProps = {
 const profileReducer = (state = initialState, action: DispatchProps) => {
     switch (action.type) {
         case ADD_POST:
-            let post: PostsProps = {
-                id: 5,
-                message: state.newPost,
-                likesCount: 1
+            if (state.newPost.length && state.newPost.match(/[a-zy]/gi)) {
+                let post: PostsProps = {
+                    id: 5,
+                    message: state.newPost,
+                    likesCount: 1
+                }
+                state.posts.push(post)
+                state.newPost = ''
             }
-            state.posts.push(post)
-            state.newPost = ''
             return state
         case UPDATE_NEW_POST:
             state.newPost = action.newPost! // ненулевой оператор утверждения = !

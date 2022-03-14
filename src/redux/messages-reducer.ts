@@ -24,9 +24,12 @@ const initialState: MessagesPageProps = {
 const messagesReducer = (state = initialState, action: DispatchProps) => {
     switch (action.type) {
         case ADD_MESSAGE:
-            let messageBody: string = state.newMessage
-            state.messages.push({message: messageBody})
-            state.newMessage = ''
+            let messageBody: string
+            if (state.newMessage.length && state.newMessage.match(/[a-zy]/gi)) {
+                messageBody = state.newMessage
+                state.messages.push({message: messageBody})
+                state.newMessage = ''
+            }
             return state
         case UPDATE_NEW_MESSAGE:
             state.newMessage = action.newMessage! // ненулевой оператор утверждения = !

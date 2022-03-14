@@ -34,7 +34,7 @@ export interface DispatchProps {
     newMessage?: string
 }
 
-export type StoreType = typeof store;
+export type StoreType = typeof store
 
 const reducers = combineReducers({ // собирает reducers в объект
     profilePage: profileReducer,

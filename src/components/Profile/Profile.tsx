@@ -9,11 +9,11 @@ type ProfileType = {
     store: StoreType
 }
 
-const Profile: FC<ProfileType> = (props) => {
+const Profile: FC = () => {
     return (
         <div className={styles.content}>
             <Description/>
-            <PostsContainer props={props.store}/>
+            <PostsContainer/>
         </div>
     )
 }
