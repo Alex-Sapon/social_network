@@ -1,5 +1,5 @@
 import React, {FC} from 'react';
-import Rating from '../Rating/Rating';
+import RatingStars from '../RatingStarts/RatingStars';
 import {PostsProps} from '../../../../redux/redux-store';
 
 import {Card, Typography} from '@mui/material';
@@ -25,7 +25,7 @@ const Post: FC<PostType> = (props) => {
                     <Typography variant="body2" sx={{marginBottom: '0.5rem', fontSize: '1rem'}}>
                         {post.message}
                     </Typography>
-                    <Rating stars={post.likesCount}/>
+                    <RatingStars stars={post.likesCount}/>
                 </Card>
             )}
         </>
