@@ -1,32 +1,25 @@
-import React, {FC} from 'react'
+import React, {Dispatch} from 'react'
+import {RootDispatchProps, RootStateProps} from '../../redux/redux-store';
+import {connect} from 'react-redux';
 
 import {addMessageActionCreator, updateMessageActionCreator} from '../../redux/messages-reducer'
-import {StoreType} from '../../redux/redux-store'
-import StoreContext from '../../StoreContext';
 import Messages from './Messages';
 
-type MessagesType = {
-    store: StoreType
+const mapStateToProps = (state: RootStateProps) => {
+    return {
+        messages: state.messagesPage.messages,
+        newMessage: state.messagesPage.newMessage,
+        users: state.messagesPage.users
+    }
 }
 
-const MessagesContainer: FC = () => {
-    return (
-        <StoreContext.Consumer>
-            {store => {
-                const addMessage = () => store.dispatch(addMessageActionCreator())
-                const onMessageChange = (message: string) => store.dispatch(updateMessageActionCreator(message))
-                return (
-                    <Messages
-                        messages={store.getState().messagesPage.messages}
-                        newMessage={store.getState().messagesPage.newMessage}
-                        users={store.getState().messagesPage.users}
-                        addMessageActionCreator={addMessage}
-                        updateMessageActionCreator={onMessageChange}
-                    />
-                )
-            }}
-        </StoreContext.Consumer>
-    )
+const mapDispatchTopProps = (dispatch: Dispatch<RootDispatchProps>) => {
+    return {
+        addMessage: () => dispatch(addMessageActionCreator()),
+        updateMessage: (message: string) => dispatch(updateMessageActionCreator(message))
+    }
 }
+
+const MessagesContainer = connect(mapStateToProps, mapDispatchTopProps)(Messages)
 
 export default MessagesContainer

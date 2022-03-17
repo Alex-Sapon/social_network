@@ -11,24 +11,22 @@ import styles from './Posts.module.css'
 type PostsType = {
     posts: PostsProps[]
     newPost: string
-    addPostActionCreator: () => void
-    updatePostChangeActionCreator: (text: string) => void
+    addPost: () => void
+    updatePost: (text: string) => void
 }
 
 const Posts: FC<PostsType> = (props) => {
     const refInput = useRef<HTMLInputElement>(null!)
 
-    const onAddPost = () => props.addPostActionCreator()
+    const onAddPost = () => props.addPost()
 
     const keyPressHandler = (event: React.KeyboardEvent) => {
         if (event.key === 'Enter') {
-            props.addPostActionCreator()
+            props.addPost()
         }
     }
 
-    const onPostChange = () => {
-        props.updatePostChangeActionCreator(refInput.current.value)
-    }
+    const onPostChange = () => props.updatePost(refInput.current.value)
 
     return (
         <>

@@ -13,21 +13,21 @@ type MessagesType = {
     users: UsersProps[]
     messages: MessagesProps[]
     newMessage: string
-    addMessageActionCreator: () => void
-    updateMessageActionCreator: (message: string) => void
+    addMessage: () => void
+    updateMessage: (message: string) => void
 }
 
 const Messages: FC<MessagesType> = (props) => {
-    const addMessage = () => props.addMessageActionCreator()
+    const addMessage = () => props.addMessage()
 
     const keyPressHandler = (event: React.KeyboardEvent) => {
         if (event.key === 'Enter') {
-            props.addMessageActionCreator()
+            props.addMessage()
         }
     }
 
     const onMessageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        props.updateMessageActionCreator(event.target.value)
+        props.updateMessage(event.target.value)
     }
 
     return (

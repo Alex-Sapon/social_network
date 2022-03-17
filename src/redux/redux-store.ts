@@ -28,13 +28,16 @@ export interface MessagesPageProps {
     newMessage: string
 }
 
-export interface DispatchProps {
+export type RootDispatchProps = {
     type: string
     newPost?: string
     newMessage?: string
 }
 
-export type StoreType = typeof store
+export type RootStateProps = {
+    profilePage: ProfilePageProps
+    messagesPage: MessagesPageProps
+}
 
 const reducers = combineReducers({ // собирает reducers в объект
     profilePage: profileReducer,

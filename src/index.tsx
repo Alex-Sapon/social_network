@@ -1,21 +1,25 @@
 import React from 'react';
-import store, {StoreType} from './redux/redux-store';
+import store from './redux/redux-store';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import {Provider} from './StoreContext'
+import {Provider} from 'react-redux';
+import { BrowserRouter } from 'react-router-dom';
 
-const renderEntireTree = (store: StoreType) => {
+const renderEntireTree = () => {
     ReactDOM.render(
-        <Provider store={store}>
-            <App/>
-        </Provider>,
+        <BrowserRouter>
+            <Provider store={store}>
+                <App/>
+            </Provider>
+        </BrowserRouter>,
         document.getElementById('root'));
 };
 
-renderEntireTree(store);
+renderEntireTree();
+
 store.subscribe(() => {
-    renderEntireTree(store)
+    renderEntireTree()
 }) // когда state меняется, запрашиваем у store state и отдаем subscribe
 
 

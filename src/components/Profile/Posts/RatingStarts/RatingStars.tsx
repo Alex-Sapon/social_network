@@ -12,9 +12,7 @@ const RatingStars: FC<RatingStarsType> = ({stars}) => {
         setValue(newValue)
     }
 
-    return (
-        <Rating value={value} onChange={onChangeHandler}/>
-    )
+    return <Rating value={value} onChange={onChangeHandler}/>
 }
 
 export default RatingStars;

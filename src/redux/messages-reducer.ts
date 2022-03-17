@@ -1,4 +1,4 @@
-import {DispatchProps, MessagesPageProps} from './redux-store'
+import {RootDispatchProps, MessagesPageProps} from './redux-store'
 
 const ADD_MESSAGE = 'ADD-MESSAGE'
 const UPDATE_NEW_MESSAGE = 'UPDATE-NEW-MESSAGE'
@@ -21,7 +21,7 @@ const initialState: MessagesPageProps = {
     newMessage: ''
 }
 
-const messagesReducer = (state = initialState, action: DispatchProps) => {
+const messagesReducer = (state = initialState, action: RootDispatchProps) => {
     switch (action.type) {
         case ADD_MESSAGE:
             let messageBody: string
