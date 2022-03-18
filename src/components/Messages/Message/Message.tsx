@@ -1,5 +1,5 @@
 import React, {FC} from 'react';
-import {MessagesProps} from "../../../redux/store";
+import {MessagesProps} from "../../../redux/redux-store";
 
 import {Avatar, Card, Typography} from "@mui/material";
 import styles from './Message.module.css';

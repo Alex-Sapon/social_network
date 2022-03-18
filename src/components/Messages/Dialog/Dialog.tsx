@@ -1,7 +1,7 @@
 import React, {FC} from 'react';
 import styles from './Dialog.module.css';
 import {NavLink} from "react-router-dom";
-import {UsersProps} from "../../../redux/store";
+import {UsersProps} from "../../../redux/redux-store";
 
 import PersonIcon from '@mui/icons-material/Person';
 import {grey} from "@mui/material/colors";

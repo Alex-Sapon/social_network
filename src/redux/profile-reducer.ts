@@ -14,21 +14,17 @@ const initialState: ProfilePageProps = {
 }
 
 const profileReducer = (state = initialState, action: RootDispatchProps) => {
-    const stateCopy = {...state}
-
     switch (action.type) {
-        case ADD_POST:
-            if (stateCopy.newPost.trim().length) {
-                stateCopy.posts = [...state.posts]
-                stateCopy.posts.push({id: 5, message: stateCopy.newPost, likesCount: 0})
-                stateCopy.newPost = ''
-            }
-            return stateCopy
         case UPDATE_NEW_POST:
-            stateCopy.newPost = action.newPost! // ненулевой оператор утверждения = !
-            return stateCopy
+            return {...state, newPost: action.newPost}
+        case ADD_POST:
+            return {
+                ...state,
+                posts: [...state.posts, {id: 5, message: state.newPost, likesCount: 0}],
+                newPost: ''
+            }
         default:
-            return stateCopy
+            return state
     }
 }
 

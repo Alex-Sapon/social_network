@@ -22,21 +22,17 @@ const initialState: MessagesPageProps = {
 }
 
 const messagesReducer = (state = initialState, action: RootDispatchProps) => {
-    const stateCopy = {...state}
-
     switch (action.type) {
-        case ADD_MESSAGE:
-            if (stateCopy.newMessage.trim().length) {
-                stateCopy.messages = [...state.messages]
-                stateCopy.messages.push({message: stateCopy.newMessage})
-                stateCopy.newMessage = ''
-            }
-            return stateCopy
         case UPDATE_NEW_MESSAGE:
-            stateCopy.newMessage = action.newMessage! // ненулевой оператор утверждения = !
-            return stateCopy
+            return {...state, newMessage: action.newMessage}
+        case ADD_MESSAGE:
+            return {
+                ...state,
+                messages: [...state.messages, {message: state.newMessage}],
+                newMessage: ''
+            }
         default:
-            return stateCopy
+            return state
     }
 }
 
