@@ -47,3 +47,6 @@ const reducers = combineReducers({ // собирает reducers в объект
 const store = createStore(reducers) // отдаем reducers в store, создавая внутри себя state
 
 export default store
+
+// @ts-ignore
+window.store = store

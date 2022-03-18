@@ -1,4 +1,4 @@
-import {RootDispatchProps, PostsProps, ProfilePageProps} from './redux-store'
+import {RootDispatchProps, ProfilePageProps} from './redux-store'
 
 const ADD_POST = 'ADD-POST'
 const UPDATE_NEW_POST = 'UPDATE-NEW-POST'
@@ -14,23 +14,21 @@ const initialState: ProfilePageProps = {
 }
 
 const profileReducer = (state = initialState, action: RootDispatchProps) => {
+    const stateCopy = {...state}
+
     switch (action.type) {
         case ADD_POST:
-            if (state.newPost.length && state.newPost.match(/[a-zy]/gi)) {
-                let post: PostsProps = {
-                    id: 5,
-                    message: state.newPost,
-                    likesCount: 1
-                }
-                state.posts.push(post)
-                state.newPost = ''
+            if (stateCopy.newPost.trim().length) {
+                stateCopy.posts = [...state.posts]
+                stateCopy.posts.push({id: 5, message: stateCopy.newPost, likesCount: 0})
+                stateCopy.newPost = ''
             }
-            return state
+            return stateCopy
         case UPDATE_NEW_POST:
-            state.newPost = action.newPost! // ненулевой оператор утверждения = !
-            return state
+            stateCopy.newPost = action.newPost! // ненулевой оператор утверждения = !
+            return stateCopy
         default:
-            return state
+            return stateCopy
     }
 }
 
