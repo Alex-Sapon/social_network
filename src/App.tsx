@@ -11,7 +11,7 @@ import MessagesContainer from './components/Messages/MessagesContainer';
 import News from './components/News/News';
 import Music from './components/Music/Music';
 import Settings from './components/Settings/Settings';
-import FriendsContainer from './components/Friends/FriendsContainer';
+import UsersContainer from './components/Users/UsersContainer';
 
 const App: FC = () => {
     return (
@@ -26,7 +26,7 @@ const App: FC = () => {
                         <Routes>
                             <Route path="/profile" element={<Profile/>}/>
                             <Route path="/messages/*" element={<MessagesContainer/>}/>
-                            <Route path="/friends/*" element={<FriendsContainer/>}/>
+                            <Route path="/friends/*" element={<UsersContainer/>}/>
                             <Route path="/news/" element={<News/>}/>
                             <Route path="/music" element={<Music/>}/>
                             <Route path="/settings" element={<Settings/>}/>

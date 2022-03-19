@@ -1,8 +1,8 @@
 import React, {Dispatch} from 'react'
-import {RootDispatchProps, RootStateProps} from '../../redux/redux-store';
+import {RootStateProps} from '../../redux/redux-store';
 import {connect} from 'react-redux';
 
-import {addMessageActionCreator, updateMessageActionCreator} from '../../redux/messages-reducer'
+import {addMessageActionCreator, MessageDispatchProps, updateMessageActionCreator} from '../../redux/messages-reducer'
 import Messages from './Messages';
 
 const mapStateToProps = (state: RootStateProps) => {
@@ -13,9 +13,9 @@ const mapStateToProps = (state: RootStateProps) => {
     }
 }
 
-const mapDispatchTopProps = (dispatch: Dispatch<RootDispatchProps>) => {
+const mapDispatchTopProps = (dispatch: Dispatch<MessageDispatchProps>) => {
     return {
-        addMessage: () => dispatch(addMessageActionCreator()),
+        addMessage: () => dispatch(addMessageActionCreator()), // диспатчит результат action creator
         updateMessage: (message: string) => dispatch(updateMessageActionCreator(message))
     }
 }

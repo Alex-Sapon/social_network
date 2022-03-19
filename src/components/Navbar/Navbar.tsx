@@ -25,7 +25,7 @@ const Navbar: FC = () => {
             </ListItem>
             <Divider light/>
             <ListItem button>
-                <NavLink className={setActiveClass} to="/friends"><ListItemText primary={"Friends"}/></NavLink>
+                <NavLink className={setActiveClass} to="/friends"><ListItemText primary={"Users"}/></NavLink>
             </ListItem>
             <Divider light/>
             <ListItem button>

@@ -1,34 +1,40 @@
-import {RootDispatchProps, MessagesPageProps} from './redux-store'
+import {v1} from 'uuid'
+import {MessagesPageProps} from './redux-store'
 
 const ADD_MESSAGE = 'ADD-MESSAGE'
 const UPDATE_NEW_MESSAGE = 'UPDATE-NEW-MESSAGE'
 
+export type MessageDispatchProps = {
+    type: string
+    newMessage?: string
+}
+
 const initialState: MessagesPageProps = {
     users: [
-        {id: 1, name: 'Sasha'},
-        {id: 2, name: 'Kate'},
-        {id: 3, name: 'Illya'},
-        {id: 4, name: 'Sergey'},
-        {id: 5, name: 'Dima'}
+        {id: v1(), name: 'Sasha'},
+        {id: v1(), name: 'Kate'},
+        {id: v1(), name: 'Illya'},
+        {id: v1(), name: 'Sergey'},
+        {id: v1(), name: 'Dima'}
     ],
     messages: [
-        {message: 'Hello Dima, how are you?'},
-        {message: 'Not bad)) And you?'},
-        {message: 'I`m happy!'},
-        {message: 'Buy, Dima!'},
-        {message: 'Buy, Sasha!'}
+        {id: v1(), message: 'Hello Dima, how are you?'},
+        {id: v1(), message: 'Not bad)) And you?'},
+        {id: v1(), message: 'I`m happy!'},
+        {id: v1(), message: 'Buy, Dima!'},
+        {id: v1(), message: 'Buy, Sasha!'}
     ],
     newMessage: ''
 }
 
-const messagesReducer = (state = initialState, action: RootDispatchProps) => {
+const messagesReducer = (state = initialState, action: MessageDispatchProps) => {
     switch (action.type) {
         case UPDATE_NEW_MESSAGE:
             return {...state, newMessage: action.newMessage}
         case ADD_MESSAGE:
             return {
                 ...state,
-                messages: [...state.messages, {message: state.newMessage}],
+                messages: [...state.messages, {id: v1(), message: state.newMessage}],
                 newMessage: ''
             }
         default:

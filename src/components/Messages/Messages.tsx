@@ -31,16 +31,16 @@ const Messages: FC<MessagesType> = (props) => {
     }
 
     return (
-        <Box className={styles.dialogs} sx={{flexGrow: 1}}>
+        <Box className={styles.dialogs}>
             <List>
                 <Typography sx={{fontSize: '1.5rem'}}>Your friends</Typography>
-                {props.users.map((user, i) =>
-                    <Dialog key={i} id={user.id} name={user.name}/>
+                {props.users.map(user =>
+                    <Dialog key={user.id} id={user.id} name={user.name}/>
                 )}
             </List>
             <FormGroup sx={{padding: '20px'}}>
-                {props.messages.map((text, i) =>
-                    <Message key={i} message={text.message}/>
+                {props.messages.map(text =>
+                    <Message key={text.id} message={text.message}/>
                 )}
                 <TextField
                     size={'small'}
