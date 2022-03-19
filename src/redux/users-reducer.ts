@@ -11,8 +11,8 @@ type AddressType = {
 export type UsersType = {
     id: string
     followed: boolean
-    photo: string
-    fullName: string
+    photos: {large: string | null, small: string | null}
+    name: string
     status: string
     address: AddressType
 }
