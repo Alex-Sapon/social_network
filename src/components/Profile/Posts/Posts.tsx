@@ -1,4 +1,4 @@
-import React, {createRef, FC} from 'react';
+import React, {FC} from 'react';
 import Post from './Post/Post';
 
 import {PostsProps} from '../../../redux/redux-store';
