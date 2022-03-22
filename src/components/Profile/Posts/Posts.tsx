@@ -1,4 +1,4 @@
-import React, {FC, useRef} from 'react';
+import React, {createRef, FC} from 'react';
 import Post from './Post/Post';
 
 import {PostsProps} from '../../../redux/redux-store';
@@ -16,24 +16,21 @@ type PostsType = {
 }
 
 const Posts: FC<PostsType> = (props) => {
-    const refInput = useRef<HTMLInputElement>(null!)
-
     const onAddPost = () => props.addPost()
 
     const keyPressHandler = (event: React.KeyboardEvent) => {
-        if (event.key === 'Enter') {
-            props.addPost()
-        }
+        event.key === 'Enter' && props.addPost()
     }
 
-    const onPostChange = () => props.updatePost(refInput.current.value)
+    const onPostChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        props.updatePost(event.currentTarget.value)
+    }
 
     return (
         <>
             <FormGroup sx={{mb: '1rem'}}>
                 <input
                     className={styles.input}
-                    ref={refInput}
                     value={props.newPost}
                     onChange={onPostChange}
                     onKeyPress={keyPressHandler}

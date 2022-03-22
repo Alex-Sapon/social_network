@@ -1,6 +1,16 @@
 import React, {FC} from 'react';
 
-import {Avatar, Card, FormControlLabel, List, ListItem, ListItemAvatar, ListItemText, Switch} from '@mui/material';
+import {
+    Avatar,
+    Button,
+    Card,
+    FormControlLabel,
+    List,
+    ListItem,
+    ListItemAvatar,
+    ListItemText,
+    Switch
+} from '@mui/material';
 import {UsersType} from '../../redux/users-reducer';
 import axios from 'axios';
 import userAvatar from '../../img/avatar/avatar.jpg'
@@ -12,24 +22,18 @@ type UsersTypeProps = {
     setUsers: (users: UsersType[]) => void
 }
 
-type UsersRequestProps = {
-    followed: boolean
-    id: number
-    name: string
-    photos: {large: null, small: null}
-    status: null
-    uniqueUrlName: null
-}
-
 const Users: FC<UsersTypeProps> = (props) => {
-    if (props.users.length === 0) {
-        axios.get('https://social-network.samuraijs.com/api/1.0/users').then(data => {
-            props.setUsers(data.data.items)
-        })
+    const getUsers = () => {
+        if (props.users.length === 0) {
+            axios.get('https://social-network.samuraijs.com/api/1.0/users').then(data => {
+                props.setUsers(data.data.items)
+            })
+        }
     }
 
     return (
         <List>
+            <Button onClick={getUsers} title={'Get users'}/>
             {props.users.map(user =>
                 <ListItem alignItems="flex-start" key={user.id}>
                     <ListItemAvatar sx={{width: '150px'}}>

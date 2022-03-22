@@ -19,6 +19,4 @@ const mapDispatchToProps = (dispatch: Dispatch<RootDispatchProps>) => {
     }
 }
 
-const PostsContainer = connect(mapStateToProps, mapDispatchToProps)(Posts)
-
-export default PostsContainer;
+export default connect(mapStateToProps, mapDispatchToProps)(Posts)
