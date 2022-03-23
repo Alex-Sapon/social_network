@@ -22,7 +22,7 @@ type UsersTypeProps = {
     setUsers: (users: UsersType[]) => void
 }
 
-const Users: FC<UsersTypeProps> = (props) => {
+const UsersF: FC<UsersTypeProps> = (props) => {
     const getUsers = () => {
         if (props.users.length === 0) {
             axios.get('https://social-network.samuraijs.com/api/1.0/users').then(data => {
@@ -56,4 +56,4 @@ const Users: FC<UsersTypeProps> = (props) => {
     )
 }
 
-export default Users;
+export default UsersF;
