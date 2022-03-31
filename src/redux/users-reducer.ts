@@ -32,7 +32,7 @@ export type UsersPageProps = {
 
 const initialUsers: UsersPageProps = {
     users: [],
-    pageSize: 1,
+    pageSize: 6,
     totalUsersCount: 1,
     currentPage: 1
 }
@@ -54,7 +54,7 @@ const usersReducer = (state = initialUsers, action: UsersDispatchProps) => {
                 )
             }
         case SET_USERS:
-            return {...state, users: [...action.users!, ...state.users]}
+            return {...state, users: action.users!} // перезатираем юзеров !!!!!
         case SET_CURRENT_PAGE:
             return {...state, currentPage: action.currentPage}
         case SET_TOTAL_USERS_COUNT:

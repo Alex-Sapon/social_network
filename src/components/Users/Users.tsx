@@ -34,6 +34,7 @@ class Users extends React.Component<UsersTypeProps> {
             this.props.setUsers(data.data.items)
             this.props.setTotalUsersCount(data.data.totalCount)
         })
+
     }
 
     onChangePageHandler(page: number) {
@@ -44,12 +45,12 @@ class Users extends React.Component<UsersTypeProps> {
     }
 
     render() {
-        const pagesCount = Math.ceil(this.props.totalUsersCount / this.props.pageSize)
+        // const pagesCount = Math.ceil(this.props.totalUsersCount / this.props.pageSize)
         return (
             <div>
                 <Stack spacing={2} sx={{m: '1rem 0rem 2rem', alignItems: 'center'}}>
                     <Pagination
-                        count={pagesCount}
+                        count={this.props.totalUsersCount}
                         page={this.props.currentPage}
                         onChange={(e, page) => this.onChangePageHandler(page)}
                     />

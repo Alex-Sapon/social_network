@@ -1,5 +1,5 @@
 import React, {FC} from 'react';
-import {Routes, Route} from 'react-router-dom';
+import {Routes, Route, Navigate} from 'react-router-dom';
 
 import {Container, Grid} from '@mui/material';
 import './app.css';
@@ -24,6 +24,8 @@ const App: FC = () => {
                     </Grid>
                     <Grid item xs={9}>
                         <Routes>
+                            <Route path={'/'} element={<Navigate to={'/profile'}/>}/>
+
                             <Route path="/profile" element={<Profile/>}/>
                             <Route path="/messages/*" element={<MessagesContainer/>}/>
                             <Route path="/friends/*" element={<UsersContainer/>}/>
