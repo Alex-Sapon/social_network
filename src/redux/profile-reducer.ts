@@ -1,8 +1,8 @@
 import {v1} from 'uuid'
 import {ProfilePageProps} from './redux-store'
 
-const ADD_POST = 'ADD-POST'
-const UPDATE_NEW_POST = 'UPDATE-NEW-POST'
+const ADD_POST = 'ADD_POST'
+const UPDATE_NEW_POST = 'UPDATE_NEW_POST'
 
 export type ProfileDispatchProps = {
     type: string
@@ -12,9 +12,9 @@ export type ProfileDispatchProps = {
 const initialState: ProfilePageProps = {
     posts: [
         {id: v1(), message: 'It\'s my first Post', likesCount: 3},
+        {id: v1(), message: 'Hi, how are you?', likesCount: 4},
         {id: v1(), message: 'I want to learn React and TypeScript.', likesCount: 5},
         {id: v1(), message: 'I learn English every day.', likesCount: 3},
-        {id: v1(), message: 'Hi, how are you?', likesCount: 4}
     ],
     newPost: ''
 }

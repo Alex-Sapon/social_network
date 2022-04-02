@@ -16,7 +16,7 @@ export type UsersType = {
     status: string
     address: AddressType
 }
-export type UsersDispatchProps = {
+export type UsersDispatchType = {
     type: string
     userId?: string
     currentPage?: number
@@ -33,11 +33,11 @@ export type UsersPageProps = {
 const initialUsers: UsersPageProps = {
     users: [],
     pageSize: 6,
-    totalUsersCount: 1,
+    totalUsersCount: 0,
     currentPage: 1
 }
 
-const usersReducer = (state = initialUsers, action: UsersDispatchProps) => {
+const usersReducer = (state = initialUsers, action: UsersDispatchType) => {
     switch (action.type) {
         case FOLLOW:
             return {
@@ -54,7 +54,7 @@ const usersReducer = (state = initialUsers, action: UsersDispatchProps) => {
                 )
             }
         case SET_USERS:
-            return {...state, users: action.users!} // перезатираем юзеров !!!!!
+            return {...state, users: action.users} // перезатираем юзеров, чтобы небыло накопления !!!!!
         case SET_CURRENT_PAGE:
             return {...state, currentPage: action.currentPage}
         case SET_TOTAL_USERS_COUNT:
@@ -64,10 +64,13 @@ const usersReducer = (state = initialUsers, action: UsersDispatchProps) => {
     }
 }
 
+export type ActionTypes = ReturnType<typeof followAC> | ReturnType<typeof unfollowAC> | ReturnType<typeof setUsersAC> |
+    ReturnType<typeof setCurrentPageAC> | ReturnType<typeof setTotalUsersCountAC>
+
 // функции, которые возвращают action (объект)
 
 // add users
-export const followAC = (userId: string) => ({type: FOLLOW, userId})
+export const followAC = (userId: string) => ({type: FOLLOW, userId} as const)
 export const unfollowAC = (userId: string) => ({type: UNFOLLOW, userId})
 export const setUsersAC = (users: UsersType[]) => ({type: SET_USERS, users})
 export const setCurrentPageAC = (currentPage: number) => ({type: SET_CURRENT_PAGE, currentPage})

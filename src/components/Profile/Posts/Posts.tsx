@@ -15,15 +15,15 @@ type PostsType = {
     updatePost: (text: string) => void
 }
 
-const Posts: FC<PostsType> = (props) => {
-    const onAddPost = () => props.addPost()
+const Posts: FC<PostsType> = ({addPost, newPost, posts, updatePost}) => {
+    const onAddPost = () => newPost.trim() !== '' && addPost()
 
     const keyPressHandler = (event: React.KeyboardEvent) => {
-        event.key === 'Enter' && props.addPost()
+        event.key === 'Enter' && addPost()
     }
 
     const onPostChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        props.updatePost(event.currentTarget.value)
+        updatePost(event.currentTarget.value)
     }
 
     return (
@@ -31,7 +31,7 @@ const Posts: FC<PostsType> = (props) => {
             <FormGroup sx={{mb: '1rem'}}>
                 <input
                     className={styles.input}
-                    value={props.newPost}
+                    value={newPost}
                     onChange={onPostChange}
                     onKeyPress={keyPressHandler}
                 />
@@ -49,7 +49,7 @@ const Posts: FC<PostsType> = (props) => {
                 >Add post</Button>
             </FormGroup>
             <Typography variant="h4" component="h4" sx={{mb: '1rem'}}>My posts</Typography>
-            <Post posts={props.posts}/>
+            <Post posts={posts}/>
         </>
     )
 }

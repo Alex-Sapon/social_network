@@ -18,16 +18,14 @@ type MessagesType = {
 }
 
 const Messages: FC<MessagesType> = (props) => {
-    const addMessage = () => props.addMessage()
+    const addMessage = () => props.newMessage.trim() !== '' && props.addMessage()
 
     const keyPressHandler = (event: React.KeyboardEvent) => {
-        if (event.key === 'Enter') {
-            props.addMessage()
-        }
+        event.key === 'Enter' && props.addMessage()
     }
 
     const onMessageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        props.updateMessage(event.target.value)
+        props.updateMessage(event.currentTarget.value)
     }
 
     return (

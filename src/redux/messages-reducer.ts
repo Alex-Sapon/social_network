@@ -1,8 +1,8 @@
 import {v1} from 'uuid'
 import {MessagesPageProps} from './redux-store'
 
-const ADD_MESSAGE = 'ADD-MESSAGE'
-const UPDATE_NEW_MESSAGE = 'UPDATE-NEW-MESSAGE'
+const ADD_MESSAGE = 'ADD_MESSAGE'
+const UPDATE_NEW_MESSAGE = 'UPDATE_NEW_MESSAGE'
 
 export type MessageDispatchProps = {
     type: string
@@ -42,7 +42,7 @@ const messagesReducer = (state = initialState, action: MessageDispatchProps) => 
     }
 }
 
-// функции, которые возвращают action (объект)
+// функции, которые возвращают action (объект, у которого есть как минимум одно свойство - type)
 
 // add Message
 export const addMessageActionCreator = () => ({type: ADD_MESSAGE});

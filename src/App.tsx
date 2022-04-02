@@ -25,7 +25,6 @@ const App: FC = () => {
                     <Grid item xs={9}>
                         <Routes>
                             <Route path={'/'} element={<Navigate to={'/profile'}/>}/>
-
                             <Route path="/profile" element={<Profile/>}/>
                             <Route path="/messages/*" element={<MessagesContainer/>}/>
                             <Route path="/friends/*" element={<UsersContainer/>}/>

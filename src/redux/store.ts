@@ -6,46 +6,52 @@ const UPDATE_NEW_POST = 'UPDATE-NEW-POST'
 const ADD_MESSAGE = 'ADD-MESSAGE'
 const UPDATE_NEW_MESSAGE = 'UPDATE-NEW-MESSAGE'
 
-
-export interface PostsProps {
+interface PostsProps {
     id: number
     message: string
     likesCount: number
 }
 
-export interface UsersProps {
+interface UsersProps {
     id: number
     name: string
 }
 
-export interface MessagesProps {
+interface MessagesProps {
     message: string
 }
 
-export interface ProfilePageProps {
+interface ProfilePageProps {
     posts: PostsProps[]
     newPost: string
 }
 
-export interface MessagesPageProps {
+interface MessagesPageProps {
     users: UsersProps[]
     messages: MessagesProps[]
     newMessage: string
 }
 
-export interface StoreProps {
+interface RootStateType {
     profilePage: ProfilePageProps
     messagesPage: MessagesPageProps
 }
 
-export interface DispatchProps {
+interface DispatchProps {
     type: string
     newPost?: string
     newMessage?: string
 }
 
+type StoreType = {
+    _state: RootStateType
+    _callSubscriber: (state: RootStateType) => void
+    getState: () => RootStateType
+    subscribe: (callback: () => void) => void
+    dispatch: (action: DispatchProps) => void
+}
 
-export const store = {
+export const store: StoreType = {
     _state: {
         profilePage: {
             posts: [
@@ -74,13 +80,13 @@ export const store = {
             newMessage: ''
         }
     },
-    _callSubscriber(state: StoreProps) {
+    _callSubscriber(state: RootStateType) {
         console.log('State changed')
     },
     getState() {
         return this._state
     },
-    subscribe(observer: (state: StoreProps) => void) {
+    subscribe(observer: (state: RootStateType) => void) {
         this._callSubscriber = observer // pattern observer
     },
     dispatch(action: DispatchProps) {

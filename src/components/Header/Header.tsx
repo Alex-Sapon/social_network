@@ -12,9 +12,7 @@ const Header: FC = () => {
         <Box sx={headerStyles}>
             <AppBar position="static">
                 <Toolbar variant="dense">
-                    <Typography variant="h6" color="inherit" component="div">
-                        Social network
-                    </Typography>
+                    <Typography variant="h6" color="inherit" component="div">Social network</Typography>
                 </Toolbar>
             </AppBar>
         </Box>

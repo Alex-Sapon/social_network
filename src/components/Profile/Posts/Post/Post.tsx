@@ -10,10 +10,10 @@ type PostType = {
     posts: PostsProps[]
 }
 
-const Post: FC<PostType> = (props) => {
+const Post: FC<PostType> = ({posts}) => {
     return (
         <>
-            {props.posts.map((post, i) =>
+            {posts.map((post, i) =>
                 <Card key={post.id} sx={{padding: '1rem', mb: '1rem', bgcolor: teal[50]}}>
                     <Typography variant="subtitle1" sx={{mb: '0.5rem', fontSize: '1.3rem'}}>
                         Post № {i + 1}
