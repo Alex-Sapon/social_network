@@ -1,0 +1,13 @@
+.preloader {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    width: 50%;
+    height: 50%;
+}
+
+.preloader {
+    object-fit: contain;
+    margin: 0 auto;
+}

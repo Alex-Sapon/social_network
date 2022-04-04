@@ -1,6 +1,6 @@
 import React, {FC} from 'react'
 import {Avatar, Box, ListItem, Typography} from '@mui/material'
-import avatar from '../../../img/avatar/avatar.jpg'
+import avatar from '../../../assets/img/avatar/avatar.jpg'
 
 const Description: FC = () => {
     return (

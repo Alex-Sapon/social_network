@@ -13,7 +13,7 @@ import {
 } from '@mui/material';
 import {UsersType} from '../../redux/users-reducer';
 import axios from 'axios';
-import userAvatar from '../../img/avatar/avatar.jpg'
+import userAvatar from '../../assets/img/avatar/avatar.jpg'
 
 type UsersTypeProps = {
     users: UsersType[]

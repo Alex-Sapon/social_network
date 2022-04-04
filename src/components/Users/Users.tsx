@@ -2,7 +2,7 @@ import React, {FC} from 'react';
 import {Avatar, Card, FormControlLabel, List, ListItem,
     ListItemAvatar, ListItemText, Pagination, Stack, Switch} from '@mui/material';
 import {UsersType} from '../../redux/users-reducer';
-import userAvatar from '../../img/avatar/avatar.jpg'
+import userAvatar from '../../assets/img/avatar/avatar.jpg'
 
 type UsersTypeProps = {
     users: UsersType[]
