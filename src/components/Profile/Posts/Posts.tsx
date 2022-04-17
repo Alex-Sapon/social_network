@@ -1,6 +1,5 @@
-import React, {FC} from 'react';
+import React, {FC, KeyboardEvent, ChangeEvent} from 'react';
 import Post from './Post/Post';
-
 import {PostsProps} from '../../../redux/redux-store';
 
 import {Button, FormGroup, Typography} from '@mui/material';
@@ -15,16 +14,10 @@ type PostsType = {
     updatePost: (text: string) => void
 }
 
-const Posts: FC<PostsType> = ({addPost, newPost, posts, updatePost}) => {
+export const Posts: FC<PostsType> = ({addPost, newPost, posts, updatePost}) => {
     const onAddPost = () => newPost.trim() !== '' && addPost()
-
-    const keyPressHandler = (event: React.KeyboardEvent) => {
-        event.key === 'Enter' && addPost()
-    }
-
-    const onPostChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        updatePost(event.currentTarget.value)
-    }
+    const keyPressHandler = (event: KeyboardEvent) => event.key === 'Enter' && addPost()
+    const onPostChangeHandler = (event: ChangeEvent<HTMLInputElement>) => updatePost(event.currentTarget.value)
 
     return (
         <>
@@ -32,26 +25,16 @@ const Posts: FC<PostsType> = ({addPost, newPost, posts, updatePost}) => {
                 <input
                     className={styles.input}
                     value={newPost}
-                    onChange={onPostChange}
+                    onChange={onPostChangeHandler}
                     onKeyPress={keyPressHandler}
                 />
-                <Button
-                    size="small"
-                    variant="contained"
-                    sx={{
-                        maxWidth: '150px',
-                        bgcolor: blueGrey[50],
-                        color: blueGrey[700],
-                        '&:hover': {bgcolor: blueGrey[200]}
-                    }}
-                    endIcon={<SendIcon/>}
-                    onClick={onAddPost}
-                >Add post</Button>
+                <Button size="small" variant="contained" sx={{
+                    maxWidth: '150px', bgcolor: blueGrey[50],
+                    color: blueGrey[700], '&:hover': {bgcolor: blueGrey[200]}
+                }} endIcon={<SendIcon/>} onClick={onAddPost}>Add post</Button>
             </FormGroup>
             <Typography variant="h4" component="h4" sx={{mb: '1rem'}}>My posts</Typography>
             <Post posts={posts}/>
         </>
     )
 }
-
-export default Posts;

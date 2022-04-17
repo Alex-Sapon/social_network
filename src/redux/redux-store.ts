@@ -1,7 +1,7 @@
-import {createStore, combineReducers} from 'redux'
-import profileReducer from './profile-reducer'
-import messagesReducer from './messages-reducer'
-import usersReducer, {UsersPageProps} from './users-reducer';
+import {combineReducers, createStore} from 'redux'
+import {profileReducer} from './profile-reducer'
+import {messagesReducer} from './messages-reducer'
+import {usersReducer} from './users-reducer';
 
 export interface PostsProps {
     id: string
@@ -16,36 +16,17 @@ export interface MessagesProps {
     id: string
     message: string
 }
-export interface ProfilePageProps {
-    posts: PostsProps[]
-    newPost: string
-}
-export interface MessagesPageProps {
-    users: UsersProps[]
-    messages: MessagesProps[]
-    newMessage: string
-}
-export type RootDispatchProps = {
-    type: string
-    newPost?: string
-    newMessage?: string
-}
 
-export type RootStateProps = {
-    profilePage: ProfilePageProps
-    messagesPage: MessagesPageProps
-    usersPage: UsersPageProps
-}
+type RootReducerType = typeof rootReducer
+export type RootStateType = ReturnType<RootReducerType>
 
-const reducers = combineReducers({ // собирает reducers в объект
+const rootReducer = combineReducers({ // собирает reducers в объект
     profilePage: profileReducer,
     messagesPage: messagesReducer,
     usersPage: usersReducer
 })
 
-const store = createStore(reducers) // отдаем reducers в store, создавая внутри себя state
-
-export default store
+export const store = createStore(rootReducer) // отдаем rootReducer в store, создавая внутри себя state
 
 // @ts-ignore
 window.store = store

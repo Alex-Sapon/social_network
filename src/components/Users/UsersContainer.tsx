@@ -1,13 +1,19 @@
-import React, {Dispatch} from 'react';
+import React from 'react';
 import {connect} from 'react-redux';
 import Users from './Users';
-import {ActionTypes, follow, setCurrentPage, toggleIsFetching, setTotalUsersCount, setUsers, unfollow, UsersType} from '../../redux/users-reducer';
-import {RootStateProps} from '../../redux/redux-store';
+import {
+    follow,
+    setCurrentPage,
+    toggleIsFetching,
+    setTotalUsersCount,
+    setUsers,
+    unfollow,
+    UsersType
+} from '../../redux/users-reducer';
+import {RootStateType} from '../../redux/redux-store';
 import axios from 'axios';
-import {Preloader} from '../../common/Preloader/Preloader';
-import styles from './UsersContainer.module.css'
 
-type UsersTypeProps = {
+type UsersContainerType = {
     users: UsersType[]
     pageSize: number
     totalUsersCount: number
@@ -21,7 +27,7 @@ type UsersTypeProps = {
     toggleIsFetching: (isFetching: boolean) => void
 }
 
-class UsersContainer extends React.Component<UsersTypeProps> {
+class UsersContainer extends React.Component<UsersContainerType> {
     componentDidMount() {
         this.props.toggleIsFetching(true)
         axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`).then(data => {
@@ -31,7 +37,7 @@ class UsersContainer extends React.Component<UsersTypeProps> {
         })
     }
 
-    onChangePage = (page: number) => { // arrow function !!!!!!!!!!!!!
+    onChangePage = (page: number) => {
         this.props.toggleIsFetching(true)
         this.props.setCurrentPage(page)
         axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${this.props.pageSize}`).then(data => {
@@ -42,23 +48,20 @@ class UsersContainer extends React.Component<UsersTypeProps> {
 
     render() {
         return (
-            <>
-                {this.props.isFetching && <Preloader className={styles.preloader} stylePreloader={styles.preloader}/>}
-                <Users
-                    users={this.props.users}
-                    totalUsersCount={this.props.totalUsersCount}
-                    currentPage={this.props.currentPage}
-                    follow={this.props.follow}
-                    unfollow={this.props.unfollow}
-                    onChangePage={this.onChangePage}
-                />
-            </>
-
+            <Users
+                users={this.props.users}
+                totalUsersCount={this.props.totalUsersCount}
+                currentPage={this.props.currentPage}
+                follow={this.props.follow}
+                unfollow={this.props.unfollow}
+                onChangePage={this.onChangePage}
+                isFetching={this.props.isFetching}
+            />
         )
     }
 }
 
-const mapStateToProps = (state: RootStateProps) => {
+const mapStateToProps = (state: RootStateType) => {
     return {
         users: state.usersPage.users,
         pageSize: state.usersPage.pageSize,
@@ -69,7 +72,11 @@ const mapStateToProps = (state: RootStateProps) => {
 }
 
 export default connect(mapStateToProps, {
-    follow, unfollow, setUsers, setCurrentPage,
-    setTotalUsersCount, toggleIsFetching
+    follow,
+    unfollow,
+    setUsers,
+    setCurrentPage,
+    setTotalUsersCount,
+    toggleIsFetching
 })(UsersContainer)
 

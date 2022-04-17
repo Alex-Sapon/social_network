@@ -3,6 +3,9 @@ import {Avatar, Card, FormControlLabel, List, ListItem,
     ListItemAvatar, ListItemText, Pagination, Stack, Switch} from '@mui/material';
 import {UsersType} from '../../redux/users-reducer';
 import userAvatar from '../../assets/img/avatar/avatar.jpg'
+import { Preloader } from '../../common/Preloader/Preloader';
+import styles from './Users.module.css'
+import { NavLink } from 'react-router-dom';
 
 type UsersTypeProps = {
     users: UsersType[]
@@ -11,6 +14,7 @@ type UsersTypeProps = {
     follow: (userId: string) => void
     unfollow: (userId: string) => void
     onChangePage: (page: number) => void
+    isFetching: boolean
 }
 
 const Users: FC<UsersTypeProps> = (props) => {
@@ -21,6 +25,7 @@ const Users: FC<UsersTypeProps> = (props) => {
             <Stack spacing={2} sx={{m: '1rem 0rem 2rem', alignItems: 'center'}}>
                 <Pagination count={props.totalUsersCount} page={props.currentPage} onChange={onChangeHandler}/>
             </Stack>
+            {props.isFetching && <Preloader className={styles.preloader} stylePreloader={styles.preloader}/>}
             <List>
                 {props.users.map(user => {
                         const onChangeHandler = () => user.followed ? props.unfollow(user.id) : props.follow(user.id)
@@ -28,18 +33,14 @@ const Users: FC<UsersTypeProps> = (props) => {
                         return (
                             <ListItem alignItems="flex-start" key={user.id}>
                                 <ListItemAvatar sx={{width: '150px'}}>
-                                    <Avatar alt="Avatar"
-                                            src={user.photos.small !== null ? user.photos.small : userAvatar}
-                                            sx={{mb: '0.5rem'}}/>
-                                    <FormControlLabel sx={{display: 'block'}}
-                                                      label={user.followed ? 'Unfollow' : 'Follow'}
-                                                      control={
-                                                          <Switch
-                                                              checked={user.followed}
-                                                              onChange={onChangeHandler}
-                                                              name="loading"
-                                                              color="success"/>
-                                                      }/>
+                                    <NavLink to={`/profile/${user.id}`}>
+                                        <Avatar alt="Avatar"
+                                                src={user.photos.small !== null ? user.photos.small : userAvatar}
+                                                sx={{mb: '0.5rem'}}/>
+                                    </NavLink>
+                                    <FormControlLabel sx={{display: 'block'}} label={user.followed ? 'Unfollow' : 'Follow'}
+                                                      control={<Switch checked={user.followed} onChange={onChangeHandler}
+                                                      name="loading" color="success"/>}/>
                                 </ListItemAvatar>
                                 <Card sx={{ width: '100%', display: 'flex', padding: '1rem', minHeight: '60px', bgcolor: '#e1f5fe'}}>
                                     <ListItemText primary={user.name} secondary={user.status} sx={{width: '100%'}}/>

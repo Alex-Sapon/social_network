@@ -1,19 +1,19 @@
-import React, {FC} from 'react';
-import {Routes, Route, Navigate} from 'react-router-dom';
+import React from 'react';
+import {Navigate, Route, Routes} from 'react-router-dom';
 
 import {Container, Grid} from '@mui/material';
 import './app.css';
 
 import Header from './components/Header/Header';
 import Navbar from './components/Navbar/Navbar';
-import Profile from './components/Profile/Profile';
 import MessagesContainer from './components/Messages/MessagesContainer';
 import News from './components/News/News';
 import Music from './components/Music/Music';
 import Settings from './components/Settings/Settings';
 import UsersContainer from './components/Users/UsersContainer';
+import ProfileContainer from './components/Profile/ProfileContainer'
 
-const App: FC = () => {
+const App = () => {
     return (
         <>
             <Header/>
@@ -25,7 +25,7 @@ const App: FC = () => {
                     <Grid item xs={9}>
                         <Routes>
                             <Route path={'/'} element={<Navigate to={'/profile'}/>}/>
-                            <Route path="/profile" element={<Profile/>}/>
+                            <Route path="/profile/*" element={<ProfileContainer/>}/>
                             <Route path="/messages/*" element={<MessagesContainer/>}/>
                             <Route path="/friends/*" element={<UsersContainer/>}/>
                             <Route path="/news/" element={<News/>}/>

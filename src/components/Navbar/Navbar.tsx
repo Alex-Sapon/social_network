@@ -14,6 +14,7 @@ const navbarStyles = {
 
 const Navbar: FC = () => {
     const setActiveClass = (navData: { isActive: boolean }): string => navData.isActive ? classes.active : classes.item;
+    
     return (
         <List component="nav" aria-label="mailbox folders" sx={navbarStyles}>
             <ListItem button>

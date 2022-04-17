@@ -1,15 +1,6 @@
 import {v1} from 'uuid'
-import {MessagesPageProps} from './redux-store'
 
-const ADD_MESSAGE = 'ADD_MESSAGE'
-const UPDATE_NEW_MESSAGE = 'UPDATE_NEW_MESSAGE'
-
-export type MessageDispatchProps = {
-    type: string
-    newMessage?: string
-}
-
-const initialState: MessagesPageProps = {
+const initialState = {
     users: [
         {id: v1(), name: 'Sasha'},
         {id: v1(), name: 'Kate'},
@@ -27,25 +18,20 @@ const initialState: MessagesPageProps = {
     newMessage: ''
 }
 
-const messagesReducer = (state = initialState, action: MessageDispatchProps) => {
+type InitialMessagesType = typeof initialState
+
+export const messagesReducer = (state: InitialMessagesType = initialState, action: ActionsType): InitialMessagesType => {
     switch (action.type) {
-        case UPDATE_NEW_MESSAGE:
+        case 'UPDATE_NEW_MESSAGE':
             return {...state, newMessage: action.newMessage}
-        case ADD_MESSAGE:
-            return {
-                ...state,
-                messages: [...state.messages, {id: v1(), message: state.newMessage}],
-                newMessage: ''
-            }
+        case 'ADD_MESSAGE':
+            return {...state, messages: [...state.messages, {id: v1(), message: state.newMessage}], newMessage: ''}
         default:
             return state
     }
 }
 
-// функции, которые возвращают action (объект, у которого есть как минимум одно свойство - type)
+type ActionsType = ReturnType<typeof addMessage> | ReturnType<typeof updateMessage>
 
-// add Message
-export const addMessageActionCreator = () => ({type: ADD_MESSAGE});
-export const updateMessageActionCreator = (message: string) => ({type: UPDATE_NEW_MESSAGE, newMessage: message});
-
-export default messagesReducer
+export const addMessage = () => ({type: 'ADD_MESSAGE'} as const);
+export const updateMessage = (newMessage: string) => ({type: 'UPDATE_NEW_MESSAGE', newMessage} as const);

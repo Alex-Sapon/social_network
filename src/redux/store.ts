@@ -1,5 +1,5 @@
-import profileReducer from './profile-reducer';
-import messagesReducer from './messages-reducer';
+// import {profileReducer} from './profile-reducer';
+// import {messagesReducer} from './messages-reducer';
 
 const ADD_POST = 'ADD-POST'
 const UPDATE_NEW_POST = 'UPDATE-NEW-POST'
