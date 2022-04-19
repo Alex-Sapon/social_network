@@ -1,6 +1,22 @@
 import {v1} from 'uuid'
 
-const initialState = {
+export type UsersType = {
+    id: string
+    name: string
+}
+
+export type MessagesType = {
+    id: string
+    message: string
+}
+
+export type MessagesRootType = {
+    users: Array<UsersType>
+    messages: Array<MessagesType>
+    newMessage: string
+}
+
+const initialState: MessagesRootType = {
     users: [
         {id: v1(), name: 'Sasha'},
         {id: v1(), name: 'Kate'},
@@ -22,9 +38,9 @@ type InitialMessagesType = typeof initialState
 
 export const messagesReducer = (state: InitialMessagesType = initialState, action: ActionsType): InitialMessagesType => {
     switch (action.type) {
-        case 'UPDATE_NEW_MESSAGE':
+        case 'UPDATE-NEW-MESSAGE':
             return {...state, newMessage: action.newMessage}
-        case 'ADD_MESSAGE':
+        case 'ADD-MESSAGE':
             return {...state, messages: [...state.messages, {id: v1(), message: state.newMessage}], newMessage: ''}
         default:
             return state
@@ -33,5 +49,5 @@ export const messagesReducer = (state: InitialMessagesType = initialState, actio
 
 type ActionsType = ReturnType<typeof addMessage> | ReturnType<typeof updateMessage>
 
-export const addMessage = () => ({type: 'ADD_MESSAGE'} as const);
-export const updateMessage = (newMessage: string) => ({type: 'UPDATE_NEW_MESSAGE', newMessage} as const);
+export const addMessage = () => ({type: 'ADD-MESSAGE'} as const);
+export const updateMessage = (newMessage: string) => ({type: 'UPDATE-NEW-MESSAGE', newMessage} as const);

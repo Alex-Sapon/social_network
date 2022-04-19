@@ -18,16 +18,16 @@ const App = () => {
         <>
             <Header/>
             <Container sx={{height: '100vh'}}>
-                <Grid container columnSpacing={{xs: 2, sm: 3, md: 5}} columns={12}>
-                    <Grid item sm={3} sx={{height: '100vh'}}>
+                <Grid container columnSpacing={{xs: 2, sm: 3, md: 5}} sx={{height: '100vh'}} columns={12}>
+                    <Grid item xs={3}>
                         <Navbar/>
                     </Grid>
                     <Grid item xs={9}>
                         <Routes>
-                            <Route path={'/'} element={<Navigate to={'/profile'}/>}/>
-                            <Route path="/profile/*" element={<ProfileContainer/>}/>
-                            <Route path="/messages/*" element={<MessagesContainer/>}/>
-                            <Route path="/friends/*" element={<UsersContainer/>}/>
+                            <Route path={'/'} element={<Navigate to={'/profile/:userId'}/>}/>
+                            <Route path="/profile/:userId" element={<ProfileContainer/>}/>
+                            <Route path="/messages/" element={<MessagesContainer/>}/>
+                            <Route path="/friends/" element={<UsersContainer/>}/>
                             <Route path="/news/" element={<News/>}/>
                             <Route path="/music" element={<Music/>}/>
                             <Route path="/settings" element={<Settings/>}/>

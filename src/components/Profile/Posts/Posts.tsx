@@ -16,8 +16,8 @@ type PostsType = {
 
 export const Posts: FC<PostsType> = ({addPost, newPost, posts, updatePost}) => {
     const onAddPost = () => newPost.trim() !== '' && addPost()
-    const keyPressHandler = (event: KeyboardEvent) => event.key === 'Enter' && addPost()
-    const onPostChangeHandler = (event: ChangeEvent<HTMLInputElement>) => updatePost(event.currentTarget.value)
+    const keyPressHandler = (e: KeyboardEvent) => e.key === 'Enter' && addPost()
+    const onPostChangeHandler = (e: ChangeEvent<HTMLInputElement>) => updatePost(e.currentTarget.value)
 
     return (
         <>

@@ -1,5 +1,15 @@
 import {v1} from 'uuid'
 
+type PostType = {
+    id: string
+    message: string
+    likesCount: number
+}
+export type RootProfileState = {
+    posts: Array<PostType>
+    newPost: string
+    profile: ProfileType
+}
 export type ProfileType = {
     aboutMe: string
     contacts: {
@@ -22,7 +32,7 @@ export type ProfileType = {
     }
 }
 
-const initialState = {
+const initialState: RootProfileState = {
     posts: [
         {id: v1(), message: 'It\'s my first Post', likesCount: 3},
         {id: v1(), message: 'Hi, how are you?', likesCount: 4},
@@ -37,11 +47,11 @@ type InitialStateType = typeof initialState
 
 export const profileReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
-        case 'UPDATE_POST':
+        case 'UPDATE-POST':
             return {...state, newPost: action.newPost}
-        case 'ADD_POST':
+        case 'ADD-POST':
             return {...state, posts: [...state.posts, {id: v1(), message: state.newPost, likesCount: 0}], newPost: ''}
-        case 'SET_PROFILE':
+        case 'SET-PROFILE':
             return {...state, profile: action.profile}
         default:
             return state
@@ -50,6 +60,16 @@ export const profileReducer = (state: InitialStateType = initialState, action: A
 
 type ActionsType = ReturnType<typeof addPost> | ReturnType<typeof updatePost> | ReturnType<typeof setProfile>
 
-export const addPost = () => ({type: 'ADD_POST'} as const)
-export const updatePost = (newPost: string) => ({type: 'UPDATE_POST', newPost} as const)
-export const setProfile = (profile: ProfileType) => ({type: 'SET_PROFILE', profile} as const)
+export const addPost = () => ({type: 'ADD-POST'} as const)
+export const updatePost = (newPost: string) => ({type: 'UPDATE-POST', newPost} as const)
+export const setProfile = (profile: ProfileType) => ({type: 'SET-PROFILE', profile} as const)
+
+
+
+
+
+
+
+
+
+

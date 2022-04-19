@@ -20,8 +20,7 @@ const Post: FC<PostType> = ({posts}) => {
                     <RatingStars stars={post.likesCount}/>
                 </Card>
                 
-            ) : <Typography variant="h3" sx={{mb: '0.5rem', fontSize: '1.3rem'}}>No posts...</Typography>
-        }
+            ) : <Typography variant="h3" sx={{mb: '0.5rem', fontSize: '1.3rem'}}>No posts...</Typography>}
         </>
     )
 }
