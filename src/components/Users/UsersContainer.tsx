@@ -30,7 +30,10 @@ type UsersContainerType = {
 class UsersContainer extends React.Component<UsersContainerType> {
     componentDidMount() {
         this.props.toggleIsFetching(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`).then(data => {
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`, {
+            withCredentials: true
+        })
+            .then(data => {
             this.props.toggleIsFetching(false)
             this.props.setUsers(data.data.items)
             this.props.setTotalUsersCount(data.data.totalCount)
@@ -40,7 +43,10 @@ class UsersContainer extends React.Component<UsersContainerType> {
     onChangePage = (page: number) => {
         this.props.toggleIsFetching(true)
         this.props.setCurrentPage(page)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${this.props.pageSize}`).then(data => {
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${this.props.pageSize}`, {
+            withCredentials: true
+        })
+            .then(data => {
             this.props.toggleIsFetching(false)
             this.props.setUsers(data.data.items)
         })
@@ -48,28 +54,27 @@ class UsersContainer extends React.Component<UsersContainerType> {
 
     render() {
         return (
-            <Users
-                users={this.props.users}
-                totalUsersCount={this.props.totalUsersCount}
-                currentPage={this.props.currentPage}
-                follow={this.props.follow}
-                unfollow={this.props.unfollow}
+            <Users {...this.props}
+                // users={this.props.users}
+                // totalUsersCount={this.props.totalUsersCount}
+                // currentPage={this.props.currentPage}
+                // follow={this.props.follow}
+                // unfollow={this.props.unfollow}
                 onChangePage={this.onChangePage}
-                isFetching={this.props.isFetching}
+                // isFetching={this.props.isFetching}
             />
         )
     }
 }
 
-const mapStateToProps = (state: RootStateType) => {
-    return {
+const mapStateToProps = (state: RootStateType) => ({
         users: state.usersPage.users,
         pageSize: state.usersPage.pageSize,
         totalUsersCount: state.usersPage.totalUsersCount,
         currentPage: state.usersPage.currentPage,
         isFetching: state.usersPage.isFetching
     }
-}
+)
 
 export default connect(mapStateToProps, {
     follow,
