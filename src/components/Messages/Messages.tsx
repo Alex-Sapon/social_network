@@ -1,32 +1,25 @@
-import React, {FC} from 'react'
+import React, {FC, KeyboardEvent, ChangeEvent} from 'react'
 import Message from './Message/Message'
 import Dialog from './Dialog/Dialog'
-
-import {MessagesProps, UsersProps} from '../../redux/redux-store'
 
 import {Box, Button, FormGroup, List, TextField, Typography} from '@mui/material'
 import {blueGrey} from '@mui/material/colors'
 import SendIcon from '@mui/icons-material/Send'
 import styles from './Messages.module.css'
+import { MessagesType, UsersType } from '../../redux/messages-reducer'
 
-type MessagesType = {
-    users: UsersProps[]
-    messages: MessagesProps[]
+type MessagesPropsType = {
+    users: Array<UsersType>
+    messages: Array<MessagesType>
     newMessage: string
     addMessage: () => void
     updateMessage: (message: string) => void
 }
 
-const Messages: FC<MessagesType> = (props) => {
+export const Messages: FC<MessagesPropsType> = (props) => {
     const addMessage = () => props.newMessage.trim() !== '' && props.addMessage()
-
-    const keyPressHandler = (event: React.KeyboardEvent) => {
-        event.key === 'Enter' && props.addMessage()
-    }
-
-    const onMessageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        props.updateMessage(event.currentTarget.value)
-    }
+    const keyPressHandler = (e: KeyboardEvent<HTMLDivElement>) => e.key === 'Enter' && props.addMessage()
+    const onMessageChange = (e: ChangeEvent<HTMLInputElement>) => props.updateMessage(e.currentTarget.value)
 
     return (
         <Box className={styles.dialogs}>
@@ -65,5 +58,3 @@ const Messages: FC<MessagesType> = (props) => {
         </Box>
     )
 }
-
-export default Messages

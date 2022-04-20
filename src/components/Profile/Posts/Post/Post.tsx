@@ -1,10 +1,10 @@
 import React, {FC} from 'react';
 import RatingStars from '../RatingStarts/RatingStars';
-import {PostsProps} from '../../../../redux/redux-store';
 
 import {Card, Typography} from '@mui/material';
 import {teal} from '@mui/material/colors';
 import styles from './Post.module.css';
+import { PostsProps } from '../Posts';
 
 type PostType = {
     posts: PostsProps[]

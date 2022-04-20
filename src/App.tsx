@@ -1,10 +1,9 @@
-import React from 'react';
 import {Navigate, Route, Routes} from 'react-router-dom';
 
 import {Container, Grid} from '@mui/material';
 import './app.css';
 
-import Header from './components/Header/Header';
+import HeaderContainer from './components/Header/HeaderContainer'
 import Navbar from './components/Navbar/Navbar';
 import MessagesContainer from './components/Messages/MessagesContainer';
 import News from './components/News/News';
@@ -16,7 +15,7 @@ import ProfileContainer from './components/Profile/ProfileContainer'
 const App = () => {
     return (
         <>
-            <Header/>
+            <HeaderContainer/>
             <Container sx={{height: '100vh'}}>
                 <Grid container columnSpacing={{xs: 2, sm: 3, md: 5}} sx={{height: '100vh'}} columns={12}>
                     <Grid item xs={3}>
@@ -36,7 +35,6 @@ const App = () => {
                 </Grid>
             </Container>
         </>
-
     );
 }
 

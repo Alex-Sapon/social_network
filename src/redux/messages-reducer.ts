@@ -4,12 +4,10 @@ export type UsersType = {
     id: string
     name: string
 }
-
 export type MessagesType = {
     id: string
     message: string
 }
-
 export type MessagesRootType = {
     users: Array<UsersType>
     messages: Array<MessagesType>

@@ -1,8 +1,20 @@
 import {RootStateType} from '../../redux/redux-store';
 import {connect} from 'react-redux';
 
-import {addMessage, updateMessage} from '../../redux/messages-reducer'
-import Messages from './Messages';
+import {addMessage, MessagesType, updateMessage, UsersType} from '../../redux/messages-reducer'
+import {Messages} from './Messages';
+
+type MessagesContainerType = {
+    users: Array<UsersType>
+    messages: Array<MessagesType>
+    newMessage: string
+    addMessage: () => void
+    updateMessage: (message: string) => void
+}
+
+const MessagesContainer = (props: MessagesContainerType) => {
+    return <Messages {...props}/>
+}
 
 const mapStateToProps = (state: RootStateType) => {
     return {
@@ -12,4 +24,4 @@ const mapStateToProps = (state: RootStateType) => {
     }
 }
 
-export default connect(mapStateToProps, {addMessage, updateMessage})(Messages)
+export default connect(mapStateToProps, {addMessage, updateMessage})(MessagesContainer)

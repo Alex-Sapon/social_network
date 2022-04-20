@@ -5,7 +5,6 @@ import {connect} from 'react-redux';
 import {ProfileType, setProfile} from '../../redux/profile-reducer'
 import {RootStateType} from '../../redux/redux-store';
 import {useParams} from 'react-router';
-import {log} from 'util';
 
 export type ProfileContainerType = {
     setProfile: (profile: ProfileType) => void

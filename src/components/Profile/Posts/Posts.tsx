@@ -1,11 +1,16 @@
 import React, {FC, KeyboardEvent, ChangeEvent} from 'react';
 import Post from './Post/Post';
-import {PostsProps} from '../../../redux/redux-store';
 
 import {Button, FormGroup, Typography} from '@mui/material';
 import {blueGrey} from '@mui/material/colors'
 import SendIcon from '@mui/icons-material/Send'
 import styles from './Posts.module.css'
+
+export type PostsProps = {
+    id: string
+    message: string
+    likesCount: number
+}
 
 type PostsType = {
     posts: PostsProps[]
