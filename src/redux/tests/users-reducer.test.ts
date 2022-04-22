@@ -1,11 +1,12 @@
-import {follow, setCurrentPage, setTotalUsersCount, setUsers, toggleIsFetching, unfollow, usersReducer, UsersStateType, UsersType} from '../users-reducer'
+import {follow, setCurrentPage, setTotalUsersCount, setUsers, toggleIsFetching, unfollow, usersReducer, UsersStateType, ItemsType} from '../users-reducer'
 
 test('change status to follow', () => {
     const initialUsers: UsersStateType = {
-        users: [
+        items: [
             {
                 id: '1',
                 followed: false,
+                uniqueUrlName: 'dd',
                 photos: {large: null, small: null},
                 name: 'Bob',
                 status: 'I`am happy',
@@ -17,6 +18,7 @@ test('change status to follow', () => {
             {
                 id: '2',
                 followed: false,
+                uniqueUrlName: 'dd',
                 photos: {large: null, small: null},
                 name: 'Alex',
                 status: 'I`am very happy',
@@ -27,23 +29,24 @@ test('change status to follow', () => {
             }
         ],
         pageSize: 6,
-        totalUsersCount: 0,
+        totalCount: 0,
         currentPage: 1,
         isFetching: false
     }
 
     const endState = usersReducer(initialUsers, follow('2'))
 
-    expect(endState.users[1].followed).toBe(true)
-    expect(initialUsers.users[1].followed).toBe(false)
+    expect(endState.items[1].followed).toBe(true)
+    expect(initialUsers.items[1].followed).toBe(false)
 })
 
 test('change status to unfollow', () => {
     const initialUsers: UsersStateType = {
-        users: [
+        items: [
             {
                 id: '1',
                 followed: true,
+                uniqueUrlName: 'dd',
                 photos: {large: null, small: null},
                 name: 'Bob',
                 status: 'I`am happy',
@@ -55,6 +58,7 @@ test('change status to unfollow', () => {
             {
                 id: '2',
                 followed: true,
+                uniqueUrlName: 'dd',
                 photos: {large: null, small: null},
                 name: 'Alex',
                 status: 'I`am very happy',
@@ -65,23 +69,24 @@ test('change status to unfollow', () => {
             }
         ],
         pageSize: 6,
-        totalUsersCount: 0,
+        totalCount: 0,
         currentPage: 1,
         isFetching: false
     }
 
     const endState = usersReducer(initialUsers, unfollow('2'))
 
-    expect(endState.users[1].followed).toBe(false)
-    expect(initialUsers.users[1].followed).toBe(true)
+    expect(endState.items[1].followed).toBe(false)
+    expect(initialUsers.items[1].followed).toBe(true)
 })
 
 test('set new users', () => {
     const initialUsers: UsersStateType = {
-        users: [
+        items: [
             {
                 id: '1',
                 followed: true,
+                uniqueUrlName: 'dd',
                 photos: {large: null, small: null},
                 name: 'Bob',
                 status: 'I`am happy',
@@ -93,6 +98,7 @@ test('set new users', () => {
             {
                 id: '2',
                 followed: true,
+                uniqueUrlName: 'dd',
                 photos: {large: null, small: null},
                 name: 'Alex',
                 status: 'I`am very happy',
@@ -103,15 +109,16 @@ test('set new users', () => {
             }
         ],
         pageSize: 6,
-        totalUsersCount: 0,
+        totalCount: 0,
         currentPage: 1,
         isFetching: false
     }
 
-    const users: Array<UsersType> = [
+    const users: Array<ItemsType> = [
         {
             id: '1-2',
             followed: false,
+            uniqueUrlName: 'dd',
             photos: {large: null, small: null},
             name: 'Jay',
             status: 'Not bad',
@@ -123,6 +130,7 @@ test('set new users', () => {
         {
             id: '2-2',
             followed: false,
+            uniqueUrlName: 'dd',
             photos: {large: null, small: null},
             name: 'Jhon',
             status: 'Relax',
@@ -135,17 +143,18 @@ test('set new users', () => {
 
     const endState = usersReducer(initialUsers, setUsers(users))
     
-    expect(endState.users).not.toBe(initialUsers.users)
-    expect(endState.users[0].name).toBe('Jay')
-    expect(endState.users[1].name).toBe('Jhon')
+    expect(endState.items).not.toBe(initialUsers.items)
+    expect(endState.items[0].name).toBe('Jay')
+    expect(endState.items[1].name).toBe('Jhon')
 })
 
 test('set current page', () => {
     const initialUsers: UsersStateType = {
-        users: [
+        items: [
             {
                 id: '1',
                 followed: true,
+                uniqueUrlName: 'dd',
                 photos: {large: null, small: null},
                 name: 'Bob',
                 status: 'I`am happy',
@@ -157,6 +166,7 @@ test('set current page', () => {
             {
                 id: '2',
                 followed: true,
+                uniqueUrlName: 'dd',
                 photos: {large: null, small: null},
                 name: 'Alex',
                 status: 'I`am very happy',
@@ -167,7 +177,7 @@ test('set current page', () => {
             }
         ],
         pageSize: 6,
-        totalUsersCount: 0,
+        totalCount: 0,
         currentPage: 1,
         isFetching: false
     }
@@ -180,10 +190,11 @@ test('set current page', () => {
 
 test('set total users count to page', () => {
     const initialUsers: UsersStateType = {
-        users: [
+        items: [
             {
                 id: '1',
                 followed: true,
+                uniqueUrlName: 'dd',
                 photos: {large: null, small: null},
                 name: 'Bob',
                 status: 'I`am happy',
@@ -195,6 +206,7 @@ test('set total users count to page', () => {
             {
                 id: '2',
                 followed: true,
+                uniqueUrlName: 'dd',
                 photos: {large: null, small: null},
                 name: 'Alex',
                 status: 'I`am very happy',
@@ -205,7 +217,7 @@ test('set total users count to page', () => {
             }
         ],
         pageSize: 6,
-        totalUsersCount: 0,
+        totalCount: 0,
         currentPage: 1,
         isFetching: false
     }
@@ -213,15 +225,16 @@ test('set total users count to page', () => {
     const endState = usersReducer(initialUsers, setTotalUsersCount(7))
 
     expect(endState).not.toBe(initialUsers)
-    expect(endState.totalUsersCount).toBe(7)
+    expect(endState.totalCount).toBe(7)
 })
 
-test('set total users count to page', () => {
+test('set total count to page', () => {
     const initialUsers: UsersStateType = {
-        users: [
+        items: [
             {
                 id: '1',
                 followed: true,
+                uniqueUrlName: 'dd',
                 photos: {large: null, small: null},
                 name: 'Bob',
                 status: 'I`am happy',
@@ -233,6 +246,7 @@ test('set total users count to page', () => {
             {
                 id: '2',
                 followed: true,
+                uniqueUrlName: 'dd',
                 photos: {large: null, small: null},
                 name: 'Alex',
                 status: 'I`am very happy',
@@ -243,7 +257,7 @@ test('set total users count to page', () => {
             }
         ],
         pageSize: 6,
-        totalUsersCount: 0,
+        totalCount: 0,
         currentPage: 1,
         isFetching: false
     }

@@ -14,7 +14,7 @@ export type MessagesRootType = {
     newMessage: string
 }
 
-const initialState: MessagesRootType = {
+const initialState = {
     users: [
         {id: v1(), name: 'Sasha'},
         {id: v1(), name: 'Kate'},

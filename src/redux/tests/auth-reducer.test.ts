@@ -2,9 +2,9 @@ import {setAuthUserData, authReducer, AuthStateType} from '../auth-reducer'
 
 test('auth state should be created', () => {
     const initialState: AuthStateType = {
-        id: null,
-        login: null,
-        email: null,
+        id: 1,
+        login: '',
+        email: '',
         isAuth: false
     }
 

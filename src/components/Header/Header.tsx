@@ -1,13 +1,11 @@
 import React, {FC} from 'react';
 import {AppBar, Box, Button, IconButton, Toolbar, Typography} from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import {AuthType} from '../../redux/auth-reducer';
+import { HeaderContainerType } from './HeaderContainer';
 
-type HeaderType = {
-    auth?: AuthType
-}
+type HeaderType = HeaderContainerType & {}
 
-export const Header: FC<HeaderType> = ({auth}) => {
+export const Header: FC<HeaderType> = (props) => {
     return (
         <Box sx={{flexGrow: 1, mb: '2rem'}}>
             <AppBar position="static">

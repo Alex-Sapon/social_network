@@ -6,15 +6,9 @@ import {Box, Button, FormGroup, List, TextField, Typography} from '@mui/material
 import {blueGrey} from '@mui/material/colors'
 import SendIcon from '@mui/icons-material/Send'
 import styles from './Messages.module.css'
-import { MessagesType, UsersType } from '../../redux/messages-reducer'
+import { MessagesContainerType } from './MessagesContainer'
 
-type MessagesPropsType = {
-    users: Array<UsersType>
-    messages: Array<MessagesType>
-    newMessage: string
-    addMessage: () => void
-    updateMessage: (message: string) => void
-}
+type MessagesPropsType = MessagesContainerType & {}
 
 export const Messages: FC<MessagesPropsType> = (props) => {
     const addMessage = () => props.newMessage.trim() !== '' && props.addMessage()

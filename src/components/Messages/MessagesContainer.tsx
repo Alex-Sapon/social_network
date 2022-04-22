@@ -4,19 +4,23 @@ import {connect} from 'react-redux';
 import {addMessage, MessagesType, updateMessage, UsersType} from '../../redux/messages-reducer'
 import {Messages} from './Messages';
 
-type MessagesContainerType = {
+type MapStatePropsType = {
     users: Array<UsersType>
     messages: Array<MessagesType>
     newMessage: string
+}
+type MapDispatchPropsType = {
     addMessage: () => void
     updateMessage: (message: string) => void
 }
+
+export type MessagesContainerType = MapStatePropsType & MapDispatchPropsType
 
 const MessagesContainer = (props: MessagesContainerType) => {
     return <Messages {...props}/>
 }
 
-const mapStateToProps = (state: RootStateType) => {
+const mapStateToProps = (state: RootStateType): MapStatePropsType => {
     return {
         messages: state.messagesPage.messages,
         newMessage: state.messagesPage.newMessage,

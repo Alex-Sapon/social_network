@@ -1,23 +1,20 @@
 export type AuthStateType = {
-    id: number | null
-    login: string | null
-    email: string | null
+    id: number
+    login: string
+    email: string
     isAuth: boolean
-}
-export type AuthType = {
-    auth: AuthStateType
 }
 
 const initialState: AuthStateType = {
-    id: null,
-    login: null,
-    email: null,
+    id: 1,
+    login: '',
+    email: '',
     isAuth: false
 }
 
 export const authReducer = (state: AuthStateType = initialState, action: ActionsType): AuthStateType => {
     switch (action.type) {
-        case 'AUTH-ADD':
+        case 'SET-AUTH-USER':
             return {...state, ...action.payload, isAuth: true}
         default:
             return state
@@ -26,4 +23,4 @@ export const authReducer = (state: AuthStateType = initialState, action: Actions
 
 type ActionsType = ReturnType<typeof setAuthUserData>
 
-export const setAuthUserData = (id: number, login: string, email: string) => ({type: 'AUTH-ADD', payload: {id, login, email}} as const)
+export const setAuthUserData = (id: number, login: string, email: string) => ({type: 'SET-AUTH-USER', payload: {id, login, email}} as const)
