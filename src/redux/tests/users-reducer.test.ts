@@ -31,7 +31,8 @@ test('change status to follow', () => {
         pageSize: 6,
         totalCount: 0,
         currentPage: 1,
-        isFetching: false
+        isFetching: false,
+        followingProgress: [] as Array<string>
     }
 
     const endState = usersReducer(initialUsers, follow('2'))
@@ -71,7 +72,8 @@ test('change status to unfollow', () => {
         pageSize: 6,
         totalCount: 0,
         currentPage: 1,
-        isFetching: false
+        isFetching: false,
+        followingProgress: [] as Array<string>
     }
 
     const endState = usersReducer(initialUsers, unfollow('2'))
@@ -111,7 +113,8 @@ test('set new users', () => {
         pageSize: 6,
         totalCount: 0,
         currentPage: 1,
-        isFetching: false
+        isFetching: false,
+        followingProgress: [] as Array<string>
     }
 
     const users: Array<ItemsType> = [
@@ -179,7 +182,8 @@ test('set current page', () => {
         pageSize: 6,
         totalCount: 0,
         currentPage: 1,
-        isFetching: false
+        isFetching: false,
+        followingProgress: [] as Array<string>
     }
 
     const endState = usersReducer(initialUsers, setCurrentPage(2))
@@ -219,7 +223,8 @@ test('set total users count to page', () => {
         pageSize: 6,
         totalCount: 0,
         currentPage: 1,
-        isFetching: false
+        isFetching: false,
+        followingProgress: [] as Array<string>
     }
 
     const endState = usersReducer(initialUsers, setTotalUsersCount(7))
@@ -259,7 +264,8 @@ test('set total count to page', () => {
         pageSize: 6,
         totalCount: 0,
         currentPage: 1,
-        isFetching: false
+        isFetching: false,
+        followingProgress: [] as Array<string>
     }
 
     const endState = usersReducer(initialUsers, toggleIsFetching(true))

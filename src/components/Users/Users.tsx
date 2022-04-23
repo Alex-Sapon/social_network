@@ -26,13 +26,17 @@ export const Users: FC<UsersTypeProps> = (props) => {
             <List>
                 {props.users.map(user => {
                         const follow = () => {
+                            props.toggleFollowingProgress(true, user.id)
                             usersAPI.followUsers(user.id).then(response => {
                                     response.resultCode === 0 && props.follow(user.id)
+                                    props.toggleFollowingProgress(false, user.id)
                                 })
                         }
                         const unfollow = () => {
+                            props.toggleFollowingProgress(true, user.id)
                             usersAPI.unfollowUsers(user.id).then(response => {
                                     response.resultCode === 0 && props.unfollow(user.id)
+                                    props.toggleFollowingProgress(false, user.id)
                                 })
                         }
 
@@ -44,12 +48,14 @@ export const Users: FC<UsersTypeProps> = (props) => {
                                                 src={user.photos.small !== null ? user.photos.small : userAvatar}
                                                 sx={{mb: '0.5rem'}}/>
                                     </NavLink>
-                                    <FormControlLabel sx={{display: 'block'}} label={user.followed ? 'Unfollow' : 'Follow'}
-                                                      control={
-                                                      <Switch 
-                                                        checked={user.followed} 
-                                                        onChange={user.followed ? unfollow : follow}
-                                                        name="loading" color="success"/>}/>
+                                    <FormControlLabel
+                                        sx={{display: 'block'}}
+                                        disabled={props.followingProgress.some(id => id === user.id)}
+                                        label={user.followed ? 'Unfollow' : 'Follow'}
+                                        control={
+                                            <Switch checked={user.followed} onChange={user.followed ? unfollow : follow}
+                                                    name="loading" color="success"/>}
+                                    />
                                 </ListItemAvatar>
                                 <Card sx={{width: '100%',display: 'flex',padding: '1rem',minHeight: '60px',bgcolor: '#e1f5fe'}}>
                                     <ListItemText primary={user.name} secondary={user.status} sx={{width: '100%'}}/>
