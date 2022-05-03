@@ -1,11 +1,11 @@
-import React, {FC} from 'react'
-import {Avatar, Box, ListItem, Typography} from '@mui/material'
+import React, {FC} from 'react';
+import {Avatar, Box, ListItem, Typography} from '@mui/material';
 import {Preloader} from '../../../common/Preloader/Preloader';
 import {ProfileType} from '../../../redux/profile-reducer';
 
 type DescriptionType = {
     profile: ProfileType
-}
+};
 
 export const Description: FC<DescriptionType> = ({profile}) => {
     return (
@@ -18,4 +18,4 @@ export const Description: FC<DescriptionType> = ({profile}) => {
                 </ListItem>}
         </Box>
     )
-}
+};

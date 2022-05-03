@@ -15,4 +15,4 @@ export const Profile: FC<ProfilePropsType> = ({profile}) => {
             <PostsContainer/>
         </div>
     )
-}
+};

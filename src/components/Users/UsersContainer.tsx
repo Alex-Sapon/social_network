@@ -11,7 +11,7 @@ import {
     ItemsType, toggleFollowingProgress
 } from '../../redux/users-reducer';
 import {RootStateType} from '../../redux/redux-store';
-import {usersAPI} from '../../API/api'
+import {usersAPI} from '../../API/api';
 
 type MapStatePropsType = {
     users: ItemsType[]
@@ -54,7 +54,7 @@ class UsersContainer extends React.Component<UsersContainerType> {
     render() {
         return <Users {...this.props} onChangePage={this.onChangePage}/>
     }
-}
+};
 
 const mapStateToProps = (state: RootStateType): MapStatePropsType => ({
         users: state.usersPage.items,
@@ -62,9 +62,9 @@ const mapStateToProps = (state: RootStateType): MapStatePropsType => ({
         totalUsersCount: state.usersPage.totalCount,
         currentPage: state.usersPage.currentPage,
         isFetching: state.usersPage.isFetching,
-        followingProgress: state.usersPage.followingProgress
+        followingProgress: state.usersPage.followingProgress,
     }
-)
+);
 
 export default connect(mapStateToProps, {
     follow,
@@ -74,5 +74,5 @@ export default connect(mapStateToProps, {
     setTotalUsersCount,
     toggleIsFetching,
     toggleFollowingProgress
-})(UsersContainer)
+})(UsersContainer);
 

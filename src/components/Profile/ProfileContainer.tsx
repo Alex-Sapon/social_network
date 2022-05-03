@@ -1,19 +1,19 @@
 import React, {useEffect} from 'react';
-import {Profile} from './Profile'
+import {Profile} from './Profile';
 import {connect} from 'react-redux';
-import {ProfileType, setProfile} from '../../redux/profile-reducer'
+import {ProfileType, setProfile} from '../../redux/profile-reducer';
 import {RootStateType} from '../../redux/redux-store';
 import {useParams} from 'react-router';
 import {usersAPI} from '../../API/api';
 
 type MapStatePropsType = {
     profile: ProfileType
-}
+};
 type MapDispatchPropsType = {
     setProfile: (profile: ProfileType) => void
-}
+};
 
-export type ProfileContainerType = MapStatePropsType & MapDispatchPropsType
+export type ProfileContainerType = MapStatePropsType & MapDispatchPropsType;
 
 const ProfileContainer = (props: ProfileContainerType) => {
     const params = useParams<'id'>()
@@ -26,11 +26,11 @@ const ProfileContainer = (props: ProfileContainerType) => {
     }, [id])
 
     return <Profile {...props}/>
-}
+};
 
 const mapStateToProps = (state: RootStateType): MapStatePropsType => ({
     profile: state.profilePage.profile
-})
+});
 
 export default connect(mapStateToProps, {setProfile})(ProfileContainer);
 
