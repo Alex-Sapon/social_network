@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import {ProfileType, setProfile} from '../../redux/profile-reducer'
 import {RootStateType} from '../../redux/redux-store';
 import {useParams} from 'react-router';
-import { usersAPI } from '../../API/api';
+import {usersAPI} from '../../API/api';
 
 type MapStatePropsType = {
     profile: ProfileType
@@ -18,12 +18,11 @@ export type ProfileContainerType = MapStatePropsType & MapDispatchPropsType
 const ProfileContainer = (props: ProfileContainerType) => {
     const params = useParams<'id'>()
     const id = params.id || '2'
-    console.log(params.id)
 
     useEffect(() => {
         usersAPI.setProfile(id).then(response => {
-                props.setProfile(response)
-            })
+            props.setProfile(response)
+        })
     }, [id])
 
     return <Profile {...props}/>
@@ -34,6 +33,8 @@ const mapStateToProps = (state: RootStateType): MapStatePropsType => ({
 })
 
 export default connect(mapStateToProps, {setProfile})(ProfileContainer);
+
+
 
 
 
