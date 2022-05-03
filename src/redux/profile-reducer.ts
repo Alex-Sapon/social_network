@@ -1,15 +1,17 @@
-import {v1} from 'uuid'
+import {v1} from 'uuid';
+import {Dispatch} from 'react';
+import {usersAPI} from '../API/api';
 
 type PostType = {
     id: string
     message: string
     likesCount: number
-}
+};
 export type RootProfileState = {
     posts: Array<PostType>
     newPost: string
     profile: ProfileType
-}
+};
 export type ProfileType = {
     aboutMe: string
     contacts: {
@@ -30,7 +32,7 @@ export type ProfileType = {
         small: string
         large: string
     }
-}
+};
 
 const initialState: RootProfileState = {
     posts: [
@@ -40,31 +42,47 @@ const initialState: RootProfileState = {
         {id: v1(), message: 'I learn English every day.', likesCount: 3},
     ],
     newPost: '',
-    profile: {} as ProfileType
-}
+    profile: {} as ProfileType,
+};
 
-type InitialStateType = typeof initialState
+type InitialStateType = typeof initialState;
 
 export const profileReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
         case 'UPDATE-POST':
-            return {...state, newPost: action.newPost}
+            return {...state, newPost: action.payload.newPost};
         case 'ADD-POST':
-            return {...state, posts: [...state.posts, {id: v1(), message: state.newPost, likesCount: 0}], newPost: ''}
+            return {...state, posts: [...state.posts, {id: v1(), message: state.newPost, likesCount: 0}], newPost: ''};
         case 'SET-PROFILE':
-            return {...state, profile: action.profile}
+            return {...state, profile: action.payload.profile};
         default:
-            return state
+            return state;
     }
+};
+
+export type ActionsType = ReturnType<typeof addPost> | ReturnType<typeof updatePost>
+    | ReturnType<typeof setUserProfile>;
+
+export const addPost = () => ({type: 'ADD-POST'}) as const;
+export const updatePost = (newPost: string) => ({
+    type: 'UPDATE-POST',
+    payload: {
+        newPost,
+    },
+}) as const;
+export const setUserProfile = (profile: ProfileType) => ({
+    type: 'SET-PROFILE',
+    payload: {
+        profile,
+    },
+}) as const;
+
+
+export const getUserProfile = (userID: string) => (dispatch: Dispatch<ActionsType>) => {
+    usersAPI.getProfile(userID).then(response => {
+        dispatch(setUserProfile(response));
+    })
 }
-
-type ActionsType = ReturnType<typeof addPost> | ReturnType<typeof updatePost> | ReturnType<typeof setProfile>
-
-export const addPost = () => ({type: 'ADD-POST'} as const)
-export const updatePost = (newPost: string) => ({type: 'UPDATE-POST', newPost} as const)
-export const setProfile = (profile: ProfileType) => ({type: 'SET-PROFILE', profile} as const)
-
-
 
 
 

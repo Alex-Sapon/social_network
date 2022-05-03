@@ -1,5 +1,5 @@
 import { v1 } from "uuid"
-import {addPost, profileReducer, ProfileType, RootProfileState, setProfile, updatePost} from '../profile-reducer'
+import {addPost, profileReducer, ProfileType, RootProfileState, setUserProfile, updatePost} from '../profile-reducer'
 
 test('text of post should be updated', () => {
     const initialState: RootProfileState = {
@@ -69,7 +69,7 @@ test('current profile should be added', () => {
         }
     }
 
-    const endState = profileReducer(initialState, setProfile(profile))
+    const endState = profileReducer(initialState, setUserProfile(profile))
 
     const keys = Object.keys(profile)
 

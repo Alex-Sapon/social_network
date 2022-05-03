@@ -1,14 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {Users} from './Users';
-import {
-    toggleIsFetching,
-    ItemsType,
-    toggleFollowingProgress,
-    getUser,
-    follow,
-    unfollow
-} from '../../redux/users-reducer';
+import {toggleIsFetching, ItemsType, getUser, follow, unfollow} from '../../redux/users-reducer';
 import {RootStateType} from '../../redux/redux-store';
 
 type MapStatePropsType = {
@@ -21,7 +14,6 @@ type MapStatePropsType = {
 }
 type MapDispatchPropsType = {
     toggleIsFetching: (isFetching: boolean) => void
-    toggleFollowingProgress: (isFetching: boolean, id: string) => void
     getUser: (currentPage: number, pageSize: number) => void
     follow: (userID: string) => void
     unfollow: (userID: string) => void
@@ -52,8 +44,5 @@ const mapStateToProps = (state: RootStateType): MapStatePropsType => ({
     }
 );
 
-export default connect(mapStateToProps, {
-    toggleIsFetching, toggleFollowingProgress, getUser,
-    follow, unfollow,
-})(UsersContainer);
+export default connect(mapStateToProps, {toggleIsFetching, getUser, follow, unfollow})(UsersContainer);
 

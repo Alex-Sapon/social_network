@@ -1,40 +1,36 @@
-import React, {useEffect} from 'react'
-import {connect} from 'react-redux'
-import {setAuthUserData} from '../../redux/auth-reducer'
-import {RootStateType} from '../../redux/redux-store'
-import {Header} from './Header'
-import { usersAPI } from '../../API/api'
+import React, {FC, useEffect} from 'react';
+import {connect} from 'react-redux';
+import {RootStateType} from '../../redux/redux-store';
+import {Header} from './Header';
+import {getAuthUserData} from '../../redux/auth-reducer';
 
-type MapDispatchPropsType = {
-    setAuthUserData: (id: number, login: string, email: string) => void
-}
 type MapStatePropsType = {
     id: number | null
     login: string | null
     email: string | null
     isAuth: boolean
-}
+};
+type MapDispatchPropsType = {
+    getAuthUserData: () => void
+};
 
 export type HeaderContainerType = MapStatePropsType & MapDispatchPropsType
 
-const HeaderContainer = (props: HeaderContainerType) => {
+const HeaderContainer: FC<HeaderContainerType> = props => {
+    const {getAuthUserData} = props;
+
     useEffect(() => {
-        usersAPI.setAuthUser().then(response => {
-                if (response.data.resultCode === 0) {
-                    const {id, login, email} = response.data.data
-                    props.setAuthUserData(id, login, email)
-                }
-            })
-    }, [])
+        getAuthUserData();
+    }, [getAuthUserData]);
 
     return <Header {...props}/>
-}
+};
 
 const mapStateToProps = (state: RootStateType): MapStatePropsType => ({
     id: state.auth.id,
     login: state.auth.login,
     email: state.auth.email,
-    isAuth: state.auth.isAuth
-})
+    isAuth: state.auth.isAuth,
+});
 
-export default connect(mapStateToProps, {setAuthUserData})(HeaderContainer)
+export default connect(mapStateToProps, {getAuthUserData})(HeaderContainer);

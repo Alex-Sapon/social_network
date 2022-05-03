@@ -5,7 +5,7 @@ import {ProfileType} from '../../../redux/profile-reducer';
 
 type DescriptionType = {
     profile: ProfileType
-};
+}
 
 export const Description: FC<DescriptionType> = ({profile}) => {
     return (

@@ -1,41 +1,25 @@
-import React, {useEffect} from 'react';
+import React, {FC, useEffect} from 'react';
 import {Profile} from './Profile';
-import {connect} from 'react-redux';
-import {ProfileType, setProfile} from '../../redux/profile-reducer';
-import {RootStateType} from '../../redux/redux-store';
 import {useParams} from 'react-router';
-import {usersAPI} from '../../API/api';
+import {useDispatch, useSelector} from 'react-redux';
+import {getUserProfile, ProfileType} from '../../redux/profile-reducer';
+import {RootStateType} from '../../redux/redux-store';
 
-type MapStatePropsType = {
-    profile: ProfileType
-};
-type MapDispatchPropsType = {
-    setProfile: (profile: ProfileType) => void
-};
+const ProfileContainer: FC = () => {
+    const dispatch = useDispatch();
+    const profile = useSelector<RootStateType, ProfileType>(state => state.profilePage.profile);
 
-export type ProfileContainerType = MapStatePropsType & MapDispatchPropsType;
-
-const ProfileContainer = (props: ProfileContainerType) => {
-    const params = useParams<'id'>()
-    const id = params.id || '2'
+    const params = useParams<'id'>();
+    const userID = params.id || '2';
 
     useEffect(() => {
-        usersAPI.setProfile(id).then(response => {
-            props.setProfile(response)
-        })
-    }, [props.setProfile, id])
+        dispatch(getUserProfile(userID));
+    }, [getUserProfile, userID]);
 
-    return <Profile {...props}/>
+    return <Profile profile={profile}/>
 };
 
-const mapStateToProps = (state: RootStateType): MapStatePropsType => ({
-    profile: state.profilePage.profile
-});
-
-export default connect(mapStateToProps, {setProfile})(ProfileContainer);
-
-
-
+export default ProfileContainer;
 
 
 
