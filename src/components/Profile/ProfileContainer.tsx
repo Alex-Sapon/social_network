@@ -23,7 +23,7 @@ const ProfileContainer = (props: ProfileContainerType) => {
         usersAPI.setProfile(id).then(response => {
             props.setProfile(response)
         })
-    }, [id])
+    }, [props.setProfile, id])
 
     return <Profile {...props}/>
 };

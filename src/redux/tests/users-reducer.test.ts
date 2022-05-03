@@ -1,4 +1,15 @@
-import {follow, setCurrentPage, setTotalUsersCount, setUsers, toggleIsFetching, unfollow, usersReducer, UsersStateType, ItemsType} from '../users-reducer'
+import {
+    follow,
+    setCurrentPage,
+    setTotalUsersCount,
+    setUsers,
+    toggleIsFetching,
+    unfollow,
+    usersReducer,
+    UsersStateType,
+    ItemsType,
+    followSuccess, unfollowSuccess
+} from '../users-reducer'
 
 test('change status to follow', () => {
     const initialUsers: UsersStateType = {
@@ -35,7 +46,7 @@ test('change status to follow', () => {
         followingProgress: [] as Array<string>
     }
 
-    const endState = usersReducer(initialUsers, follow('2'))
+    const endState = usersReducer(initialUsers, followSuccess('2'))
 
     expect(endState.items[1].followed).toBe(true)
     expect(initialUsers.items[1].followed).toBe(false)
@@ -76,7 +87,7 @@ test('change status to unfollow', () => {
         followingProgress: [] as Array<string>
     }
 
-    const endState = usersReducer(initialUsers, unfollow('2'))
+    const endState = usersReducer(initialUsers, unfollowSuccess('2'))
 
     expect(endState.items[1].followed).toBe(false)
     expect(initialUsers.items[1].followed).toBe(true)

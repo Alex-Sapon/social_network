@@ -1,4 +1,3 @@
-import {usersAPI} from '../../../API/api';
 import {Avatar, Card, FormControlLabel, ListItem, ListItemAvatar, ListItemText, Switch} from '@mui/material';
 import {NavLink} from 'react-router-dom';
 import userAvatar from '../../../assets/img/avatar/avatar.jpg';
@@ -7,27 +6,16 @@ import {ItemsType} from '../../../redux/users-reducer';
 
 type UserType = {
     user: ItemsType
-    follow: (userId: string) => void
-    unfollow: (userId: string) => void
     followingProgress: Array<string>
-    toggleFollowingProgress: (isFetching: boolean, id: string) => void
+    follow: (userID: string) => void
+    unfollow: (userID: string) => void
 }
 
 export const User: FC<UserType> = props => {
-    const {user, follow, unfollow, followingProgress, toggleFollowingProgress} = props;
+    const {user, followingProgress, follow, unfollow} = props;
 
-    const followHandler = () => {
-        toggleFollowingProgress(true, user.id);
-        usersAPI.followUsers(user.id).then(response => {response.resultCode === 0 && follow(user.id)
-            toggleFollowingProgress(false, user.id)
-        });
-    };
-    const unfollowHandler = () => {
-        toggleFollowingProgress(true, user.id);
-        usersAPI.unfollowUsers(user.id).then(response => {response.resultCode === 0 && unfollow(user.id)
-            toggleFollowingProgress(false, user.id);
-        });
-    };
+    const followHandler = () => follow(user.id);
+    const unfollowHandler = () => unfollow(user.id);
 
     return (
         <ListItem alignItems="flex-start">
@@ -42,9 +30,10 @@ export const User: FC<UserType> = props => {
                     disabled={followingProgress.some(id => id === user.id)}
                     label={user.followed ? 'Unfollow' : 'Follow'}
                     control={
-                        <Switch checked={user.followed} onChange={user.followed ? unfollowHandler : followHandler}
-                                name="loading" color="success"/>}
-                />
+                        <Switch
+                            checked={user.followed}
+                            onChange={user.followed ? unfollowHandler : followHandler}
+                            name="loading" color="success"/>}/>
             </ListItemAvatar>
             <Card sx={{width: '100%', display: 'flex', padding: '1rem', minHeight: '60px', bgcolor: '#e1f5fe'}}>
                 <ListItemText primary={user.name} secondary={user.status} sx={{width: '100%'}}/>
