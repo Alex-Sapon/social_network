@@ -14,13 +14,7 @@ type UserType = {
 }
 
 export const User: FC<UserType> = props => {
-    const {
-        user,
-        follow,
-        unfollow,
-        followingProgress,
-        toggleFollowingProgress,
-    } = props;
+    const {user, follow, unfollow, followingProgress, toggleFollowingProgress} = props;
 
     const followHandler = () => {
         toggleFollowingProgress(true, user.id);

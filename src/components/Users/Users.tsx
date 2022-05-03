@@ -22,7 +22,7 @@ export const Users: FC<UsersTypeProps> = props => {
         followingProgress,
     } = props;
 
-    const onChangePageHandler = (e: ChangeEvent<unknown>, page: number) => onChangePage(page)
+    const onChangePageHandler = (e: ChangeEvent<unknown>, page: number) => onChangePage(page);
 
     return (
         <div>

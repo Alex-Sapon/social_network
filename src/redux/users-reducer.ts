@@ -1,3 +1,6 @@
+import {usersAPI} from '../API/api';
+import {Dispatch} from 'react';
+
 type AddressType = {
     country: string
     city: string
@@ -102,3 +105,14 @@ export const toggleFollowingProgress = (isFetching: boolean, id: string) => ({
         id,
     },
 }) as const;
+
+export const getUsers = (currentPage: number, pageSize: number) => {
+    return (dispatch: Dispatch<ActionsType>) => {
+        dispatch(toggleIsFetching(true));
+        usersAPI.getUsers(currentPage, pageSize).then(response => {
+            dispatch(toggleIsFetching(false));
+            dispatch(setUsers(response.items));
+            dispatch(setTotalUsersCount(response.totalCount));
+        })
+    };
+};
