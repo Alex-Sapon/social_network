@@ -42,4 +42,4 @@ export const getAuthUserData = () => (dispatch: Dispatch<ActionsType>) => {
             dispatch(setAuthUserData(id, login, email));
         }
     });
-}
+};

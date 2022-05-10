@@ -5,7 +5,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {getUserProfile, ProfileType} from '../../redux/profile-reducer';
 import {RootStateType} from '../../redux/redux-store';
 
-const ProfileContainer: FC = () => {
+export const ProfileContainer: FC = () => {
     const dispatch = useDispatch();
     const profile = useSelector<RootStateType, ProfileType>(state => state.profilePage.profile);
 
@@ -18,8 +18,6 @@ const ProfileContainer: FC = () => {
 
     return <Profile profile={profile}/>
 };
-
-export default ProfileContainer;
 
 
 

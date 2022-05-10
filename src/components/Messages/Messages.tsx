@@ -1,30 +1,42 @@
-import React, {FC, KeyboardEvent, ChangeEvent} from 'react'
-import Message from './Message/Message'
-import Dialog from './Dialog/Dialog'
+import React, {ChangeEvent, FC, KeyboardEvent} from 'react';
+import Message from './Message/Message';
+import Dialog from './Dialog/Dialog';
 
-import {Box, Button, FormGroup, List, TextField, Typography} from '@mui/material'
-import {blueGrey} from '@mui/material/colors'
-import SendIcon from '@mui/icons-material/Send'
-import styles from './Messages.module.css'
-import { MessagesContainerType } from './MessagesContainer'
+import {Box, Button, FormGroup, List, TextField, Typography} from '@mui/material';
+import {blueGrey} from '@mui/material/colors';
+import SendIcon from '@mui/icons-material/Send';
+import styles from './Messages.module.css';
+import {MessageType, UsersType} from '../../redux/messages-reducer';
+import {useDispatch} from 'react-redux';
 
-type MessagesPropsType = MessagesContainerType & {}
+type MessagesPropsType = {
+    messages: Array<MessageType>
+    newMessage: string
+    users: Array<UsersType>
+    addMessage: () => void
+    updateMessage: (newMessage: string) => void
+};
 
-export const Messages: FC<MessagesPropsType> = (props) => {
-    const addMessage = () => props.newMessage.trim() !== '' && props.addMessage()
-    const keyPressHandler = (e: KeyboardEvent<HTMLDivElement>) => e.key === 'Enter' && props.addMessage()
-    const onMessageChange = (e: ChangeEvent<HTMLInputElement>) => props.updateMessage(e.currentTarget.value)
+export const Messages: FC<MessagesPropsType> = props => {
+    const {messages, newMessage, users, addMessage, updateMessage} = props;
+    const dispatch = useDispatch();
+
+    const addMessageHandler = () => newMessage.trim() !== '' && dispatch(addMessage());
+    const keyPressHandler = (e: KeyboardEvent<HTMLDivElement>) => {
+        e.key === 'Enter' && newMessage.trim() !== '' && dispatch(addMessage());
+    };
+    const onMessageChange = (e: ChangeEvent<HTMLInputElement>) => dispatch(updateMessage(e.currentTarget.value));
 
     return (
         <Box className={styles.dialogs}>
             <List>
                 <Typography sx={{fontSize: '1.5rem'}}>Your friends</Typography>
-                {props.users.map(user =>
+                {users.map(user =>
                     <Dialog key={user.id} id={user.id} name={user.name}/>
                 )}
             </List>
             <FormGroup sx={{padding: '20px'}}>
-                {props.messages.map(text =>
+                {messages.map(text =>
                     <Message key={text.id} message={text.message}/>
                 )}
                 <TextField
@@ -35,7 +47,7 @@ export const Messages: FC<MessagesPropsType> = (props) => {
                     fullWidth
                     sx={{mb: '1rem'}}/>
                 <Button
-                    onClick={addMessage}
+                    onClick={addMessageHandler}
                     size="small"
                     variant="contained"
                     sx={{
@@ -51,4 +63,4 @@ export const Messages: FC<MessagesPropsType> = (props) => {
             </FormGroup>
         </Box>
     )
-}
+};

@@ -1,20 +1,20 @@
-import {v1} from 'uuid'
+import {v1} from 'uuid';
 
 export type UsersType = {
     id: string
     name: string
-}
-export type MessagesType = {
+};
+export type MessageType = {
     id: string
     message: string
-}
-export type MessagesRootType = {
+};
+export type MessagesType = {
     users: Array<UsersType>
-    messages: Array<MessagesType>
+    messages: Array<MessageType>
     newMessage: string
-}
+};
 
-const initialState = {
+const initialState: MessagesType = {
     users: [
         {id: v1(), name: 'Sasha'},
         {id: v1(), name: 'Kate'},
@@ -30,22 +30,22 @@ const initialState = {
         {id: v1(), message: 'Buy, Sasha!'}
     ],
     newMessage: ''
-}
+};
 
-type InitialMessagesType = typeof initialState
+type InitialMessagesType = typeof initialState;
 
 export const messagesReducer = (state: InitialMessagesType = initialState, action: ActionsType): InitialMessagesType => {
     switch (action.type) {
         case 'UPDATE-NEW-MESSAGE':
-            return {...state, newMessage: action.newMessage}
+            return {...state, newMessage: action.newMessage};
         case 'ADD-MESSAGE':
-            return {...state, messages: [...state.messages, {id: v1(), message: state.newMessage}], newMessage: ''}
+            return {...state, messages: [...state.messages, {id: v1(), message: state.newMessage}], newMessage: ''};
         default:
-            return state
+            return state;
     }
-}
+};
 
-type ActionsType = ReturnType<typeof addMessage> | ReturnType<typeof updateMessage>
+type ActionsType = ReturnType<typeof addMessage> | ReturnType<typeof updateMessage>;
 
 export const addMessage = () => ({type: 'ADD-MESSAGE'} as const);
 export const updateMessage = (newMessage: string) => ({type: 'UPDATE-NEW-MESSAGE', newMessage} as const);

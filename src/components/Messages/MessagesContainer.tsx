@@ -1,31 +1,18 @@
 import {RootStateType} from '../../redux/redux-store';
-import {connect} from 'react-redux';
-
-import {addMessage, MessagesType, updateMessage, UsersType} from '../../redux/messages-reducer'
+import {useSelector} from 'react-redux';
+import {addMessage, MessagesType, updateMessage} from '../../redux/messages-reducer';
 import {Messages} from './Messages';
 
-type MapStatePropsType = {
-    users: Array<UsersType>
-    messages: Array<MessagesType>
-    newMessage: string
-}
-type MapDispatchPropsType = {
-    addMessage: () => void
-    updateMessage: (message: string) => void
-}
+export const MessagesContainer = () => {
+    const {messages, newMessage, users} = useSelector<RootStateType, MessagesType>(state => state.messagesPage);
 
-export type MessagesContainerType = MapStatePropsType & MapDispatchPropsType
-
-const MessagesContainer = (props: MessagesContainerType) => {
-    return <Messages {...props}/>
-}
-
-const mapStateToProps = (state: RootStateType): MapStatePropsType => {
-    return {
-        messages: state.messagesPage.messages,
-        newMessage: state.messagesPage.newMessage,
-        users: state.messagesPage.users
-    }
-}
-
-export default connect(mapStateToProps, {addMessage, updateMessage})(MessagesContainer)
+    return (
+        <Messages
+            messages={messages}
+            newMessage={newMessage}
+            users={users}
+            addMessage={addMessage}
+            updateMessage={updateMessage}
+        />
+    )
+};

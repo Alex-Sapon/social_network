@@ -1,8 +1,8 @@
-import { v1 } from "uuid"
-import {addMessage, messagesReducer, MessagesRootType, updateMessage} from '../messages-reducer'
+import {v1} from 'uuid';
+import {addMessage, messagesReducer, MessagesType, updateMessage} from '../messages-reducer';
 
 test('new message should be added', () => {
-    const initialState: MessagesRootType = {
+    const initialState: MessagesType = {
         users: [
             {id: v1(), name: 'Sasha'},
             {id: v1(), name: 'Kate'},
@@ -20,7 +20,7 @@ test('new message should be added', () => {
         newMessage: ''
     }
 
-    const endState = messagesReducer(initialState, addMessage()) 
+    const endState = messagesReducer(initialState, addMessage())
 
     expect(endState.messages.length).toBe(6)
     expect(endState.messages[5].message).toBe('')
@@ -28,7 +28,7 @@ test('new message should be added', () => {
 })
 
 test('', () => {
-    const initialState: MessagesRootType = {
+    const initialState: MessagesType = {
         users: [
             {id: v1(), name: 'Sasha'},
             {id: v1(), name: 'Kate'},
