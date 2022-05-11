@@ -32,9 +32,7 @@ const initialState: MessagesType = {
     newMessage: ''
 };
 
-type InitialMessagesType = typeof initialState;
-
-export const messagesReducer = (state: InitialMessagesType = initialState, action: ActionsType): InitialMessagesType => {
+export const messagesReducer = (state: MessagesType = initialState, action: ActionsType): MessagesType => {
     switch (action.type) {
         case 'UPDATE-NEW-MESSAGE':
             return {...state, newMessage: action.newMessage};
@@ -47,5 +45,5 @@ export const messagesReducer = (state: InitialMessagesType = initialState, actio
 
 type ActionsType = ReturnType<typeof addMessage> | ReturnType<typeof updateMessage>;
 
-export const addMessage = () => ({type: 'ADD-MESSAGE'} as const);
-export const updateMessage = (newMessage: string) => ({type: 'UPDATE-NEW-MESSAGE', newMessage} as const);
+export const addMessage = () => ({type: 'ADD-MESSAGE'}) as const;
+export const updateMessage = (newMessage: string) => ({type: 'UPDATE-NEW-MESSAGE', newMessage}) as const;

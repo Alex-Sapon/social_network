@@ -33,12 +33,12 @@ export const setAuthUserData = (id: number, login: string, email: string) => ({
         login,
         email
     }
-} as const);
+}) as const;
 
 export const getAuthUserData = () => (dispatch: Dispatch<ActionsType>) => {
     authAPI.getAuthUser().then(response => {
-        if (response.data.resultCode === 0) {
-            const {id, login, email} = response.data.data;
+        if (response.resultCode === 0) {
+            const {id, login, email} = response.data;
             dispatch(setAuthUserData(id, login, email));
         }
     });

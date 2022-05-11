@@ -4,17 +4,24 @@ import {useParams} from 'react-router';
 import {useDispatch, useSelector} from 'react-redux';
 import {getUserProfile, ProfileType} from '../../redux/profile-reducer';
 import {RootStateType} from '../../redux/redux-store';
+import {useNavigate} from 'react-router-dom';
 
 export const ProfileContainer: FC = () => {
-    const dispatch = useDispatch();
     const profile = useSelector<RootStateType, ProfileType>(state => state.profilePage.profile);
+    const isAuth = useSelector<RootStateType, boolean>(state => state.auth.isAuth);
+    const dispatch = useDispatch();
+
+    const navigate = useNavigate();
 
     const params = useParams<'id'>();
     const userID = params.id || '2';
 
     useEffect(() => {
+        if (!isAuth) {
+            navigate('/login');
+        };
         dispatch(getUserProfile(userID));
-    }, [getUserProfile, userID]);
+    }, [isAuth]);
 
     return <Profile profile={profile}/>
 };

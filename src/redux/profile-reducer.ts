@@ -7,11 +7,6 @@ type PostType = {
     message: string
     likesCount: number
 };
-export type RootProfileState = {
-    posts: Array<PostType>
-    newPost: string
-    profile: ProfileType
-};
 export type ProfileType = {
     aboutMe: string
     contacts: {
@@ -33,8 +28,13 @@ export type ProfileType = {
         large: string
     }
 };
+export type RootProfileType = {
+    posts: Array<PostType>
+    newPost: string
+    profile: ProfileType
+};
 
-const initialState: RootProfileState = {
+const initialState: RootProfileType = {
     posts: [
         {id: v1(), message: 'It\'s my first Post', likesCount: 3},
         {id: v1(), message: 'Hi, how are you?', likesCount: 4},
@@ -45,9 +45,7 @@ const initialState: RootProfileState = {
     profile: {} as ProfileType,
 };
 
-type InitialStateType = typeof initialState;
-
-export const profileReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
+export const profileReducer = (state: RootProfileType = initialState, action: ActionsType): RootProfileType => {
     switch (action.type) {
         case 'UPDATE-POST':
             return {...state, newPost: action.payload.newPost};

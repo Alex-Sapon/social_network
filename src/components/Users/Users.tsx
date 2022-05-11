@@ -30,13 +30,14 @@ export const Users: FC<UsersTypeProps> = props => {
             </Stack>
             {isFetching && <Preloader className={styles.preloader} stylePreloader={styles.preloader}/>}
             <List>
-                {users.map(user => <User
-                    key={user.id}
-                    user={user}
-                    followingProgress={followingProgress}
-                    follow={follow}
-                    unfollow={unfollow}
-                />)}
+                {users.map(user =>
+                    <User
+                        key={user.id}
+                        user={user}
+                        followingProgress={followingProgress}
+                        follow={follow}
+                        unfollow={unfollow}
+                    />)}
             </List>
         </div>
     );

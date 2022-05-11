@@ -36,9 +36,7 @@ export const Messages: FC<MessagesPropsType> = props => {
                 )}
             </List>
             <FormGroup sx={{padding: '20px'}}>
-                {messages.map(text =>
-                    <Message key={text.id} message={text.message}/>
-                )}
+                {messages.map(text => <Message key={text.id} message={text.message}/>)}
                 <TextField
                     size={'small'}
                     value={props.newMessage}

@@ -1,8 +1,23 @@
-import { v1 } from "uuid"
-import {addPost, profileReducer, ProfileType, RootProfileState, setUserProfile, updatePost} from '../profile-reducer'
+import {v1} from 'uuid';
+import {addPost, profileReducer, ProfileType, RootProfileType, setUserProfile, updatePost} from '../profile-reducer';
+
+let startState: RootProfileType;
+
+beforeEach(() => {
+    startState = {
+        posts: [
+            {id: v1(), message: 'It\'s my first Post', likesCount: 3},
+            {id: v1(), message: 'Hi, how are you?', likesCount: 4},
+            {id: v1(), message: 'I want to learn React and TypeScript.', likesCount: 5},
+            {id: v1(), message: 'I learn English every day.', likesCount: 3},
+        ],
+        newPost: '',
+        profile: {} as ProfileType
+    }
+})
 
 test('text of post should be updated', () => {
-    const initialState: RootProfileState = {
+    const initialState: RootProfileType = {
         posts: [
             {id: v1(), message: 'It\'s my first Post', likesCount: 3},
             {id: v1(), message: 'Hi, how are you?', likesCount: 4},
@@ -13,13 +28,13 @@ test('text of post should be updated', () => {
         profile: {} as ProfileType
     }
 
-    const endState = profileReducer(initialState, updatePost('Update is success'))
+    const endState = profileReducer(initialState, updatePost('Update is success'));
 
-    expect(endState.newPost).toBe('Update is success')
+    expect(endState.newPost).toBe('Update is success');
 })
 
 test('new post should be added', () => {
-    const initialState: RootProfileState = {
+    const initialState: RootProfileType = {
         posts: [
             {id: v1(), message: 'It\'s my first Post', likesCount: 3},
             {id: v1(), message: 'Hi, how are you?', likesCount: 4},
@@ -30,13 +45,13 @@ test('new post should be added', () => {
         profile: {} as ProfileType
     }
 
-    const endState = profileReducer(initialState, addPost())
+    const endState = profileReducer(initialState, addPost());
 
-    expect(endState.posts.length).toBe(5)
+    expect(endState.posts.length).toBe(5);
 })
 
 test('current profile should be added', () => {
-    const initialState: RootProfileState = {
+    const initialState: RootProfileType = {
         posts: [
             {id: v1(), message: 'It\'s my first Post', likesCount: 3},
             {id: v1(), message: 'Hi, how are you?', likesCount: 4},
@@ -75,5 +90,5 @@ test('current profile should be added', () => {
 
     expect(keys.length).toBe(7)
     expect(endState.profile.fullName).toBe('Bob')
-    expect(endState.profile.photos.small).toBe('non')  
+    expect(endState.profile.photos.small).toBe('non')
 })
