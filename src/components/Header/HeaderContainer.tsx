@@ -1,13 +1,13 @@
 import React, {FC, useEffect} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
-import {RootStateType} from '../../redux/redux-store';
 import {Header} from './Header';
-import {AuthStateType, getAuthUserData} from '../../redux/auth-reducer';
+import {getAuthUserData} from '../../redux/auth-reducer';
 import {useNavigate} from 'react-router-dom';
+import {useAppSelector} from '../../redux/hooks';
+import {useDispatch} from 'react-redux';
 
 export const HeaderContainer: FC = () => {
-    const auth = useSelector<RootStateType, AuthStateType>(state => state.auth);
-    const isAuth = useSelector<RootStateType, boolean>(state => state.auth.isAuth);
+    const auth = useAppSelector(state => state.auth);
+    const isAuth = useAppSelector(state => state.auth.isAuth);
     const dispatch = useDispatch();
 
     const navigate = useNavigate();

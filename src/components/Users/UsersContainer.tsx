@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {Users} from './Users';
 import {toggleIsFetching, ItemsType, getUser, follow, unfollow} from '../../redux/users-reducer';
-import {RootStateType} from '../../redux/redux-store';
+import {AppStateType} from '../../redux/redux-store';
 
 type MapStatePropsType = {
     users: ItemsType[]
@@ -34,7 +34,7 @@ class UsersContainer extends React.Component<UsersContainerType> {
     }
 };
 
-const mapStateToProps = (state: RootStateType): MapStatePropsType => ({
+const mapStateToProps = (state: AppStateType): MapStatePropsType => ({
         users: state.usersPage.items,
         pageSize: state.usersPage.pageSize,
         totalUsersCount: state.usersPage.totalCount,

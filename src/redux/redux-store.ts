@@ -5,7 +5,7 @@ import {messagesReducer} from './messages-reducer';
 import {usersReducer} from './users-reducer';
 import {authReducer} from './auth-reducer';
 
-export type RootStateType = ReturnType<typeof rootReducer>;
+export type AppStateType = ReturnType<typeof rootReducer>;
 
 const rootReducer = combineReducers({
     profilePage: profileReducer,
@@ -15,6 +15,8 @@ const rootReducer = combineReducers({
 });
 
 export const store = createStore(rootReducer, applyMiddleware(thunkMiddleware));
+
+export type AppDispatch = typeof store.dispatch;
 
 // @ts-ignore
 window.store = store;

@@ -1,6 +1,6 @@
 import {v1} from 'uuid';
-import {Dispatch} from 'react';
 import {usersAPI} from '../API/api';
+import {AppThunk, ThunkDispatchType} from './hooks';
 
 type PostType = {
     id: string
@@ -45,7 +45,7 @@ const initialState: RootProfileType = {
     profile: {} as ProfileType,
 };
 
-export const profileReducer = (state: RootProfileType = initialState, action: ActionsType): RootProfileType => {
+export const profileReducer = (state: RootProfileType = initialState, action: ProfileActionsType): RootProfileType => {
     switch (action.type) {
         case 'UPDATE-POST':
             return {...state, newPost: action.payload.newPost};
@@ -58,7 +58,8 @@ export const profileReducer = (state: RootProfileType = initialState, action: Ac
     }
 };
 
-export type ActionsType = ReturnType<typeof addPost> | ReturnType<typeof updatePost>
+export type ProfileActionsType = ReturnType<typeof addPost>
+    | ReturnType<typeof updatePost>
     | ReturnType<typeof setUserProfile>;
 
 export const addPost = () => ({type: 'ADD-POST'}) as const;
@@ -76,7 +77,7 @@ export const setUserProfile = (profile: ProfileType) => ({
 }) as const;
 
 
-export const getUserProfile = (userID: string) => (dispatch: Dispatch<ActionsType>) => {
+export const getUserProfile = (userID: string): AppThunk => dispatch => {
     usersAPI.getProfile(userID).then(response => {
         dispatch(setUserProfile(response));
     })

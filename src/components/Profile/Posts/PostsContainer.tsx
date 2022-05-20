@@ -1,13 +1,18 @@
 import {Posts} from './Posts';
-import {RootStateType} from '../../../redux/redux-store';
+import {AppStateType} from '../../../redux/redux-store';
 import {addPost, updatePost} from '../../../redux/profile-reducer';
 import {connect} from 'react-redux';
 
-const mapStateToProps = (state: RootStateType) => {
+const PostsContainer = () => {
+
+    return <Posts />;
+}
+
+const mapStateToProps = (state: AppStateType) => {
     return {
         posts: state.profilePage.posts,
         newPost: state.profilePage.newPost,
     }
 };
 
-export default connect(mapStateToProps, {addPost, updatePost})(Posts);
+export default connect(mapStateToProps, {addPost, updatePost})(PostsContainer);

@@ -1,5 +1,5 @@
 import {authAPI} from '../API/api';
-import {Dispatch} from 'react';
+import {AppThunk, ThunkDispatchType} from './hooks';
 
 export type AuthStateType = {
     id: number
@@ -15,7 +15,7 @@ const initialState: AuthStateType = {
     isAuth: false,
 };
 
-export const authReducer = (state: AuthStateType = initialState, action: ActionsType): AuthStateType => {
+export const authReducer = (state: AuthStateType = initialState, action: AuthActionsType): AuthStateType => {
     switch (action.type) {
         case 'SET-AUTH-USER':
             return {...state, ...action.payload, isAuth: true};
@@ -24,7 +24,7 @@ export const authReducer = (state: AuthStateType = initialState, action: Actions
     }
 };
 
-type ActionsType = ReturnType<typeof setAuthUserData>;
+export type AuthActionsType = ReturnType<typeof setAuthUserData>;
 
 export const setAuthUserData = (id: number, login: string, email: string) => ({
     type: 'SET-AUTH-USER',
@@ -35,7 +35,8 @@ export const setAuthUserData = (id: number, login: string, email: string) => ({
     }
 }) as const;
 
-export const getAuthUserData = () => (dispatch: Dispatch<ActionsType>) => {
+
+export const getAuthUserData = (): AppThunk => (dispatch: ThunkDispatchType) => {
     authAPI.getAuthUser().then(response => {
         if (response.resultCode === 0) {
             const {id, login, email} = response.data;

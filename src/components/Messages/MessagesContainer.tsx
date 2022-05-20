@@ -1,13 +1,12 @@
-import {RootStateType} from '../../redux/redux-store';
-import {useSelector} from 'react-redux';
-import {addMessage, MessagesType, updateMessage} from '../../redux/messages-reducer';
+import {addMessage, updateMessage} from '../../redux/messages-reducer';
 import {Messages} from './Messages';
 import {useNavigate} from 'react-router-dom';
 import {useEffect} from 'react';
+import {useAppSelector} from '../../redux/hooks';
 
 export const MessagesContainer = () => {
-    const {messages, newMessage, users} = useSelector<RootStateType, MessagesType>(state => state.messagesPage);
-    const isAuth = useSelector<RootStateType, boolean>(state => state.auth.isAuth);
+    const {messages, newMessage, users} = useAppSelector(state => state.messagesPage);
+    const isAuth = useAppSelector(state => state.auth.isAuth);
 
     const navigate = useNavigate();
 

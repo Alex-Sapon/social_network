@@ -1,5 +1,4 @@
 import axios from 'axios';
-import {ProfileType} from '../redux/profile-reducer';
 import {UsersStateType} from '../redux/users-reducer';
 
 type FollowDataType = {
@@ -11,6 +10,27 @@ type AuthDataType = {
     id: number
     login: string
     email: string
+}
+type ProfileType = {
+    aboutMe: string
+    contacts: {
+        facebook: string
+        website: string
+        vk: string
+        twitter: string
+        instagram: string
+        youtube: string
+        github: string
+        mainLink: string
+    }
+    lookingForAJob: boolean
+    lookingForAJobDescription: string
+    fullName: string
+    userId: number
+    photos: {
+        small: string
+        large: string
+    }
 }
 type AuthType = {
     data: AuthDataType
@@ -30,7 +50,8 @@ const instance = axios.create({
 
 export const usersAPI = {
     getUsers(currentPage: number, pageSize: number) {
-        return instance.get<UsersStateType>(`users?page=${currentPage}&count=${pageSize}`).then(response => response.data);
+        return instance.get<UsersStateType>(`users?page=${currentPage}&count=${pageSize}`)
+            .then(response => response.data);
     },
     followUsers(userID: string) {
         return instance.post<FollowDataType>(`follow/${userID}`, {}).then(response => response.data);
