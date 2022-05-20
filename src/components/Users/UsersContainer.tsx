@@ -1,5 +1,6 @@
-import React from 'react';
+import React, {ComponentType} from 'react';
 import {connect} from 'react-redux';
+import {compose} from 'redux';
 import {Users} from './Users';
 import {toggleIsFetching, ItemsType, getUser, follow, unfollow} from '../../redux/users-reducer';
 import {AppStateType} from '../../redux/redux-store';
@@ -45,9 +46,8 @@ const mapStateToProps = (state: AppStateType): MapStatePropsType => ({
     }
 );
 
-
-
-export default withAuthRedirect(connect(
-    mapStateToProps,
-    {toggleIsFetching, getUser, follow, unfollow})(UsersContainer));
+export default compose<ComponentType>(
+    connect(mapStateToProps, {toggleIsFetching, getUser, follow, unfollow}),
+    withAuthRedirect,
+)(UsersContainer);
 

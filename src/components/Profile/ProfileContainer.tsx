@@ -1,19 +1,26 @@
-import React from 'react';
+import React, {ComponentType, useEffect} from 'react';
 import {Profile} from './Profile';
 import {useParams} from 'react-router';
 import {getUserProfile} from '../../redux/profile-reducer';
 import {useAppSelector} from '../../redux/hooks';
 import {useDispatch} from 'react-redux';
 import {withAuthRedirect} from '../../hoc/withAuthRedirect';
+import {compose} from 'redux';
 
-export const ProfileContainer = withAuthRedirect(() => {
+const ProfileContainer = () => {
     const profile = useAppSelector(state => state.profilePage.profile);
     const dispatch = useDispatch();
 
     const params = useParams<'id'>();
     const userID = params.id || '2';
 
-    dispatch(getUserProfile(userID));
+    useEffect(() => {
+        dispatch(getUserProfile(userID));
+    }, [userID]);
 
     return <Profile profile={profile}/>
-});
+};
+
+export default compose<ComponentType>(
+    withAuthRedirect,
+)(ProfileContainer);

@@ -2,8 +2,10 @@ import {addMessage, updateMessage} from '../../redux/messages-reducer';
 import {Messages} from './Messages';
 import {useAppSelector} from '../../redux/hooks';
 import {withAuthRedirect} from '../../hoc/withAuthRedirect';
+import {compose} from 'redux';
+import {ComponentType} from 'react';
 
-export const MessagesContainer = withAuthRedirect(() => {
+const MessagesContainer = () => {
     const messages = useAppSelector(state => state.messagesPage.messages);
     const newMessage = useAppSelector(state => state.messagesPage.newMessage);
     const users = useAppSelector(state => state.messagesPage.users);
@@ -17,4 +19,8 @@ export const MessagesContainer = withAuthRedirect(() => {
             updateMessage={updateMessage}
         />
     )
-});
+};
+
+export default compose<ComponentType>(
+    withAuthRedirect,
+)(MessagesContainer);
