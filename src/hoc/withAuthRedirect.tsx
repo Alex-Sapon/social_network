@@ -21,7 +21,7 @@ export function withAuthRedirect<T>(Component: ComponentType<T>) {
             if (!isAuth) {
                 navigate('/login');
             }
-        }, [isAuth])
+        }, [isAuth, navigate])
 
         return <Component {...restProps as T}/>;
     }

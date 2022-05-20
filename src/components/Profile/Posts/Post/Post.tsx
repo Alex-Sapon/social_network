@@ -1,5 +1,5 @@
 import React, {FC} from 'react';
-import RatingStars from '../RatingStarts/RatingStars';
+import RatingStars from '../RatingStars/RatingStars';
 
 import {Card, Typography} from '@mui/material';
 import {teal} from '@mui/material/colors';

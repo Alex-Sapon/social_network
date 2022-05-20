@@ -16,7 +16,7 @@ const ProfileContainer = () => {
 
     useEffect(() => {
         dispatch(getUserProfile(userID));
-    }, [userID]);
+    }, [userID, dispatch]);
 
     return <Profile profile={profile}/>
 };
