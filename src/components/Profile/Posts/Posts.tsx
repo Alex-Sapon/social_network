@@ -2,9 +2,10 @@ import React, {FC, KeyboardEvent, ChangeEvent} from 'react';
 import Post from './Post/Post';
 
 import {Button, FormGroup, Typography} from '@mui/material';
-import {blueGrey} from '@mui/material/colors'
-import SendIcon from '@mui/icons-material/Send'
-import styles from './Posts.module.css'
+import {blueGrey} from '@mui/material/colors';
+import SendIcon from '@mui/icons-material/Send';
+import styles from './Posts.module.css';
+import {PostType} from '../../../redux/profile-reducer';
 
 export type PostsProps = {
     id: string
@@ -13,7 +14,7 @@ export type PostsProps = {
 }
 
 type PostsType = {
-    posts: PostsProps[]
+    posts: Array<PostType>
     newPost: string
     addPost: () => void
     updatePost: (text: string) => void

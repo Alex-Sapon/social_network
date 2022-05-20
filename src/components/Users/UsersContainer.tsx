@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import {Users} from './Users';
 import {toggleIsFetching, ItemsType, getUser, follow, unfollow} from '../../redux/users-reducer';
 import {AppStateType} from '../../redux/redux-store';
+import {withAuthRedirect} from '../../hoc/withAuthRedirect';
 
 type MapStatePropsType = {
     users: ItemsType[]
@@ -11,14 +12,14 @@ type MapStatePropsType = {
     currentPage: number
     isFetching: boolean
     followingProgress: Array<string>
-}
+};
 type MapDispatchPropsType = {
     toggleIsFetching: (isFetching: boolean) => void
     getUser: (currentPage: number, pageSize: number) => void
     follow: (userID: string) => void
     unfollow: (userID: string) => void
-}
-export type UsersContainerType = MapStatePropsType & MapDispatchPropsType
+};
+export type UsersContainerType = MapStatePropsType & MapDispatchPropsType;
 
 class UsersContainer extends React.Component<UsersContainerType> {
     componentDidMount() {
@@ -44,5 +45,9 @@ const mapStateToProps = (state: AppStateType): MapStatePropsType => ({
     }
 );
 
-export default connect(mapStateToProps, {toggleIsFetching, getUser, follow, unfollow})(UsersContainer);
+
+
+export default withAuthRedirect(connect(
+    mapStateToProps,
+    {toggleIsFetching, getUser, follow, unfollow})(UsersContainer));
 

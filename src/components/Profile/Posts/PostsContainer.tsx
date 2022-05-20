@@ -1,12 +1,24 @@
 import {Posts} from './Posts';
 import {AppStateType} from '../../../redux/redux-store';
-import {addPost, updatePost} from '../../../redux/profile-reducer';
+import {addPost, PostType, updatePost} from '../../../redux/profile-reducer';
 import {connect} from 'react-redux';
+import {FC} from 'react';
 
-const PostsContainer = () => {
+type MapStateToPropsType = {
+    posts: Array<PostType>
+    newPost: string
+};
+type MapDispatchToPropsType = {
+    addPost: () => void
+    updatePost: (text: string) => void
+};
 
-    return <Posts />;
-}
+type PostsContainer = MapStateToPropsType & MapDispatchToPropsType;
+
+const PostsContainer: FC<PostsContainer> = props => {
+
+    return <Posts {...props}/>;
+};
 
 const mapStateToProps = (state: AppStateType) => {
     return {

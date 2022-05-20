@@ -2,7 +2,7 @@ import {v1} from 'uuid';
 import {usersAPI} from '../API/api';
 import {AppThunk, ThunkDispatchType} from './hooks';
 
-type PostType = {
+export type PostType = {
     id: string
     message: string
     likesCount: number
@@ -77,7 +77,7 @@ export const setUserProfile = (profile: ProfileType) => ({
 }) as const;
 
 
-export const getUserProfile = (userID: string): AppThunk => dispatch => {
+export const getUserProfile = (userID: string): AppThunk => (dispatch: ThunkDispatchType) => {
     usersAPI.getProfile(userID).then(response => {
         dispatch(setUserProfile(response));
     })

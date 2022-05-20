@@ -1,4 +1,4 @@
-import React, {ChangeEvent, FC} from 'react';
+import React, {ChangeEvent, FC, useEffect} from 'react';
 import {List, Pagination, Stack} from '@mui/material';
 import {Preloader} from '../../common/Preloader/Preloader';
 import styles from './Users.module.css';

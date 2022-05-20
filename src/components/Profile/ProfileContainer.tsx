@@ -1,27 +1,19 @@
-import React, {FC, useEffect} from 'react';
+import React from 'react';
 import {Profile} from './Profile';
 import {useParams} from 'react-router';
 import {getUserProfile} from '../../redux/profile-reducer';
-import {useNavigate} from 'react-router-dom';
 import {useAppSelector} from '../../redux/hooks';
 import {useDispatch} from 'react-redux';
+import {withAuthRedirect} from '../../hoc/withAuthRedirect';
 
-export const ProfileContainer: FC = () => {
+export const ProfileContainer = withAuthRedirect(() => {
     const profile = useAppSelector(state => state.profilePage.profile);
-    const isAuth = useAppSelector(state => state.auth.isAuth);
     const dispatch = useDispatch();
-
-    const navigate = useNavigate();
 
     const params = useParams<'id'>();
     const userID = params.id || '2';
 
-    useEffect(() => {
-        if (!isAuth) {
-            navigate('/login');
-        };
-        dispatch(getUserProfile(userID));
-    }, [isAuth]);
+    dispatch(getUserProfile(userID));
 
     return <Profile profile={profile}/>
-};
+});
