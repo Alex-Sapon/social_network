@@ -26,20 +26,20 @@ export const ProfileStatus: FC<ProfileStatusType> = ({status, updateStatus}) => 
         setValue(e.currentTarget.value);
     }
 
-  return (
-      <div>
-          {!editMode
-              ? <span onDoubleClick={activateMode}>{status !== null ? status : 'No status'}</span>
-              : <TextField
-                  autoFocus
-                  size={'small'}
-                  variant={'standard'}
-                  value={value}
-                  onChange={changeValueHandler}
-                  onBlur={deactivateMode}
-                  sx={{background: 'inherit', color: 'inherit', width: '100%'}}
-              />
-          }
-      </div>
-  )
+    return (
+        <div>
+            {!editMode
+                ? <span onDoubleClick={activateMode}>{status !== null ? status : 'No status'}</span>
+                : <TextField
+                    autoFocus
+                    size={'small'}
+                    variant={'standard'}
+                    value={value}
+                    onChange={changeValueHandler}
+                    onBlur={deactivateMode}
+                    sx={{background: 'inherit', color: 'inherit', width: '100%'}}
+                />
+            }
+        </div>
+    )
 }

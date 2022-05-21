@@ -38,6 +38,12 @@ type AuthType = {
     fieldsErrors: Array<any>
     resultCode: number
 }
+type GetLoginType = {
+    email: string
+    password: string
+    rememberMe: boolean
+    captcha: boolean
+}
 
 // DAL - data access layer
 const instance = axios.create({
@@ -76,5 +82,10 @@ export const profileAPI = {
 export const authAPI = {
     getAuthUser() {
         return instance.get<AuthType>(`auth/me`).then(response => response.data);
+    },
+    getLogin(email: string, password: string, rememberMe: boolean, captcha: boolean) {
+        return instance.post('auth/login', {email, password, rememberMe, captcha}).then(response => {
+            return response;
+        })
     },
 };
