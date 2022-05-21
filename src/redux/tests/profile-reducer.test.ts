@@ -12,56 +12,24 @@ beforeEach(() => {
             {id: v1(), message: 'I learn English every day.', likesCount: 3},
         ],
         newPost: '',
-        profile: {} as ProfileType
+        profile: {} as ProfileType,
+        status: ''
     }
 })
 
 test('text of post should be updated', () => {
-    const initialState: RootProfileType = {
-        posts: [
-            {id: v1(), message: 'It\'s my first Post', likesCount: 3},
-            {id: v1(), message: 'Hi, how are you?', likesCount: 4},
-            {id: v1(), message: 'I want to learn React and TypeScript.', likesCount: 5},
-            {id: v1(), message: 'I learn English every day.', likesCount: 3},
-        ],
-        newPost: '',
-        profile: {} as ProfileType
-    }
-
-    const endState = profileReducer(initialState, updatePost('Update is success'));
+    const endState = profileReducer(startState, updatePost('Update is success'));
 
     expect(endState.newPost).toBe('Update is success');
 })
 
 test('new post should be added', () => {
-    const initialState: RootProfileType = {
-        posts: [
-            {id: v1(), message: 'It\'s my first Post', likesCount: 3},
-            {id: v1(), message: 'Hi, how are you?', likesCount: 4},
-            {id: v1(), message: 'I want to learn React and TypeScript.', likesCount: 5},
-            {id: v1(), message: 'I learn English every day.', likesCount: 3},
-        ],
-        newPost: '',
-        profile: {} as ProfileType
-    }
-
-    const endState = profileReducer(initialState, addPost());
+    const endState = profileReducer(startState, addPost());
 
     expect(endState.posts.length).toBe(5);
 })
 
 test('current profile should be added', () => {
-    const initialState: RootProfileType = {
-        posts: [
-            {id: v1(), message: 'It\'s my first Post', likesCount: 3},
-            {id: v1(), message: 'Hi, how are you?', likesCount: 4},
-            {id: v1(), message: 'I want to learn React and TypeScript.', likesCount: 5},
-            {id: v1(), message: 'I learn English every day.', likesCount: 3},
-        ],
-        newPost: '',
-        profile: {} as ProfileType
-    }
-
     const profile: ProfileType = {
         aboutMe: 'I`m happy!',
         contacts: {
@@ -84,7 +52,7 @@ test('current profile should be added', () => {
         }
     }
 
-    const endState = profileReducer(initialState, setUserProfile(profile))
+    const endState = profileReducer(startState, setUserProfile(profile))
 
     const keys = Object.keys(profile)
 

@@ -11,7 +11,7 @@ type AuthDataType = {
     login: string
     email: string
 }
-type ProfileType = {
+type ProfileDataType = {
     aboutMe: string
     contacts: {
         facebook: string
@@ -59,8 +59,17 @@ export const usersAPI = {
     unfollowUsers(userID: string) {
         return instance.delete<FollowDataType>(`follow/${userID}`).then(response => response.data);
     },
+};
+
+export const profileAPI = {
     getProfile(userID: string) {
-        return instance.get<ProfileType>(`profile/${userID}`).then(response => response.data);
+        return instance.get<ProfileDataType>(`profile/${userID}`).then(response => response.data);
+    },
+    getStatus(userID: string) {
+        return instance.get<string>(`profile/status/${userID}`).then(response => response.data);
+    },
+    updateStatus(status: string) {
+        return instance.put(`profile/status`, {status: status}).then(response => response)
     },
 };
 
