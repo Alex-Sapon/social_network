@@ -7,25 +7,26 @@ type ProfileStatusType = {
 
 export const ProfileStatus: FC<ProfileStatusType> = ({status}) => {
     const [editMode, setEditMode] = useState(false);
+    const [] = useState(status);
 
-    const onDoubleClickHandler = () => {
+    const activateMode = () => {
         setEditMode(true);
     }
 
-    const onBlurHandler = () => {
+    const deactivateMode = () => {
         setEditMode(false);
     }
 
   return (
       <div>
           {!editMode
-              ? <span onDoubleClick={onDoubleClickHandler}>{status}</span>
+              ? <span onDoubleClick={activateMode}>{status === null ? 'No status' : status}</span>
               : <TextField
                   autoFocus
                   size={'small'}
                   variant={'filled'}
                   value={status}
-                  onBlur={onBlurHandler}
+                  onBlur={deactivateMode}
               />
           }
       </div>

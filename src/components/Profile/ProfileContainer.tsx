@@ -12,7 +12,7 @@ const ProfileContainer = () => {
     const dispatch = useDispatch();
 
     const params = useParams<'id'>();
-    const userID = params.id || '2';
+    const userID = params.id || '23551';
 
     useEffect(() => {
         dispatch(getUserProfile(userID));
