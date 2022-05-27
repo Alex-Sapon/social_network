@@ -28,17 +28,18 @@ export const Users: FC<UsersTypeProps> = props => {
             <Stack spacing={2} sx={{m: '1rem 0rem 2rem', alignItems: 'center'}}>
                 <Pagination count={totalUsersCount} page={currentPage} onChange={onChangePageHandler}/>
             </Stack>
-            {isFetching && <Preloader className={styles.preloader} stylePreloader={styles.preloader}/>}
-            <List>
-                {users.map(user =>
-                    <User
-                        key={user.id}
-                        user={user}
-                        followingProgress={followingProgress}
-                        follow={follow}
-                        unfollow={unfollow}
-                    />)}
-            </List>
+            {isFetching
+                ? <Preloader className={styles.preloader} stylePreloader={styles.preloader}/>
+                : <List>
+                    {users.map(user =>
+                        <User
+                            key={user.id}
+                            user={user}
+                            followingProgress={followingProgress}
+                            follow={follow}
+                            unfollow={unfollow}
+                        />)}
+                </List>}
         </div>
     );
 };

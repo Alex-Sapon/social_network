@@ -2,7 +2,7 @@ import {Box, Typography} from '@mui/material';
 import {Field, Form, InjectedFormProps, reduxForm} from 'redux-form';
 import {FC} from 'react';
 import {useDispatch} from 'react-redux';
-import {getLoginUserData} from '../../redux/auth-reducer';
+import {getLoginUserData, getLogoutUser} from '../../redux/auth-reducer';
 
 type FormDataType = {
     login: string
@@ -11,21 +11,29 @@ type FormDataType = {
 }
 
 const LoginForm: FC<InjectedFormProps<FormDataType>> = ({handleSubmit}) => {
+
+    const dispatch = useDispatch();
+
+    const handleLogout = () => {
+        dispatch(getLogoutUser());
+    }
+
     return (
         <Form onSubmit={handleSubmit}>
-            <div>
+            <div style={{display: 'flex', flexDirection: 'column'}}>
                 <label htmlFor="login">Login</label>
                 <Field name="login" component="input" type="text"/>
             </div>
-            <div>
+            <div style={{display: 'flex', flexDirection: 'column'}}>
                 <label htmlFor="password">Password</label>
-                <Field name="password" component="input" type="text"/>
+                <Field name="password" component={'input'} type="text"/>
             </div>
-            <div>
+            <div style={{display: 'flex', alignItems: 'center'}}>
                 <label htmlFor="rememberMe">Remember me</label>
-                <Field name="rememberMe" component="input" type="checkbox"/>
+                <Field name="rememberMe" component={'input'} type={'checkbox'}/>
             </div>
-            <button type={'submit'}>Submit</button>
+            <button type={'submit'}>Log In</button>
+            <button type={'submit'} onClick={handleLogout}>Log Out</button>
         </Form>
     )
 };

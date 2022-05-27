@@ -24,16 +24,17 @@ export const authReducer = (state: AuthStateType = initialState, action: AuthAct
         case 'SET-AUTH-USER':
             return {...state, ...action.payload, isAuth: true};
         case 'SET-LOGIN-USER':
-            return {
-                ...state,
-            }
+            return {...state, ...action.payload}
+        case 'SET-LOGOUT-USER':
+            return {...state}
         default:
             return state;
     }
 };
 
 export type AuthActionsType = ReturnType<typeof setAuthUserData>
-    | ReturnType<typeof setLoginUserData>;
+    | ReturnType<typeof setLoginUserData>
+    | ReturnType<typeof setLogoutUser>;
 
 export const setAuthUserData = (id: number, login: string, email: string) => ({
     type: 'SET-AUTH-USER',
@@ -52,6 +53,7 @@ export const setLoginUserData = (email: string, password: string, rememberMe: bo
         captcha,
     }
 }) as const;
+export const setLogoutUser = () => ({type: 'SET-LOGOUT-USER'}) as const;
 
 
 export const getAuthUserData = (): AppThunk => (dispatch: ThunkDispatchType) => {
@@ -69,4 +71,10 @@ export const getLoginUserData = (email: string, password: string, rememberMe: bo
             dispatch(setLoginUserData(email, password, rememberMe, captcha));
         }
     })
+}
+
+export const getLogoutUser = (): AppThunk => (dispatch: ThunkDispatchType) => {
+  authAPI.logOut().then(res => {
+      dispatch(setLogoutUser());
+  })
 }
