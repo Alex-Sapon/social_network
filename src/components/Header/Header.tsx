@@ -7,8 +7,8 @@ type HeaderType = {
     auth: AuthStateType
 }
 
-export const Header: FC<HeaderType> = (props) => {
-    const {id, login, email, isAuth} = props.auth;
+export const Header: FC<HeaderType> = ({auth}) => {
+    const {id, login, email, isAuth} = auth;
 
     return (
         <Box sx={{flexGrow: 1, mb: '2rem'}}>

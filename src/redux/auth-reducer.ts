@@ -14,9 +14,9 @@ const initialState: AuthStateType = {
     login: '',
     email: '',
     rememberMe: false,
-    captcha: false,
     id: 1,
     isAuth: false,
+    captcha: false,
 };
 
 export const authReducer = (state: AuthStateType = initialState, action: AuthActionsType): AuthStateType => {
@@ -26,7 +26,6 @@ export const authReducer = (state: AuthStateType = initialState, action: AuthAct
         case 'SET-LOGIN-USER':
             return {
                 ...state,
-
             }
         default:
             return state;

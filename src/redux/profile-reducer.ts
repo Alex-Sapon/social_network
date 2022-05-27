@@ -7,6 +7,7 @@ export type PostType = {
     message: string
     likesCount: number
 };
+
 export type ProfileType = {
     aboutMe: string
     contacts: {
@@ -28,8 +29,9 @@ export type ProfileType = {
         large: string
     }
 };
+
 export type RootProfileType = {
-    posts: Array<PostType>
+    posts: PostType[]
     newPost: string
     profile: ProfileType
     status: string
@@ -101,12 +103,11 @@ export const getStatus = (userId: number): AppThunk => (dispatch: ThunkDispatchT
 };
 
 export const updateStatus = (status: string): AppThunk => (dispatch: ThunkDispatchType) => {
-  profileAPI.updateStatus(status).then(response => {
-      if (response.data.resultCode === 0) {
-          dispatch(setUserStatus(status));
-      }
-
-  })
+    profileAPI.updateStatus(status).then(response => {
+        if (response.data.resultCode === 0) {
+            dispatch(setUserStatus(status));
+        }
+    })
 }
 
 

@@ -31,9 +31,10 @@ interface IUserDataType {
 }
 
 interface IResponse<D = {}> {
+    data: D
+    fieldsErrors: string[]
     resultCode: number
     messages: string[]
-    data: D
 }
 
 interface IProfile {

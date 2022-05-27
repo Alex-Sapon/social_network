@@ -52,10 +52,12 @@ export const usersReducer = (state: UsersStateType = initialUsers, action: Users
     }
 };
 
+
 export type UsersActionsType = ReturnType<typeof followSuccess> | ReturnType<typeof unfollowSuccess>
     | ReturnType<typeof setUsers> | ReturnType<typeof setCurrentPage>
     | ReturnType<typeof setTotalUsersCount> | ReturnType<typeof toggleIsFetching>
     | ReturnType<typeof toggleFollowingProgress>
+
 
 export const followSuccess = (userId: number) => ({
     type: 'FOLLOW',

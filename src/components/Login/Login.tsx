@@ -1,6 +1,8 @@
 import {Box, Typography} from '@mui/material';
 import {Field, Form, InjectedFormProps, reduxForm} from 'redux-form';
 import {FC} from 'react';
+import {useDispatch} from 'react-redux';
+import {getLoginUserData} from '../../redux/auth-reducer';
 
 type FormDataType = {
     login: string
@@ -31,8 +33,12 @@ const LoginForm: FC<InjectedFormProps<FormDataType>> = ({handleSubmit}) => {
 const LoginReduxForm = reduxForm<FormDataType>({form: 'login'})(LoginForm);
 
 const Login = () => {
+    const dispatch = useDispatch();
+
     const onSubmit = (formData: FormDataType) => {
-        console.log(formData)
+        const {login, password, rememberMe} = formData;
+
+        dispatch(getLoginUserData(login, password, rememberMe, false));
     }
 
     return (

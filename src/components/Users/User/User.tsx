@@ -19,7 +19,7 @@ export const User: FC<UserType> = props => {
 
     return (
         <>
-            <ListItem sx={{dispaly: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', p: '1rem'}}>
+            <ListItem sx={{display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', p: '1rem'}}>
                 <ListItemAvatar sx={{width: '150px'}}>
                     <NavLink to={`/profile/${user.id}`}>
                         <Avatar alt="Avatar"
@@ -41,10 +41,6 @@ export const User: FC<UserType> = props => {
                     primary={user.name}
                     secondary={user.status === null ? 'No status...' : user.status}
                 />
-                {/*<ListItemText*/}
-                {/*    primary={user.address ? user.address.country : 'Country...'}*/}
-                {/*    secondary={user.address ? user.address.city : 'City...'}*/}
-                {/*/>*/}
             </ListItem>
             <Divider variant="inset" component="li"/>
         </>
