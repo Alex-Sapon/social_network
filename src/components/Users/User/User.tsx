@@ -6,9 +6,9 @@ import {ItemsType} from '../../../redux/users-reducer';
 
 type UserType = {
     user: ItemsType
-    followingProgress: Array<string>
-    follow: (userID: string) => void
-    unfollow: (userID: string) => void
+    followingProgress: number[]
+    follow: (userId: number) => void
+    unfollow: (userId: number) => void
 }
 
 export const User: FC<UserType> = props => {
@@ -41,10 +41,10 @@ export const User: FC<UserType> = props => {
                     primary={user.name}
                     secondary={user.status === null ? 'No status...' : user.status}
                 />
-                <ListItemText
-                    primary={user.address ? user.address.country : 'Country...'}
-                    secondary={user.address ? user.address.city : 'City...'}
-                />
+                {/*<ListItemText*/}
+                {/*    primary={user.address ? user.address.country : 'Country...'}*/}
+                {/*    secondary={user.address ? user.address.city : 'City...'}*/}
+                {/*/>*/}
             </ListItem>
             <Divider variant="inset" component="li"/>
         </>

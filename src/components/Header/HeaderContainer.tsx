@@ -14,9 +14,11 @@ export const HeaderContainer: FC = () => {
 
     useEffect(() => {
         dispatch(getAuthUserData());
+
         if (!isAuth) {
             navigate('/login');
         };
+
     }, [isAuth]);
 
     return <Header auth={auth}/>

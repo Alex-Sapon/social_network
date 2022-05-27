@@ -1,7 +1,7 @@
 import React, {ComponentType, useEffect} from 'react';
 import {Profile} from './Profile';
 import {useParams} from 'react-router';
-import {getUserProfile, getStatus, updateStatus} from '../../redux/profile-reducer';
+import {getStatus, getUserProfile, updateStatus} from '../../redux/profile-reducer';
 import {useAppSelector} from '../../redux/hooks';
 import {useDispatch} from 'react-redux';
 import {withAuthRedirect} from '../../hoc/withAuthRedirect';
@@ -14,12 +14,12 @@ const ProfileContainer = () => {
     const dispatch = useDispatch();
 
     const params = useParams<'id'>();
-    const userID = params.id || '23551';
+    const userId = Number(params.id) || 23551;
 
     useEffect(() => {
-        dispatch(getUserProfile(userID));
-        dispatch(getStatus(userID));
-    }, [userID, dispatch]);
+        dispatch(getUserProfile(userId));
+        dispatch(getStatus(userId));
+    }, [userId, dispatch]);
 
     return <Profile profile={profile} updateStatus={updateStatus} status={status}/>
 };

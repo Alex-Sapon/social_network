@@ -56,17 +56,17 @@ export const setLoginUserData = (email: string, password: string, rememberMe: bo
 
 
 export const getAuthUserData = (): AppThunk => (dispatch: ThunkDispatchType) => {
-    authAPI.getAuthUser().then(response => {
-        if (response.resultCode === 0) {
-            const {id, login, email} = response.data;
+    authAPI.getAuthUser().then(res => {
+        if (res.data.resultCode === 0) {
+            const {id, login, email} = res.data.data;
             dispatch(setAuthUserData(id, login, email));
         }
     });
 };
 
 export const getLoginUserData = (email: string, password: string, rememberMe: boolean, captcha: boolean): AppThunk => (dispatch: ThunkDispatchType) => {
-    authAPI.getLogin(email, password, rememberMe, captcha).then(response => {
-        if (response.data.resultCode === 0) {
+    authAPI.logIn(email, password, rememberMe, captcha).then(res => {
+        if (res.data.resultCode === 0) {
             dispatch(setLoginUserData(email, password, rememberMe, captcha));
         }
     })

@@ -2,7 +2,7 @@ import React, {ComponentType} from 'react';
 import {connect} from 'react-redux';
 import {compose} from 'redux';
 import {Users} from './Users';
-import {toggleIsFetching, ItemsType, getUser, follow, unfollow} from '../../redux/users-reducer';
+import {toggleIsFetching, getUser, follow, unfollow, ItemsType} from '../../redux/users-reducer';
 import {AppStateType} from '../../redux/redux-store';
 import {withAuthRedirect} from '../../hoc/withAuthRedirect';
 
@@ -12,13 +12,14 @@ type MapStatePropsType = {
     totalUsersCount: number
     currentPage: number
     isFetching: boolean
-    followingProgress: Array<string>
+    followingProgress: Array<number>
 };
+
 type MapDispatchPropsType = {
     toggleIsFetching: (isFetching: boolean) => void
     getUser: (currentPage: number, pageSize: number) => void
-    follow: (userID: string) => void
-    unfollow: (userID: string) => void
+    follow: (userId: number) => void
+    unfollow: (userId: number) => void
 };
 export type UsersContainerType = MapStatePropsType & MapDispatchPropsType;
 

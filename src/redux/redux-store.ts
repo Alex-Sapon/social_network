@@ -1,4 +1,4 @@
-import {combineReducers, createStore, applyMiddleware} from 'redux';
+import {combineReducers, legacy_createStore as createStore, applyMiddleware} from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import {profileReducer} from './profile-reducer';
 import {messagesReducer} from './messages-reducer';

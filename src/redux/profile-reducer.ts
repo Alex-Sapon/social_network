@@ -88,15 +88,15 @@ export const setUserStatus = (status: string) => ({
 }) as const;
 
 
-export const getUserProfile = (userID: string): AppThunk => (dispatch: ThunkDispatchType) => {
-    profileAPI.getProfile(userID).then(profile => {
-        dispatch(setUserProfile(profile));
+export const getUserProfile = (userId: number): AppThunk => (dispatch: ThunkDispatchType) => {
+    profileAPI.getProfile(userId).then(res => {
+        dispatch(setUserProfile(res.data));
     })
 };
 
-export const getStatus = (userID: string): AppThunk => (dispatch: ThunkDispatchType) => {
-    profileAPI.getStatus(userID).then(status => {
-        dispatch(setUserStatus(status));
+export const getStatus = (userId: number): AppThunk => (dispatch: ThunkDispatchType) => {
+    profileAPI.getStatus(userId).then(res => {
+        dispatch(setUserStatus(res.data));
     })
 };
 
