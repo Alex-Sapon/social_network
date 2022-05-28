@@ -5,12 +5,11 @@ test('auth state should be created', () => {
         login: '',
         email: '',
         rememberMe: false,
-        captcha: false,
         id: 1,
         isAuth: false,
     }
 
-    const endState = authReducer(initialState, setAuthUserData(2, '246hdas3l66', 'rrr@gmail.com'))
+    const endState = authReducer(initialState, setAuthUserData(2, '246hdas3l66', 'rrr@gmail.com', true))
 
     expect(endState.id).toBe(2)
     expect(endState.login).toBe('246hdas3l66')

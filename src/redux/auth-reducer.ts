@@ -2,12 +2,11 @@ import {authAPI} from '../API/api';
 import {AppThunk, ThunkDispatchType} from './hooks';
 
 export type AuthStateType = {
-    login: string
-    email: string
+    login: string | null
+    email: string | null
     rememberMe: boolean
-    id: number
+    id: number | null
     isAuth: boolean
-    captcha: boolean
 };
 
 const initialState: AuthStateType = {
@@ -16,65 +15,51 @@ const initialState: AuthStateType = {
     rememberMe: false,
     id: 1,
     isAuth: false,
-    captcha: false,
 };
 
 export const authReducer = (state: AuthStateType = initialState, action: AuthActionsType): AuthStateType => {
     switch (action.type) {
         case 'SET-AUTH-USER':
-            return {...state, ...action.payload, isAuth: true};
-        case 'SET-LOGIN-USER':
-            return {...state, ...action.payload}
-        case 'SET-LOGOUT-USER':
-            return {...state}
+            return {...state, ...action.payload};
         default:
             return state;
     }
 };
 
-export type AuthActionsType = ReturnType<typeof setAuthUserData>
-    | ReturnType<typeof setLoginUserData>
-    | ReturnType<typeof setLogoutUser>;
+export type AuthActionsType = ReturnType<typeof setAuthUserData>;
 
-export const setAuthUserData = (id: number, login: string, email: string) => ({
+export const setAuthUserData = (id: number | null, login: string, email: string, isAuth: boolean) => ({
     type: 'SET-AUTH-USER',
     payload: {
         id,
         login,
-        email
-    }
-}) as const;
-export const setLoginUserData = (email: string, password: string, rememberMe: boolean, captcha: boolean) => ({
-    type: 'SET-LOGIN-USER',
-    payload: {
         email,
-        password,
-        rememberMe,
-        captcha,
+        isAuth
     }
 }) as const;
-export const setLogoutUser = () => ({type: 'SET-LOGOUT-USER'}) as const;
 
 
 export const getAuthUserData = (): AppThunk => (dispatch: ThunkDispatchType) => {
     authAPI.getAuthUser().then(res => {
         if (res.data.resultCode === 0) {
             const {id, login, email} = res.data.data;
-            dispatch(setAuthUserData(id, login, email));
+            dispatch(setAuthUserData(id, login, email, true));
         }
     });
 };
 
-export const getLoginUserData = (email: string, password: string, rememberMe: boolean, captcha: boolean): AppThunk => (dispatch: ThunkDispatchType) => {
-    authAPI.logIn(email, password, rememberMe, captcha).then(res => {
+export const getLoginUserData = (email: string, password: string, rememberMe: boolean): AppThunk => (dispatch: ThunkDispatchType) => {
+    authAPI.login(email, password, rememberMe).then(res => {
         if (res.data.resultCode === 0) {
-            dispatch(setLoginUserData(email, password, rememberMe, captcha));
+            dispatch(getAuthUserData());
         }
     })
 }
 
 export const getLogoutUser = (): AppThunk => (dispatch: ThunkDispatchType) => {
-  authAPI.logOut().then(res => {
-      dispatch(setLogoutUser());
+  authAPI.logout().then(res => {
+      if (res.data.resultCode === 0) {
+          dispatch(setAuthUserData(null, '', '', false));
+      }
   })
 }

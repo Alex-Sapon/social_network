@@ -3,7 +3,7 @@ import {Field, Form, InjectedFormProps, reduxForm} from 'redux-form';
 import {FC, useMemo} from 'react';
 import {useDispatch} from 'react-redux';
 import {getLoginUserData, getLogoutUser} from '../../redux/auth-reducer';
-import {maxLength, minLength, required} from '../../common/validators';
+import {required} from '../../common/validators';
 import {renderField} from '../../common/FormControl';
 
 type FormDataType = {
@@ -21,10 +21,6 @@ const LoginForm: FC<InjectedFormProps<FormDataType>> = ({handleSubmit}) => {
 
     const inputField = useMemo(() => renderField('input'), []);
 
-    const maxLength10 = useMemo(() => maxLength(10), []);
-
-    const minLength5 = useMemo(() => minLength(5), []);
-
     return (
         <Form onSubmit={handleSubmit}>
             <div style={{display: 'flex', flexDirection: 'column'}}>
@@ -33,7 +29,7 @@ const LoginForm: FC<InjectedFormProps<FormDataType>> = ({handleSubmit}) => {
                     placeholder={'login'}
                     name="login"
                     component={inputField}
-                    validate={[required, maxLength10, minLength5]}
+                    validate={[required]}
                 />
             </div>
             <div style={{display: 'flex', flexDirection: 'column'}}>
@@ -42,7 +38,7 @@ const LoginForm: FC<InjectedFormProps<FormDataType>> = ({handleSubmit}) => {
                     placeholder={'password'}
                     name="password"
                     component={inputField}
-                    validate={[required, maxLength10, minLength5]}
+                    validate={[required]}
                 />
             </div>
             <div style={{display: 'flex', alignItems: 'center'}}>
@@ -63,7 +59,7 @@ const Login = () => {
     const onSubmit = (formData: FormDataType) => {
         const {login, password, rememberMe} = formData;
 
-        dispatch(getLoginUserData(login, password, rememberMe, false));
+        dispatch(getLoginUserData(login, password, rememberMe));
     }
 
     return (

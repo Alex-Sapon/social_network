@@ -94,10 +94,10 @@ export const authAPI = {
     getAuthUser() {
         return instance.get<IResponse<IAuthData>>(`auth/me`);
     },
-    logIn(email: string, password: string, rememberMe: boolean, captcha: boolean) {
-        return instance.post<IResponse<{ userId: number }>>('auth/login', {email, password, rememberMe, captcha});
+    login(email: string, password: string, rememberMe: boolean) {
+        return instance.post<IResponse<{ userId: number }>>('auth/login', {email, password, rememberMe});
     },
-    logOut() {
+    logout() {
         return instance.delete<IResponse>('/auth/login');
     },
 };
