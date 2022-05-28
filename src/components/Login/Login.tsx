@@ -38,7 +38,7 @@ const LoginForm: FC<InjectedFormProps<FormDataType>> = ({handleSubmit}) => {
     )
 };
 
-const LoginReduxForm = reduxForm<FormDataType>({form: 'login'})(LoginForm);
+const LoginReduxForm = reduxForm<FormDataType>({form: 'loginForm'})(LoginForm);
 
 const Login = () => {
     const dispatch = useDispatch();

@@ -1,7 +1,7 @@
 import React, {FC} from 'react';
 import {Avatar, Card, Typography} from "@mui/material";
 import styles from './Message.module.css';
-import avatar from '../../../assets/img/avatar/avatar.jpg'
+import avatar from '../../../assets/img/avatar/avatar.jpg';
 
 type MessagesProps = {
     message: string

@@ -1,8 +1,8 @@
 import {v1} from 'uuid';
-import {addMessage, messagesReducer, MessagesType, updateMessage} from '../messages-reducer';
+import {addMessage, messagesReducer, MessagesStateType} from '../messages-reducer';
 
 test('new message should be added', () => {
-    const initialState: MessagesType = {
+    const initialState: MessagesStateType = {
         users: [
             {id: v1(), name: 'Sasha'},
             {id: v1(), name: 'Kate'},
@@ -17,10 +17,9 @@ test('new message should be added', () => {
             {id: v1(), message: 'Buy, Dima!'},
             {id: v1(), message: 'Buy, Sasha!'}
         ],
-        newMessage: ''
     }
 
-    const endState = messagesReducer(initialState, addMessage())
+    const endState = messagesReducer(initialState, addMessage('rrr'))
 
     expect(endState.messages.length).toBe(6)
     expect(endState.messages[5].message).toBe('')
@@ -28,7 +27,7 @@ test('new message should be added', () => {
 })
 
 test('', () => {
-    const initialState: MessagesType = {
+    const initialState: MessagesStateType = {
         users: [
             {id: v1(), name: 'Sasha'},
             {id: v1(), name: 'Kate'},
@@ -43,10 +42,9 @@ test('', () => {
             {id: v1(), message: 'Buy, Dima!'},
             {id: v1(), message: 'Buy, Sasha!'}
         ],
-        newMessage: ''
     }
 
-    const endState = messagesReducer(initialState, updateMessage('New text'))
+    const endState = messagesReducer(initialState, addMessage('New text'))
 
-    expect(endState.newMessage).toBe('New text')
+    expect(endState.messages).toBe('New text')
 })
