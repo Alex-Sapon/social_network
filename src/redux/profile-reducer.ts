@@ -32,7 +32,6 @@ export type ProfileType = {
 
 export type RootProfileType = {
     posts: PostType[]
-    newPost: string
     profile: ProfileType
     status: string
 };
@@ -44,17 +43,14 @@ const initialState: RootProfileType = {
         {id: v1(), message: 'I want to learn React and TypeScript.', likesCount: 5},
         {id: v1(), message: 'I learn English every day.', likesCount: 3},
     ],
-    newPost: '',
     profile: {} as ProfileType,
     status: '',
 };
 
 export const profileReducer = (state: RootProfileType = initialState, action: ProfileActionsType): RootProfileType => {
     switch (action.type) {
-        case 'UPDATE-POST':
-            return {...state, newPost: action.payload.newPost};
         case 'ADD-POST':
-            return {...state, posts: [...state.posts, {id: v1(), message: state.newPost, likesCount: 0}], newPost: ''};
+            return {...state, posts: [...state.posts, {id: v1(), message: action.payload.post, likesCount: 0}]};
         case 'SET-PROFILE':
             return {...state, profile: action.payload.profile};
         case 'SET-USER-STATUS':
@@ -65,23 +61,23 @@ export const profileReducer = (state: RootProfileType = initialState, action: Pr
 };
 
 export type ProfileActionsType = ReturnType<typeof addPost>
-    | ReturnType<typeof updatePost>
     | ReturnType<typeof setUserProfile>
     | ReturnType<typeof setUserStatus>
 
-export const addPost = () => ({type: 'ADD-POST'}) as const;
-export const updatePost = (newPost: string) => ({
-    type: 'UPDATE-POST',
+export const addPost = (post: string) => ({
+    type: 'ADD-POST',
     payload: {
-        newPost,
-    },
+        post,
+    }
 }) as const;
+
 export const setUserProfile = (profile: ProfileType) => ({
     type: 'SET-PROFILE',
     payload: {
         profile,
     },
 }) as const;
+
 export const setUserStatus = (status: string) => ({
     type: 'SET-USER-STATUS',
     payload: {
@@ -108,7 +104,7 @@ export const updateStatus = (status: string): AppThunk => (dispatch: ThunkDispat
             dispatch(setUserStatus(status));
         }
     })
-}
+};
 
 
 

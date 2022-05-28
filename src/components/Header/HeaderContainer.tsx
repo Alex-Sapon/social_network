@@ -17,7 +17,7 @@ export const HeaderContainer: FC = () => {
 
         if (!isAuth) {
             navigate('/login');
-        };
+        }
 
     }, [isAuth]);
 

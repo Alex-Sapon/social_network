@@ -1,5 +1,5 @@
 import {v1} from 'uuid';
-import {addPost, profileReducer, ProfileType, RootProfileType, setUserProfile, updatePost} from '../profile-reducer';
+import {addPost, profileReducer, ProfileType, RootProfileType, setUserProfile} from '../profile-reducer';
 
 let startState: RootProfileType;
 
@@ -11,20 +11,13 @@ beforeEach(() => {
             {id: v1(), message: 'I want to learn React and TypeScript.', likesCount: 5},
             {id: v1(), message: 'I learn English every day.', likesCount: 3},
         ],
-        newPost: '',
         profile: {} as ProfileType,
         status: ''
     }
 })
 
-test('text of post should be updated', () => {
-    const endState = profileReducer(startState, updatePost('Update is success'));
-
-    expect(endState.newPost).toBe('Update is success');
-})
-
 test('new post should be added', () => {
-    const endState = profileReducer(startState, addPost());
+    const endState = profileReducer(startState, addPost('New post'));
 
     expect(endState.posts.length).toBe(5);
 })

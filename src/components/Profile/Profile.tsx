@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React, {memo} from 'react';
 import {Description} from './Description/Description';
 import styles from './Profile.module.css';
 import PostsContainer from './Posts/PostsContainer';
@@ -10,11 +10,11 @@ type ProfilePropsType = {
     updateStatus: (status: string) => void
 }
 
-export const Profile: FC<ProfilePropsType> = ({profile, updateStatus, status}) => {
+export const Profile = memo(({profile, updateStatus, status}: ProfilePropsType) => {
     return (
         <div className={styles.content}>
             <Description profile={profile} updateStatus={updateStatus} status={status}/>
             <PostsContainer/>
         </div>
     )
-};
+});

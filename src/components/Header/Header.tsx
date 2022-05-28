@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React, {FC, memo} from 'react';
 import {AppBar, Box, Button, IconButton, Toolbar, Typography} from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import {AuthStateType} from '../../redux/auth-reducer';
@@ -7,7 +7,7 @@ type HeaderType = {
     auth: AuthStateType
 }
 
-export const Header: FC<HeaderType> = ({auth}) => {
+export const Header: FC<HeaderType> = memo(({auth}) => {
     const {id, login, email, isAuth} = auth;
 
     return (
@@ -23,4 +23,4 @@ export const Header: FC<HeaderType> = ({auth}) => {
             </AppBar>
         </Box>
     )
-};
+});

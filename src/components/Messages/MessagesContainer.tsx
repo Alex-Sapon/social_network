@@ -9,9 +9,7 @@ const MessagesContainer = () => {
     const messages = useAppSelector(state => state.messagesPage.messages);
     const users = useAppSelector(state => state.messagesPage.users);
 
-    return (
-        <Messages messages={messages} users={users} addMessage={addMessage}/>
-    )
+    return <Messages messages={messages} users={users} addMessage={addMessage}/>
 };
 
 export default compose<ComponentType>(

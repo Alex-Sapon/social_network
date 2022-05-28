@@ -1,11 +1,9 @@
-import React, {FC, KeyboardEvent, ChangeEvent} from 'react';
-import Post from './Post/Post';
+import React from 'react';
+import {Post} from './Post/Post';
 
-import {Button, FormGroup, Typography} from '@mui/material';
-import {blueGrey} from '@mui/material/colors';
-import SendIcon from '@mui/icons-material/Send';
-import styles from './Posts.module.css';
+import {Box, Typography} from '@mui/material';
 import {PostType} from '../../../redux/profile-reducer';
+import PostForm, {PostFormDataType} from '../PostForm/PostForm';
 
 export type PostsProps = {
     id: string
@@ -15,32 +13,22 @@ export type PostsProps = {
 
 type PostsType = {
     posts: Array<PostType>
-    newPost: string
-    addPost: () => void
-    updatePost: (text: string) => void
+    addPost: (post: string) => void
 }
 
-export const Posts: FC<PostsType> = ({addPost, newPost, posts, updatePost}) => {
-    const onAddPost = () => newPost.trim() !== '' && addPost();
-    const keyPressHandler = (e: KeyboardEvent) => newPost.trim() !== '' && e.key === 'Enter' && addPost();
-    const onPostChangeHandler = (e: ChangeEvent<HTMLInputElement>) => updatePost(e.currentTarget.value);
+export const Posts = ({addPost, posts}: PostsType) => {
+
+    const onSubmit = (formData: PostFormDataType) => {
+        const post = formData.post;
+
+        post && post.trim() !== '' && addPost(post);
+    };
 
     return (
-        <>
-            <FormGroup sx={{mb: '1rem'}}>
-                <input
-                    className={styles.input}
-                    value={newPost}
-                    onChange={onPostChangeHandler}
-                    onKeyPress={keyPressHandler}
-                />
-                <Button size="small" variant="contained" sx={{
-                    maxWidth: '150px', bgcolor: blueGrey[50],
-                    color: blueGrey[700], '&:hover': {bgcolor: blueGrey[200]}
-                }} endIcon={<SendIcon/>} onClick={onAddPost}>Add post</Button>
-            </FormGroup>
-            <Typography variant="h4" component="h4" sx={{mb: '1rem'}}>My posts</Typography>
+        <Box>
+            <Typography variant="h4" component="h4" sx={{mb: '1rem', textAlign: 'center'}}>My posts</Typography>
+            <PostForm onSubmit={onSubmit}/>
             <Post posts={posts}/>
-        </>
+        </Box>
     )
-}
+};

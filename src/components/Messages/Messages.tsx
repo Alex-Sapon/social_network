@@ -3,13 +3,13 @@ import Message from './Message/Message';
 import Dialog from './Dialog/Dialog';
 
 import {Grid, List, Typography} from '@mui/material';
-import {MessageType, UsersType} from '../../redux/messages-reducer';
+import {MessageType, UserType} from '../../redux/messages-reducer';
 import MessageForm, {MessageFormDataType} from './AddMessageForm/AddMessageForm';
 import {useDispatch} from 'react-redux';
 
 type MessagesPropsType = {
     messages: Array<MessageType>
-    users: Array<UsersType>
+    users: Array<UserType>
     addMessage: (message: string) => void
 };
 
@@ -18,21 +18,19 @@ export const Messages: FC<MessagesPropsType> = props => {
 
     const dispatch = useDispatch();
 
-    // const addMessageHandler = () => props.newMessage.trim() !== '' && dispatch(props.addMessage());
-    // const keyPressHandler = (e: KeyboardEvent<HTMLDivElement>) => {
-    //     e.key === 'Enter' && newMessage.trim() !== '' && dispatch(addMessage());
-    // };
-    // const onMessageChange = (e: ChangeEvent<HTMLInputElement>) => dispatch(updateMessage(e.currentTarget.value));
-
     const onSubmit = (formData: MessageFormDataType) => {
-        dispatch(addMessage(formData.messageForm));
-    }
+        const message = formData.messageForm;
+
+        message && message.trim() !== '' && dispatch(addMessage(message));
+    };
 
     return (
         <Grid container spacing={2}>
+            <Grid item xs={12}>
+                <Typography sx={{fontSize: '1.5rem'}}>Your friends</Typography>
+            </Grid>
             <Grid item xs={4}>
                 <List>
-                    <Typography sx={{fontSize: '1.5rem'}}>Your friends</Typography>
                     {users.map(user => <Dialog key={user.id} id={user.id} name={user.name}/>)}
                 </List>
             </Grid>

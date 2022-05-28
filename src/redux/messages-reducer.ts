@@ -1,6 +1,6 @@
 import {v1} from 'uuid';
 
-export type UsersType = {
+export type UserType = {
     id: string
     name: string
 };
@@ -9,7 +9,7 @@ export type MessageType = {
     message: string
 };
 export type MessagesStateType = {
-    users: Array<UsersType>
+    users: Array<UserType>
     messages: Array<MessageType>
 };
 

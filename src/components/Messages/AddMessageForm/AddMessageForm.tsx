@@ -9,13 +9,8 @@ const MessageForm: FC<InjectedFormProps<MessageFormDataType>> = props => {
     const {handleSubmit} = props;
 
     return (
-        <form style={{padding: '20px'}} onSubmit={handleSubmit}>
-            <Field
-                name="messageForm"
-                component="textarea"
-                type="textarea"
-                style={{marginBottom: '1rem'}}
-            />
+        <form onSubmit={handleSubmit}>
+            <Field name="messageForm" component="textarea" type="textarea"/>
             <button>Send message</button>
         </form>
     )
