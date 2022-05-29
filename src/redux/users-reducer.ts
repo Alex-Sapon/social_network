@@ -1,4 +1,4 @@
-import {usersAPI} from '../API/api';
+import {usersAPI} from '../api/api';
 import {AppThunk, ThunkDispatchType} from './hooks';
 
 export type ItemsType = {
@@ -53,9 +53,12 @@ export const usersReducer = (state: UsersStateType = initialUsers, action: Users
 };
 
 
-export type UsersActionsType = ReturnType<typeof followSuccess> | ReturnType<typeof unfollowSuccess>
-    | ReturnType<typeof setUsers> | ReturnType<typeof setCurrentPage>
-    | ReturnType<typeof setTotalUsersCount> | ReturnType<typeof toggleIsFetching>
+export type UsersActionsType = ReturnType<typeof followSuccess>
+    | ReturnType<typeof unfollowSuccess>
+    | ReturnType<typeof setUsers>
+    | ReturnType<typeof setCurrentPage>
+    | ReturnType<typeof setTotalUsersCount>
+    | ReturnType<typeof toggleIsFetching>
     | ReturnType<typeof toggleFollowingProgress>
 
 
@@ -102,7 +105,6 @@ export const toggleFollowingProgress = (isFetching: boolean, userId: number) => 
         userId,
     },
 }) as const;
-
 
 
 export const getUser = (currentPage: number, pageSize: number): AppThunk => (dispatch: ThunkDispatchType) => {

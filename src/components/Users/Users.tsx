@@ -29,7 +29,7 @@ export const Users: FC<UsersTypeProps> = props => {
                 <Pagination count={totalUsersCount} page={currentPage} onChange={onChangePageHandler}/>
             </Stack>
             {isFetching
-                ? <Preloader className={styles.preloader} stylePreloader={styles.preloader}/>
+                ? <Preloader/>
                 : <List>
                     {users.map(user =>
                         <User

@@ -10,11 +10,12 @@ import {compose} from 'redux';
 const ProfileContainer = () => {
     const profile = useAppSelector(state => state.profilePage.profile);
     const status = useAppSelector(state => state.profilePage.status);
+    const id = useAppSelector(state => state.auth.userId);
 
     const dispatch = useDispatch();
 
     const params = useParams<'id'>();
-    const userId = Number(params.id) || 23551;
+    const userId = Number(params.id) || id;
 
     useEffect(() => {
         dispatch(getUserProfile(userId));

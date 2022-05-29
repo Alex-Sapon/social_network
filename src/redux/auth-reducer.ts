@@ -1,8 +1,9 @@
-import {authAPI} from '../API/api';
+import {authAPI} from '../api/api';
 import {AppThunk, ThunkDispatchType} from './hooks';
+import {stopSubmit} from 'redux-form';
 
 export type AuthStateType = {
-    userId: number | null
+    userId: number
     login: string | null
     email: string | null
     rememberMe: boolean
@@ -10,10 +11,10 @@ export type AuthStateType = {
 };
 
 const initialState: AuthStateType = {
+    userId: 0,
     login: null,
     email: null,
     rememberMe: false,
-    userId: null,
     isAuth: false,
 };
 
@@ -26,7 +27,7 @@ export const authReducer = (state: AuthStateType = initialState, action: AuthAct
     }
 };
 
-export type AuthActionsType = ReturnType<typeof setAuthUserData>;
+export type AuthActionsType = ReturnType<typeof setAuthUserData> | ReturnType<typeof stopSubmit>;
 
 export const setAuthUserData = (userId: number, login: string, email: string, isAuth: boolean) => ({
     type: 'SET-AUTH-USER',
@@ -53,6 +54,8 @@ export const loginUser = (email: string, password: string, rememberMe: boolean):
     authAPI.login(email, password, rememberMe).then(res => {
         if (res.data.resultCode === 0) {
             dispatch(getAuthUserData());
+        } else {
+            dispatch(stopSubmit('loginForm', {_error: res.data.messages ? res.data.messages : 'Some error'}))
         }
     })
 };

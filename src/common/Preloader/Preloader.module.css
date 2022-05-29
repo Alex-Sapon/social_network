@@ -1,0 +1,10 @@
+.preloader_wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50%;
+}
+
+.preloader_wrapper img {
+    width: 20%;
+}

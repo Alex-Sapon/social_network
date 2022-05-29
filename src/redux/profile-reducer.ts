@@ -1,5 +1,5 @@
 import {v1} from 'uuid';
-import {profileAPI} from '../API/api';
+import {profileAPI} from '../api/api';
 import {AppThunk, ThunkDispatchType} from './hooks';
 
 export type PostType = {

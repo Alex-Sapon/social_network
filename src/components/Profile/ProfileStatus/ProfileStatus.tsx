@@ -38,8 +38,7 @@ export const ProfileStatus: FC<ProfileStatusType> = ({status, updateStatus}) => 
                     onChange={changeValueHandler}
                     onBlur={deactivateMode}
                     sx={{background: 'inherit', color: 'inherit', width: '100%'}}
-                />
-            }
+                />}
         </div>
     )
-}
+};

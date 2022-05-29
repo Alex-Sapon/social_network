@@ -5,7 +5,7 @@ test('auth state should be created', () => {
         login: null,
         email: null,
         rememberMe: false,
-        userId: null,
+        userId: 0,
         isAuth: false,
     }
 

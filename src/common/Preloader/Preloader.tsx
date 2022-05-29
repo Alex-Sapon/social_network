@@ -1,6 +1,6 @@
-import React, {FC} from 'react'
-import preloader from '../../assets/img/preloader/preloader.svg'
-import styles from './Preloader.module.css'
+import React, {FC} from 'react';
+import preloader from '../../assets/img/preloader/preloader.svg';
+import styles from './Preloader.module.css';
 
 type PreloaderType = {
     className?: string
@@ -9,8 +9,8 @@ type PreloaderType = {
 
 export const Preloader: FC<PreloaderType> = ({className, stylePreloader}) => {
     return (
-        <div className={className}>
+        <div className={`${styles.preloader_wrapper} ${className}`}>
             <img src={preloader} alt="Preloader" className={stylePreloader}/>
         </div>
     )
-}
+};
