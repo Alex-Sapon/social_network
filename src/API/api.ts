@@ -91,7 +91,7 @@ export const profileAPI = {
 };
 
 export const authAPI = {
-    getAuthUser() {
+    me() {
         return instance.get<IResponse<IAuthData>>(`auth/me`);
     },
     login(email: string, password: string, rememberMe: boolean) {

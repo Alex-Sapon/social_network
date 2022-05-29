@@ -1,7 +1,7 @@
 .form_control {
     display: flex;
     flex-direction: column;
-    min-height: 70px;
+    min-height: 80px;
 }
 
 .form_control input {

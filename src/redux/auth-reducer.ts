@@ -2,18 +2,18 @@ import {authAPI} from '../API/api';
 import {AppThunk, ThunkDispatchType} from './hooks';
 
 export type AuthStateType = {
+    userId: number | null
     login: string | null
     email: string | null
     rememberMe: boolean
-    id: number | null
     isAuth: boolean
 };
 
 const initialState: AuthStateType = {
-    login: '',
-    email: '',
+    login: null,
+    email: null,
     rememberMe: false,
-    id: 1,
+    userId: null,
     isAuth: false,
 };
 
@@ -28,38 +28,39 @@ export const authReducer = (state: AuthStateType = initialState, action: AuthAct
 
 export type AuthActionsType = ReturnType<typeof setAuthUserData>;
 
-export const setAuthUserData = (id: number | null, login: string, email: string, isAuth: boolean) => ({
+export const setAuthUserData = (userId: number, login: string, email: string, isAuth: boolean) => ({
     type: 'SET-AUTH-USER',
     payload: {
-        id,
+        userId,
         login,
         email,
-        isAuth
+        isAuth,
     }
 }) as const;
 
 
 export const getAuthUserData = (): AppThunk => (dispatch: ThunkDispatchType) => {
-    authAPI.getAuthUser().then(res => {
+    authAPI.me().then(res => {
         if (res.data.resultCode === 0) {
             const {id, login, email} = res.data.data;
+
             dispatch(setAuthUserData(id, login, email, true));
         }
     });
 };
 
-export const getLoginUserData = (email: string, password: string, rememberMe: boolean): AppThunk => (dispatch: ThunkDispatchType) => {
+export const loginUser = (email: string, password: string, rememberMe: boolean): AppThunk => (dispatch: ThunkDispatchType) => {
     authAPI.login(email, password, rememberMe).then(res => {
         if (res.data.resultCode === 0) {
             dispatch(getAuthUserData());
         }
     })
-}
+};
 
-export const getLogoutUser = (): AppThunk => (dispatch: ThunkDispatchType) => {
+export const logoutUser = (): AppThunk => (dispatch: ThunkDispatchType) => {
   authAPI.logout().then(res => {
       if (res.data.resultCode === 0) {
-          dispatch(setAuthUserData(null, '', '', false));
+          dispatch(setAuthUserData(0, '', '', false));
       }
-  })
-}
+  });
+};
