@@ -1,6 +1,8 @@
 import {v1} from 'uuid';
-import {profileAPI} from '../api/api';
-import {AppThunk, ThunkDispatchType} from './hooks';
+import {profileAPI} from '../../api/api';
+import {AppThunk} from '../redux-store';
+import {ResultCode} from '../../enums/result-code';
+import {AxiosError} from 'axios';
 
 export type PostType = {
     id: string
@@ -60,7 +62,8 @@ export const profileReducer = (state: RootProfileType = initialState, action: Pr
     }
 };
 
-export type ProfileActionsType = ReturnType<typeof addPost>
+export type ProfileActionsType =
+    | ReturnType<typeof addPost>
     | ReturnType<typeof setUserProfile>
     | ReturnType<typeof setUserStatus>
 
@@ -86,24 +89,39 @@ export const setUserStatus = (status: string) => ({
 }) as const;
 
 
-export const getUserProfile = (userId: number): AppThunk => (dispatch: ThunkDispatchType) => {
-    profileAPI.getProfile(userId).then(res => {
-        dispatch(setUserProfile(res.data));
-    })
+export const getUserProfile = (userId: number): AppThunk => dispatch => {
+    profileAPI.getProfile(userId)
+        .then(res => {
+            dispatch(setUserProfile(res.data));
+        })
 };
 
-export const getStatus = (userId: number): AppThunk => (dispatch: ThunkDispatchType) => {
-    profileAPI.getStatus(userId).then(res => {
-        dispatch(setUserStatus(res.data));
-    })
+export const getStatus = (userId: number): AppThunk => dispatch => {
+    profileAPI.getStatus(userId)
+        .then(res => {
+            dispatch(setUserStatus(res.data));
+        })
+        .catch((err: AxiosError) => {
+
+        })
+        .finally(() => {
+
+        })
 };
 
-export const updateStatus = (status: string): AppThunk => (dispatch: ThunkDispatchType) => {
-    profileAPI.updateStatus(status).then(response => {
-        if (response.data.resultCode === 0) {
-            dispatch(setUserStatus(status));
-        }
-    })
+export const updateStatus = (status: string): AppThunk => dispatch => {
+    profileAPI.updateStatus(status)
+        .then(response => {
+            if (response.data.resultCode === ResultCode.Success) {
+                dispatch(setUserStatus(status));
+            }
+        })
+        .catch((err: AxiosError) => {
+
+        })
+        .finally(() => {
+
+        })
 };
 
 

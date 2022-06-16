@@ -1,19 +1,6 @@
 import {v1} from 'uuid';
 
-export type UserType = {
-    id: string
-    name: string
-};
-export type MessageType = {
-    id: string
-    message: string
-};
-export type MessagesStateType = {
-    users: Array<UserType>
-    messages: Array<MessageType>
-};
-
-const initialState: MessagesStateType = {
+const InitialState: MessagesStateType = {
     users: [
         {id: v1(), name: 'Sasha'},
         {id: v1(), name: 'Kate'},
@@ -30,7 +17,7 @@ const initialState: MessagesStateType = {
     ],
 };
 
-export const messagesReducer = (state: MessagesStateType = initialState, action: MessageActionsType): MessagesStateType => {
+export const messagesReducer = (state: MessagesStateType = InitialState, action: MessageActionsType): MessagesStateType => {
     switch (action.type) {
         case 'ADD-MESSAGE':
             return {...state, messages: [...state.messages, {id: v1(), message: action.payload.message}]};
@@ -39,11 +26,27 @@ export const messagesReducer = (state: MessagesStateType = initialState, action:
     }
 };
 
-export type MessageActionsType = ReturnType<typeof addMessage>;
 
+// ----- actions -----
 export const addMessage = (message: string) => ({
     type: 'ADD-MESSAGE',
     payload: {
         message,
     }
-}) as const;
+} as const);
+
+// ----- types -----
+export type MessageActionsType = ReturnType<typeof addMessage>;
+
+export type UserType = {
+    id: string
+    name: string
+};
+export type MessageType = {
+    id: string
+    message: string
+};
+export type MessagesStateType = {
+    users: Array<UserType>
+    messages: Array<MessageType>
+};

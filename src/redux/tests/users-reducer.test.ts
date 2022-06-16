@@ -8,7 +8,7 @@ import {
     usersReducer,
     UsersStateType,
     followSuccess, unfollowSuccess, ItemsType
-} from '../users-reducer'
+} from '../reducers/users-reducer'
 
 test('change status to follow', () => {
     const initialUsers: UsersStateType = {

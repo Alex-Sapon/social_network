@@ -1,6 +1,6 @@
 import {Posts} from './Posts';
 import {AppStateType} from '../../../redux/redux-store';
-import {addPost, PostType} from '../../../redux/profile-reducer';
+import {addPost, PostType} from '../../../redux/reducers/profile-reducer';
 import {connect} from 'react-redux';
 
 type MapStateToPropsType = {

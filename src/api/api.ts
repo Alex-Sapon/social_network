@@ -6,13 +6,50 @@ const instance = axios.create({
     withCredentials: true,
     baseURL: 'https://social-network.samuraijs.com/api/1.0/',
     headers: {
-        'api-key': '483934c0-f61b-47e1-9d9d-0413157bcd41'
+        'api-key': '4ff286de-521e-40e5-886b-098d6b658b6b'
     },
 });
 
 
+export const usersAPI = {
+    getUsers(currentPage: number, pageSize: number) {
+        return instance.get<IUserData>(`users?page=${currentPage}&count=${pageSize}`);
+    },
+    followUser(userId: number) {
+        return instance.post<IResponse>(`follow/${userId}`);
+    },
+    unfollowUser(userId: number) {
+        return instance.delete<IResponse>(`follow/${userId}`);
+    },
+};
+
+export const profileAPI = {
+    getProfile(userId: number) {
+        return instance.get<IProfile>(`profile/${userId}`);
+    },
+    getStatus(userId: number) {
+        return instance.get<string>(`profile/status/${userId}`);
+    },
+    updateStatus(status: string) {
+        return instance.put<IResponse>(`profile/status`, {status: status});
+    },
+};
+
+export const authAPI = {
+    me() {
+        return instance.get<IResponse<IAuthData>>(`auth/me`);
+    },
+    login(data: IUserParams) {
+        return instance.post<IResponse<{ userId: number }>>('auth/login', data);
+    },
+    logout() {
+        return instance.delete<IResponse>('/auth/login');
+    },
+};
+
+
 // Interface
-interface IUserType {
+interface IUser {
     name: string
     id: number
     uniqueUrlName: string | null
@@ -24,8 +61,8 @@ interface IUserType {
     followed: boolean
 }
 
-interface IUserDataType {
-    items: IUserType[]
+interface IUserData {
+    items: IUser[]
     totalCount: number
     error: string | null
 }
@@ -65,39 +102,9 @@ interface IAuthData {
     email: string
 }
 
-
-export const usersAPI = {
-    getUsers(currentPage: number, pageSize: number) {
-        return instance.get<IUserDataType>(`users?page=${currentPage}&count=${pageSize}`);
-    },
-    followUser(userId: number) {
-        return instance.post<IResponse>(`follow/${userId}`);
-    },
-    unfollowUser(userId: number) {
-        return instance.delete<IResponse>(`follow/${userId}`);
-    },
-};
-
-export const profileAPI = {
-    getProfile(userId: number) {
-        return instance.get<IProfile>(`profile/${userId}`);
-    },
-    getStatus(userId: number) {
-        return instance.get<string>(`profile/status/${userId}`);
-    },
-    updateStatus(status: string) {
-        return instance.put<IResponse>(`profile/status`, {status: status});
-    },
-};
-
-export const authAPI = {
-    me() {
-        return instance.get<IResponse<IAuthData>>(`auth/me`);
-    },
-    login(email: string, password: string, rememberMe: boolean) {
-        return instance.post<IResponse<{ userId: number }>>('auth/login', {email, password, rememberMe});
-    },
-    logout() {
-        return instance.delete<IResponse>('/auth/login');
-    },
-};
+export interface IUserParams {
+    email: string
+    password: string
+    rememberMe: boolean
+    captcha?: string
+}

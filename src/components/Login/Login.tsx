@@ -1,27 +1,21 @@
 import {Box, Typography} from '@mui/material';
 import {Field, Form, InjectedFormProps, reduxForm} from 'redux-form';
 import {FC, useMemo} from 'react';
-import {useDispatch} from 'react-redux';
-import {loginUser, logoutUser} from '../../redux/auth-reducer';
+import {login} from '../../redux/reducers/auth-reducer';
 import {required} from '../../common/validators';
 import {renderField} from '../../common/FormControl';
-import {useAppSelector} from '../../redux/hooks';
-import {useNavigate} from 'react-router-dom';
+import {useAppDispatch, useAppSelector} from '../../redux/hooks';
+import {Navigate} from 'react-router-dom';
+import {PATH} from '../../enums/path';
 
 type FormDataType = {
-    login: string
+    email: string
     password: string
     rememberMe: boolean
 }
 
 const LoginForm: FC<InjectedFormProps<FormDataType>> = props => {
     const {handleSubmit, error} = props;
-
-    const dispatch = useDispatch();
-
-    const handleLogout = () => {
-        dispatch(logoutUser());
-    }
 
     const inputField = useMemo(() => {
         return renderField('input');
@@ -30,12 +24,13 @@ const LoginForm: FC<InjectedFormProps<FormDataType>> = props => {
     return (
         <Form onSubmit={handleSubmit}>
             <div style={{display: 'flex', flexDirection: 'column'}}>
-                <Field placeholder={'login'} name="login" component={inputField} validate={[required]}/>
+                <Field placeholder="email" name="email" component={inputField} validate={[required]}/>
             </div>
             <div style={{display: 'flex', flexDirection: 'column'}}>
                 <Field
                     placeholder="password"
-                    name="password" type="password"
+                    name="password"
+                    type="password"
                     component={inputField}
                     validate={[required]}
                 />
@@ -46,7 +41,6 @@ const LoginForm: FC<InjectedFormProps<FormDataType>> = props => {
             </div>
             {error && <div style={{color: 'red', marginTop: '-20px', marginBottom: '10px'}}>{error}</div>}
             <button type="submit">Log In</button>
-            <button type="submit" onClick={handleLogout}>Log Out</button>
         </Form>
     )
 };
@@ -54,31 +48,29 @@ const LoginForm: FC<InjectedFormProps<FormDataType>> = props => {
 const LoginReduxForm = reduxForm<FormDataType>({form: 'loginForm'})(LoginForm);
 
 const Login = () => {
+    const dispatch = useAppDispatch();
+
     const isAuth = useAppSelector(state => state.auth.isAuth);
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
 
-    const onSubmit = (formData: FormDataType) => {
-        const {login, password, rememberMe} = formData;
+    const onSubmit = (data: FormDataType) => {
+        dispatch(login(data));
+    }
 
-        dispatch(loginUser(login, password, rememberMe));
+    if (isAuth) {
+        return <Navigate to={PATH.PROFILE}/>
     }
 
     return (
-        <>
-            {!isAuth
-                ? <Box sx={{
-                    p: '1rem',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    justifyContent: 'center'
-                }}>
-                    <Typography variant="h4" component="h4" sx={{mb: '2rem'}}>Login</Typography>
-                    <LoginReduxForm onSubmit={onSubmit}/>
-                </Box>
-                : navigate('/profile/:id')}
-        </>
+        <Box sx={{
+            p: '1rem',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center'
+        }}>
+            <Typography variant="h4" component="h4" sx={{mb: '2rem'}}>Login</Typography>
+            <LoginReduxForm onSubmit={onSubmit}/>
+        </Box>
     )
 };
 

@@ -2,7 +2,7 @@ import React from 'react';
 import {Post} from './Post/Post';
 
 import {Box, Typography} from '@mui/material';
-import {PostType} from '../../../redux/profile-reducer';
+import {PostType} from '../../../redux/reducers/profile-reducer';
 import PostForm, {PostFormDataType} from '../PostForm/PostForm';
 
 export type PostsProps = {
@@ -12,7 +12,7 @@ export type PostsProps = {
 }
 
 type PostsType = {
-    posts: Array<PostType>
+    posts: PostType[]
     addPost: (post: string) => void
 }
 

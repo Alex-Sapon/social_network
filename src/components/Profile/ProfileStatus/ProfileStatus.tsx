@@ -1,17 +1,17 @@
 import {ChangeEvent, FC, useState} from 'react';
 import {TextField} from '@mui/material';
-import {useDispatch} from 'react-redux';
+import {useAppDispatch} from '../../../redux/hooks';
+import {updateStatus} from '../../../redux/reducers/profile-reducer';
 
 type ProfileStatusType = {
     status: string
-    updateStatus: (status: string) => void
 }
 
-export const ProfileStatus: FC<ProfileStatusType> = ({status, updateStatus}) => {
+export const ProfileStatus: FC<ProfileStatusType> = ({status}) => {
     const [editMode, setEditMode] = useState(false);
     const [value, setValue] = useState(status);
 
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
     const activateMode = () => {
         setEditMode(true);
@@ -32,8 +32,8 @@ export const ProfileStatus: FC<ProfileStatusType> = ({status, updateStatus}) => 
                 ? <span onDoubleClick={activateMode}>{status !== null ? status : 'No status'}</span>
                 : <TextField
                     autoFocus
-                    size={'small'}
-                    variant={'standard'}
+                    size='small'
+                    variant='standard'
                     value={value}
                     onChange={changeValueHandler}
                     onBlur={deactivateMode}

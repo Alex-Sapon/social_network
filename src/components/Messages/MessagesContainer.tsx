@@ -1,4 +1,4 @@
-import {addMessage} from '../../redux/messages-reducer';
+import {addMessage} from '../../redux/reducers/messages-reducer';
 import {Messages} from './Messages';
 import {useAppSelector} from '../../redux/hooks';
 import {withAuthRedirect} from '../../hoc/withAuthRedirect';

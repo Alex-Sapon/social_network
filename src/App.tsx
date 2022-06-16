@@ -1,6 +1,6 @@
-import {Navigate, Route, Routes} from 'react-router-dom';
+import {Route, Routes} from 'react-router-dom';
 
-import {Container, Grid} from '@mui/material';
+import {Box, CircularProgress, Container, Grid} from '@mui/material';
 import './app.css';
 
 import {HeaderContainer} from './components/Header/HeaderContainer';
@@ -13,7 +13,28 @@ import UsersContainer from './components/Users/UsersContainer';
 import ProfileContainer from './components/Profile/ProfileContainer';
 import Login from './components/Login/Login';
 
+import {PATH} from './enums/path';
+import {useEffect} from 'react';
+import {useAppDispatch, useAppSelector} from './redux/hooks';
+import {setInitializeApp} from './redux/reducers/app-reducer';
+
 const App = () => {
+    const dispatch = useAppDispatch();
+
+    const isInitialized = useAppSelector(state => state.app.isInitialized);
+
+    useEffect(() => {
+        dispatch(setInitializeApp());
+    }, [])
+
+    if (!isInitialized) {
+        return (
+            <Box sx={{display: 'flex', justifyContent: 'center', marginTop: '30%'}}>
+                <CircularProgress/>
+            </Box>
+        )
+    }
+
     return (
         <>
             <HeaderContainer/>
@@ -24,13 +45,13 @@ const App = () => {
                     </Grid>
                     <Grid item xs={9}>
                         <Routes>
-                            <Route path="/profile/:id" element={<ProfileContainer/>}/>
-                            <Route path="/messages/" element={<MessagesContainer/>}/>
-                            <Route path="/friends/" element={<UsersContainer/>}/>
-                            <Route path="/news/" element={<News/>}/>
-                            <Route path="/music" element={<Music/>}/>
-                            <Route path="/settings" element={<Settings/>}/>
-                            <Route path="/login" element={<Login/>}/>
+                            <Route path={PATH.PROFILE} element={<ProfileContainer/>}/>
+                            <Route path={PATH.MESSAGES} element={<MessagesContainer/>}/>
+                            <Route path={PATH.FRIENDS} element={<UsersContainer/>}/>
+                            <Route path={PATH.NEWS} element={<News/>}/>
+                            <Route path={PATH.MUSIC} element={<Music/>}/>
+                            <Route path={PATH.SETTINGS} element={<Settings/>}/>
+                            <Route path={PATH.LOGIN} element={<Login/>}/>
                         </Routes>
                     </Grid>
                 </Grid>

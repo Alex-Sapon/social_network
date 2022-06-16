@@ -2,7 +2,7 @@ import React, {ComponentType} from 'react';
 import {connect} from 'react-redux';
 import {compose} from 'redux';
 import {Users} from './Users';
-import {toggleIsFetching, getUser, follow, unfollow, ItemsType} from '../../redux/users-reducer';
+import {toggleIsFetching, getUser, follow, unfollow, ItemsType} from '../../redux/reducers/users-reducer';
 import {AppStateType} from '../../redux/redux-store';
 import {withAuthRedirect} from '../../hoc/withAuthRedirect';
 
@@ -13,6 +13,7 @@ type MapStatePropsType = {
     currentPage: number
     isFetching: boolean
     followingProgress: Array<number>
+    isAuth: boolean
 };
 
 type MapDispatchPropsType = {
@@ -25,6 +26,10 @@ export type UsersContainerType = MapStatePropsType & MapDispatchPropsType;
 
 class UsersContainer extends React.Component<UsersContainerType> {
     componentDidMount() {
+        if (this.props.isAuth) {
+            return
+        }
+
         this.props.getUser(this.props.currentPage, this.props.pageSize);
     };
 
@@ -44,6 +49,8 @@ const mapStateToProps = (state: AppStateType): MapStatePropsType => ({
         currentPage: state.usersPage.currentPage,
         isFetching: state.usersPage.isFetching,
         followingProgress: state.usersPage.followingProgress,
+        isAuth: state.auth.isAuth,
+
     }
 );
 

@@ -1,5 +1,5 @@
 import {v1} from 'uuid';
-import {addMessage, messagesReducer, MessagesStateType} from '../messages-reducer';
+import {addMessage, messagesReducer, MessagesStateType} from '../reducers/messages-reducer';
 
 test('new message should be added', () => {
     const initialState: MessagesStateType = {

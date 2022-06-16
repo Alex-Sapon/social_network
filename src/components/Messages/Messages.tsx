@@ -3,7 +3,7 @@ import Message from './Message/Message';
 import Dialog from './Dialog/Dialog';
 
 import {Grid, List, Typography} from '@mui/material';
-import {MessageType, UserType} from '../../redux/messages-reducer';
+import {MessageType, UserType} from '../../redux/reducers/messages-reducer';
 import MessageForm, {MessageFormDataType} from './AddMessageForm/AddMessageForm';
 import {useDispatch} from 'react-redux';
 
