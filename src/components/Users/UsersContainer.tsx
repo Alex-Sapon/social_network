@@ -2,7 +2,7 @@ import React, {ComponentType} from 'react';
 import {connect} from 'react-redux';
 import {compose} from 'redux';
 import {Users} from './Users';
-import {toggleIsFetching, fetchUsers, follow, unfollow, ItemsType} from '../../redux/reducers/users-reducer';
+import {fetchUsers, follow, ItemsType, toggleIsFetching, unfollow} from '../../redux/reducers/users-reducer';
 import {AppStateType} from '../../redux/redux-store';
 import {withAuthRedirect} from '../../hoc/withAuthRedirect';
 import {
