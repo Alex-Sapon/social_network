@@ -16,22 +16,22 @@ export type UsersStateType = typeof initialUsers;
 
 export const usersReducer = (state: UsersStateType = initialUsers, action: UsersActionsType): UsersStateType => {
     switch (action.type) {
-        case 'FOLLOW':
+        case 'USERS/FOLLOW':
             return {...state, items: state.items.map(u => u.id === action.payload.userId ? {...u, followed: true} : u)};
-        case 'UNFOLLOW':
+        case 'USERS/UNFOLLOW':
             return {
                 ...state,
                 items: state.items.map(u => u.id === action.payload.userId ? {...u, followed: false} : u)
             };
-        case 'SET-USERS':
+        case 'USERS/SET-USERS':
             return {...state, items: action.payload.users};
-        case 'SET-CURRENT-PAGE':
+        case 'USERS/SET-CURRENT-PAGE':
             return {...state, currentPage: action.payload.currentPage};
-        case 'SET-TOTAL-USERS-COUNT':
+        case 'USERS/SET-TOTAL-USERS-COUNT':
             return {...state, totalCount: action.payload.totalCount};
-        case 'TOGGLE-IS-FETCHING':
+        case 'USERS/TOGGLE-IS-FETCHING':
             return {...state, isFetching: action.payload.isFetching};
-        case 'TOGGLE-FOLLOWING-PROGRESS':
+        case 'USERS/TOGGLE-FOLLOWING-PROGRESS':
             return {
                 ...state, followingProgress: action.payload.isFetching
                     ? [...state.followingProgress, action.payload.userId]
@@ -44,56 +44,56 @@ export const usersReducer = (state: UsersStateType = initialUsers, action: Users
 
 
 export const followSuccess = (userId: number) => ({
-    type: 'FOLLOW',
+    type: 'USERS/FOLLOW',
     payload: {
         userId,
     },
-}) as const;
+} as const);
 
 export const unfollowSuccess = (userId: number) => ({
-    type: 'UNFOLLOW',
+    type: 'USERS/UNFOLLOW',
     payload: {
         userId,
     },
-}) as const;
+} as const);
 
 export const setUsers = (users: ItemsType[]) => ({
-    type: 'SET-USERS',
+    type: 'USERS/SET-USERS',
     payload: {
         users,
     },
-}) as const;
+} as const);
 
 export const setCurrentPage = (currentPage: number) => ({
-    type: 'SET-CURRENT-PAGE',
+    type: 'USERS/SET-CURRENT-PAGE',
     payload: {
         currentPage,
     },
-}) as const;
+} as const);
 
 export const setTotalUsersCount = (totalCount: number) => ({
-    type: 'SET-TOTAL-USERS-COUNT',
+    type: 'USERS/SET-TOTAL-USERS-COUNT',
     payload: {
         totalCount,
     },
-}) as const;
+} as const);
 export const toggleIsFetching = (isFetching: boolean) => ({
-    type: 'TOGGLE-IS-FETCHING',
+    type: 'USERS/TOGGLE-IS-FETCHING',
     payload: {
         isFetching,
     },
-}) as const;
+} as const);
 
 export const toggleFollowingProgress = (isFetching: boolean, userId: number) => ({
-    type: 'TOGGLE-FOLLOWING-PROGRESS',
+    type: 'USERS/TOGGLE-FOLLOWING-PROGRESS',
     payload: {
         isFetching,
         userId,
     },
-}) as const;
+} as const);
 
 
-export const getUser = (currentPage: number, pageSize: number): AppThunk => dispatch => {
+export const fetchUsers = (currentPage: number, pageSize: number): AppThunk => dispatch => {
     dispatch(toggleIsFetching(true));
     dispatch(setCurrentPage(currentPage));
 
@@ -103,7 +103,7 @@ export const getUser = (currentPage: number, pageSize: number): AppThunk => disp
             dispatch(setTotalUsersCount(res.data.totalCount));
         })
         .catch((err: AxiosError) => {
-            console.log(err.message)
+            console.error(err.message);
         })
         .finally(() => {
             dispatch(toggleIsFetching(false));

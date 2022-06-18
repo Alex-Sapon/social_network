@@ -1,12 +1,11 @@
 import axios from 'axios';
 
-
 // DAL - data access layer
 const instance = axios.create({
     withCredentials: true,
     baseURL: 'https://social-network.samuraijs.com/api/1.0/',
     headers: {
-        'api-key': '4ff286de-521e-40e5-886b-098d6b658b6b'
+        'api-key': '8fd3ebb9-d9a7-4b2a-a136-7442a306a767'
     },
 });
 
@@ -40,10 +39,10 @@ export const authAPI = {
         return instance.get<IResponse<IAuthData>>(`auth/me`);
     },
     login(data: IUserParams) {
-        return instance.post<IResponse<{ userId: number }>>('auth/login', data);
+        return instance.post<IResponse<{ userId: number }>>(`auth/login`, data);
     },
     logout() {
-        return instance.delete<IResponse>('/auth/login');
+        return instance.delete<IResponse>(`auth/login`);
     },
 };
 

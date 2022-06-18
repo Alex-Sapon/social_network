@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import {FC} from 'react';
 import preloader from '../../assets/img/preloader/preloader.svg';
 import styles from './Preloader.module.css';
 

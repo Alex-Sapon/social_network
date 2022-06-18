@@ -19,7 +19,7 @@ const InitialState: MessagesStateType = {
 
 export const messagesReducer = (state: MessagesStateType = InitialState, action: MessageActionsType): MessagesStateType => {
     switch (action.type) {
-        case 'ADD-MESSAGE':
+        case 'MESSAGES/ADD-MESSAGE':
             return {...state, messages: [...state.messages, {id: v1(), message: action.payload.message}]};
         default:
             return state;
@@ -29,7 +29,7 @@ export const messagesReducer = (state: MessagesStateType = InitialState, action:
 
 // ----- actions -----
 export const addMessage = (message: string) => ({
-    type: 'ADD-MESSAGE',
+    type: 'MESSAGES/ADD-MESSAGE',
     payload: {
         message,
     }
@@ -42,10 +42,12 @@ export type UserType = {
     id: string
     name: string
 };
+
 export type MessageType = {
     id: string
     message: string
 };
+
 export type MessagesStateType = {
     users: Array<UserType>
     messages: Array<MessageType>

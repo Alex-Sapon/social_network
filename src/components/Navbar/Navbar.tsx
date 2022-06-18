@@ -4,6 +4,8 @@ import {NavLink} from 'react-router-dom';
 import {Divider, List, ListItem, ListItemText} from '@mui/material';
 import {red} from '@mui/material/colors';
 import classes from './Navbar.module.css';
+import {useAppSelector} from '../../redux/hooks';
+import {selectUserId} from '../Profile/ProfileContainer';
 
 const navbarStyles = {
     backgroundColor: 'background.paper',
@@ -14,27 +16,29 @@ const navbarStyles = {
 
 const Navbar: FC = () => {
     const setActiveClass = (navData: { isActive: boolean }): string => navData.isActive ? classes.active : classes.item;
-    
+
+    const id = useAppSelector(selectUserId);
+
     return (
         <List component="nav" aria-label="mailbox folders" sx={navbarStyles}>
             <ListItem button>
-                <NavLink className={setActiveClass} to="/profile/:id"><ListItemText primary={"Profile"}/></NavLink>
+                <NavLink className={setActiveClass} to={`/profile/${id}`}><ListItemText primary="Profile"/></NavLink>
             </ListItem>
             <Divider light/>
             <ListItem button>
-                <NavLink className={setActiveClass} to="/messages"><ListItemText primary={"Messages"}/></NavLink>
+                <NavLink className={setActiveClass} to="/messages"><ListItemText primary="Messages"/></NavLink>
             </ListItem>
             <Divider light/>
             <ListItem button>
-                <NavLink className={setActiveClass} to="/friends"><ListItemText primary={"Users"}/></NavLink>
+                <NavLink className={setActiveClass} to="/friends"><ListItemText primary="Users"/></NavLink>
             </ListItem>
             <Divider light/>
             <ListItem button>
-                <NavLink className={setActiveClass} to="/news"><ListItemText primary={"News"}/></NavLink>
+                <NavLink className={setActiveClass} to="/news"><ListItemText primary="News"/></NavLink>
             </ListItem>
             <Divider light/>
             <ListItem button>
-                <NavLink className={setActiveClass} to="/music"><ListItemText primary={"Music"}/></NavLink>
+                <NavLink className={setActiveClass} to="/music"><ListItemText primary="Music"/></NavLink>
             </ListItem>
             <Divider light/>
             <ListItem button>

@@ -1,16 +1,13 @@
-import React, {FC, memo} from 'react';
+import React from 'react';
 import {AppBar, Box, Button, IconButton, Toolbar, Typography} from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import {AuthStateType, logout} from '../../redux/reducers/auth-reducer';
-import {useDispatch} from 'react-redux';
+import {logout} from '../../redux/reducers/auth-reducer';
+import {useAppDispatch, useAppSelector} from '../../redux/hooks';
 
-type HeaderType = {
-    auth: AuthStateType
-}
+export const Header = () => {
+    const dispatch = useAppDispatch();
 
-export const Header: FC<HeaderType> = memo(({auth}) => {
-    const {isAuth} = auth;
-    const dispatch = useDispatch();
+    const isAuth = useAppSelector(state => state.auth.isAuth);
 
     const handlerLogout = () => {
         dispatch(logout());
@@ -29,4 +26,4 @@ export const Header: FC<HeaderType> = memo(({auth}) => {
             </AppBar>
         </Box>
     )
-});
+};

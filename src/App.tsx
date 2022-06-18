@@ -3,7 +3,6 @@ import {Route, Routes} from 'react-router-dom';
 import {Box, CircularProgress, Container, Grid} from '@mui/material';
 import './app.css';
 
-import {HeaderContainer} from './components/Header/HeaderContainer';
 import Navbar from './components/Navbar/Navbar';
 import MessagesContainer from './components/Messages/MessagesContainer';
 import News from './components/News/News';
@@ -16,7 +15,8 @@ import Login from './components/Login/Login';
 import {PATH} from './enums/path';
 import {useEffect} from 'react';
 import {useAppDispatch, useAppSelector} from './redux/hooks';
-import {setInitializeApp} from './redux/reducers/app-reducer';
+import {initializeApp} from './redux/reducers/app-reducer';
+import {Header} from './components/Header/Header';
 
 const App = () => {
     const dispatch = useAppDispatch();
@@ -24,8 +24,8 @@ const App = () => {
     const isInitialized = useAppSelector(state => state.app.isInitialized);
 
     useEffect(() => {
-        dispatch(setInitializeApp());
-    }, [])
+        dispatch(initializeApp());
+    }, [dispatch])
 
     if (!isInitialized) {
         return (
@@ -37,7 +37,7 @@ const App = () => {
 
     return (
         <>
-            <HeaderContainer/>
+            <Header/>
             <Container sx={{height: '100vh'}}>
                 <Grid container columnSpacing={{xs: 2, sm: 3, md: 5}} sx={{height: '100vh'}} columns={12}>
                     <Grid item xs={3}>

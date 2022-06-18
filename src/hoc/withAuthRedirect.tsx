@@ -2,6 +2,7 @@ import {useNavigate} from 'react-router-dom';
 import {AppStateType} from '../redux/redux-store';
 import {connect} from 'react-redux';
 import {ComponentType, useEffect} from 'react';
+import {PATH} from '../enums/path';
 
 type MapStateToPropsType = {
     isAuth: boolean
@@ -15,11 +16,12 @@ export function withAuthRedirect<T>(Component: ComponentType<T>) {
 
     const RedirectComponent = (props: MapStateToPropsType) => {
         const {isAuth, ...restProps} = props;
+
         const navigate = useNavigate();
 
         useEffect(() => {
             if (!isAuth) {
-                navigate('/login');
+                return navigate(PATH.LOGIN)
             }
         }, [isAuth, navigate])
 
