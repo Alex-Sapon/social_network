@@ -17,8 +17,7 @@ export const Users: FC<UsersTypeProps> = props => {
         isFetching,
         users,
         followingProgress,
-        follow,
-        unfollow,
+        followUnfollow,
     } = props;
 
     const onChangePageHandler = (e: ChangeEvent<unknown>, page: number) => onChangePage(page);
@@ -36,8 +35,7 @@ export const Users: FC<UsersTypeProps> = props => {
                             key={user.id}
                             user={user}
                             followingProgress={followingProgress}
-                            follow={follow}
-                            unfollow={unfollow}
+                            followUnfollow={followUnfollow}
                         />)}
                 </List>}
         </div>

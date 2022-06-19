@@ -101,13 +101,15 @@ export const fetchUsers = (currentPage: number, pageSize: number): AppThunk => d
         });
 };
 
-export const follow = (userId: number): AppThunk => dispatch => {
+export const followUnfollow = (userId: number, isFollow: boolean): AppThunk => dispatch => {
     dispatch(toggleFollowingProgress(true, userId));
 
-    usersAPI.followUser(userId)
+    const apiMethod = isFollow ? usersAPI.followUser.bind(usersAPI) : usersAPI.unfollowUser.bind(usersAPI);
+
+    apiMethod(userId)
         .then(res => {
             if (res.data.resultCode === ResultCode.Success) {
-                dispatch(followUnfollowSuccess(userId, true));
+                dispatch(followUnfollowSuccess(userId, isFollow));
             }
         })
         .catch((err: AxiosError) => {
@@ -117,24 +119,6 @@ export const follow = (userId: number): AppThunk => dispatch => {
             dispatch(toggleFollowingProgress(false, userId));
         });
 };
-
-export const unfollow = (userId: number): AppThunk => dispatch => {
-    dispatch(toggleFollowingProgress(true, userId));
-
-    usersAPI.unfollowUser(userId)
-        .then(res => {
-            if (res.data.resultCode === ResultCode.Success) {
-                dispatch(followUnfollowSuccess(userId, false));
-            }
-        })
-        .catch(() => {
-
-        })
-        .finally(() => {
-            dispatch(toggleFollowingProgress(false, userId));
-        })
-};
-
 
 export type UsersActionsType =
     | ReturnType<typeof followUnfollowSuccess>

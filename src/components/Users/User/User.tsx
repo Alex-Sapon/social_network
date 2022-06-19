@@ -7,15 +7,14 @@ import {ItemsType} from '../../../redux/reducers/users-reducer';
 type UserType = {
     user: ItemsType
     followingProgress: number[]
-    follow: (userId: number) => void
-    unfollow: (userId: number) => void
+    followUnfollow: (userId: number, isFollow: boolean) => void
 }
 
 export const User: FC<UserType> = props => {
-    const {user, followingProgress, follow, unfollow} = props;
+    const {user, followingProgress, followUnfollow} = props;
 
-    const followHandler = () => follow(user.id);
-    const unfollowHandler = () => unfollow(user.id);
+    const followHandler = () => followUnfollow(user.id, true);
+    const unfollowHandler = () => followUnfollow(user.id, false);
 
     return (
         <>

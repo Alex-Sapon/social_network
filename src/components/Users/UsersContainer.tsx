@@ -2,7 +2,7 @@ import React, {ComponentType} from 'react';
 import {connect} from 'react-redux';
 import {compose} from 'redux';
 import {Users} from './Users';
-import {fetchUsers, follow, ItemsType, toggleIsFetching, unfollow} from '../../redux/reducers/users-reducer';
+import {fetchUsers, followUnfollow, ItemsType, toggleIsFetching} from '../../redux/reducers/users-reducer';
 import {AppStateType} from '../../redux/redux-store';
 import {withAuthRedirect} from '../../hoc/withAuthRedirect';
 import {
@@ -26,8 +26,7 @@ type MapStatePropsType = {
 type MapDispatchPropsType = {
     toggleIsFetching: (isFetching: boolean) => void
     fetchUsers: (currentPage: number, pageSize: number) => void
-    follow: (userId: number) => void
-    unfollow: (userId: number) => void
+    followUnfollow: (userId: number, isFollow: boolean) => void
 };
 export type UsersContainerType = MapStatePropsType & MapDispatchPropsType;
 
@@ -61,7 +60,7 @@ const mapStateToProps = (state: AppStateType): MapStatePropsType => ({
 );
 
 export default compose<ComponentType>(
-    connect(mapStateToProps, {toggleIsFetching, fetchUsers, follow, unfollow}),
+    connect(mapStateToProps, {toggleIsFetching, fetchUsers, followUnfollow}),
     withAuthRedirect,
 )(UsersContainer);
 
