@@ -3,7 +3,7 @@ import {AppThunk} from '../redux-store';
 import {AxiosError} from 'axios';
 import {ResultCode} from '../../enums/result-code';
 
-const initialUsers = {
+const initialState = {
     items: [] as ItemsType[],
     totalCount: 0,
     pageSize: 6,
@@ -12,17 +12,17 @@ const initialUsers = {
     followingProgress: [] as number[],
 };
 
-export type UsersStateType = typeof initialUsers;
+export type UsersStateType = typeof initialState;
 
-export const usersReducer = (state: UsersStateType = initialUsers, action: UsersActionsType): UsersStateType => {
+export const usersReducer = (state: UsersStateType = initialState, action: UsersActionsType): UsersStateType => {
     switch (action.type) {
-        case 'USERS/FOLLOW-UNFOLLOW':
+        case 'USERS/FOLLOW-UNFOLLOW-TO-USER':
             return {...state, items: state.items
                     .map(u => u.id === action.payload.userId ? {...u, followed: action.payload.isFollow} : u)};
         case 'USERS/SET-USERS':
             return {...state, items: action.payload.users};
         case 'USERS/SET-CURRENT-PAGE':
-            return {...state, currentPage: action.payload.currentPage};
+            return {...state, currentPage: action.payload.page};
         case 'USERS/SET-TOTAL-USERS-COUNT':
             return {...state, totalCount: action.payload.totalCount};
         case 'USERS/TOGGLE-IS-FETCHING':
@@ -38,9 +38,8 @@ export const usersReducer = (state: UsersStateType = initialUsers, action: Users
     }
 };
 
-
-export const followUnfollowSuccess = (userId: number, isFollow: boolean) => ({
-    type: 'USERS/FOLLOW-UNFOLLOW',
+export const followUnfollowToUser = (userId: number, isFollow: boolean) => ({
+    type: 'USERS/FOLLOW-UNFOLLOW-TO-USER',
     payload: {
         userId,
         isFollow,
@@ -54,10 +53,10 @@ export const setUsers = (users: ItemsType[]) => ({
     },
 } as const);
 
-export const setCurrentPage = (currentPage: number) => ({
+export const setCurrentPage = (page: number) => ({
     type: 'USERS/SET-CURRENT-PAGE',
     payload: {
-        currentPage,
+        page,
     },
 } as const);
 
@@ -83,12 +82,11 @@ export const toggleFollowingProgress = (isFetching: boolean, userId: number) => 
     },
 } as const);
 
-
-export const fetchUsers = (currentPage: number, pageSize: number): AppThunk => dispatch => {
+export const fetchUsers = (page: number, pageSize: number): AppThunk => dispatch => {
     dispatch(toggleIsFetching(true));
-    dispatch(setCurrentPage(currentPage));
+    dispatch(setCurrentPage(page));
 
-    usersAPI.getUsers(currentPage, pageSize)
+    usersAPI.getUsers(page, pageSize)
         .then(res => {
             dispatch(setUsers(res.data.items));
             dispatch(setTotalUsersCount(res.data.totalCount));
@@ -109,7 +107,7 @@ export const followUnfollow = (userId: number, isFollow: boolean): AppThunk => d
     apiMethod(userId)
         .then(res => {
             if (res.data.resultCode === ResultCode.Success) {
-                dispatch(followUnfollowSuccess(userId, isFollow));
+                dispatch(followUnfollowToUser(userId, isFollow));
             }
         })
         .catch((err: AxiosError) => {
@@ -121,7 +119,7 @@ export const followUnfollow = (userId: number, isFollow: boolean): AppThunk => d
 };
 
 export type UsersActionsType =
-    | ReturnType<typeof followUnfollowSuccess>
+    | ReturnType<typeof followUnfollowToUser>
     | ReturnType<typeof setUsers>
     | ReturnType<typeof setCurrentPage>
     | ReturnType<typeof setTotalUsersCount>

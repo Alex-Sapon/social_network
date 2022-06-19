@@ -1,5 +1,5 @@
 import {
-    followUnfollowSuccess,
+    followUnfollowToUser,
     ItemsType,
     setCurrentPage,
     setTotalUsersCount,
@@ -60,13 +60,13 @@ beforeEach(() => {
 });
 
 test('change status to follow', () => {
-    const endState = usersReducer(initialUsers, followUnfollowSuccess(1, true));
+    const endState = usersReducer(initialUsers, followUnfollowToUser(1, true));
 
     expect(endState.items[0].followed).toBe(true);
 });
 
 test('change status to unfollow', () => {
-    const endState = usersReducer(initialUsers, followUnfollowSuccess(2, false));
+    const endState = usersReducer(initialUsers, followUnfollowToUser(2, false));
 
     expect(endState.items[1].followed).toBe(false);
 });

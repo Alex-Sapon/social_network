@@ -23,7 +23,6 @@ export const authReducer = (state: AuthStateType = initialState, action: AuthAct
     }
 };
 
-// ------- actions -------
 export const setAuthUserData = (userId: number, login: string | null, email: string | null) => ({
     type: 'AUTH/SET-AUTH-USER-DATA',
     payload: {
@@ -40,10 +39,8 @@ export const setAuthUser = (isAuth: boolean) => ({
     },
 } as const);
 
-
-// ------- thunks -------
 export const getAuthUserData = (): AppThunk => dispatch => {
-    authAPI.me()
+    return authAPI.me()
         .then(res => {
             if (res.data.resultCode === ResultCode.Success) {
                 const {id, login, email} = res.data.data;
@@ -87,7 +84,6 @@ export const logout = (): AppThunk => dispatch => {
         })
 };
 
-// ------- types -------
 export type AuthStateType = {
     userId: number
     login: string | null

@@ -28,7 +28,6 @@ export const profileReducer = (state: RootProfileType = initialState, action: Pr
     }
 };
 
-// ----- actions -----
 export const addPost = (post: string) => ({
     type: 'PROFILE/ADD-POST',
     payload: {
@@ -50,8 +49,6 @@ export const setUserStatus = (status: string) => ({
     },
 } as const);
 
-
-// ----- thunks -----
 export const getUserProfile = (userId: number): AppThunk => dispatch => {
     profileAPI.getProfile(userId)
         .then(res => {
@@ -84,8 +81,6 @@ export const updateStatus = (status: string): AppThunk => dispatch => {
         })
 };
 
-
-// ----- types -----
 export type PostType = {
     id: string
     message: string

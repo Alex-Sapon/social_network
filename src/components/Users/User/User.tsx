@@ -33,7 +33,9 @@ export const User: FC<UserType> = props => {
                             <Switch
                                 checked={user.followed}
                                 onChange={user.followed ? unfollowHandler : followHandler}
-                                name="loading" color="success"/>}/>
+                                name="loading" color="success"
+                            />}
+                    />
                 </ListItemAvatar>
                 <ListItemText
                     sx={{width: '50%'}}
