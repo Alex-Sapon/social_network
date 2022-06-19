@@ -16,13 +16,9 @@ export type UsersStateType = typeof initialUsers;
 
 export const usersReducer = (state: UsersStateType = initialUsers, action: UsersActionsType): UsersStateType => {
     switch (action.type) {
-        case 'USERS/FOLLOW':
-            return {...state, items: state.items.map(u => u.id === action.payload.userId ? {...u, followed: true} : u)};
-        case 'USERS/UNFOLLOW':
-            return {
-                ...state,
-                items: state.items.map(u => u.id === action.payload.userId ? {...u, followed: false} : u)
-            };
+        case 'USERS/FOLLOW-UNFOLLOW':
+            return {...state, items: state.items
+                    .map(u => u.id === action.payload.userId ? {...u, followed: action.payload.isFollow} : u)};
         case 'USERS/SET-USERS':
             return {...state, items: action.payload.users};
         case 'USERS/SET-CURRENT-PAGE':
@@ -43,17 +39,11 @@ export const usersReducer = (state: UsersStateType = initialUsers, action: Users
 };
 
 
-export const followSuccess = (userId: number) => ({
-    type: 'USERS/FOLLOW',
+export const followUnfollowSuccess = (userId: number, isFollow: boolean) => ({
+    type: 'USERS/FOLLOW-UNFOLLOW',
     payload: {
         userId,
-    },
-} as const);
-
-export const unfollowSuccess = (userId: number) => ({
-    type: 'USERS/UNFOLLOW',
-    payload: {
-        userId,
+        isFollow,
     },
 } as const);
 
@@ -77,6 +67,7 @@ export const setTotalUsersCount = (totalCount: number) => ({
         totalCount,
     },
 } as const);
+
 export const toggleIsFetching = (isFetching: boolean) => ({
     type: 'USERS/TOGGLE-IS-FETCHING',
     payload: {
@@ -116,7 +107,7 @@ export const follow = (userId: number): AppThunk => dispatch => {
     usersAPI.followUser(userId)
         .then(res => {
             if (res.data.resultCode === ResultCode.Success) {
-                dispatch(followSuccess(userId));
+                dispatch(followUnfollowSuccess(userId, true));
             }
         })
         .catch((err: AxiosError) => {
@@ -133,7 +124,7 @@ export const unfollow = (userId: number): AppThunk => dispatch => {
     usersAPI.unfollowUser(userId)
         .then(res => {
             if (res.data.resultCode === ResultCode.Success) {
-                dispatch(unfollowSuccess(userId));
+                dispatch(followUnfollowSuccess(userId, false));
             }
         })
         .catch(() => {
@@ -146,8 +137,7 @@ export const unfollow = (userId: number): AppThunk => dispatch => {
 
 
 export type UsersActionsType =
-    | ReturnType<typeof followSuccess>
-    | ReturnType<typeof unfollowSuccess>
+    | ReturnType<typeof followUnfollowSuccess>
     | ReturnType<typeof setUsers>
     | ReturnType<typeof setCurrentPage>
     | ReturnType<typeof setTotalUsersCount>

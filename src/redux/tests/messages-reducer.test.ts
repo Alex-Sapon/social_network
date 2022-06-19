@@ -1,8 +1,10 @@
 import {v1} from 'uuid';
 import {addMessage, messagesReducer, MessagesStateType} from '../reducers/messages-reducer';
 
-test('new message should be added', () => {
-    const initialState: MessagesStateType = {
+let initialState: MessagesStateType;
+
+beforeEach(() => {
+    initialState = {
         users: [
             {id: v1(), name: 'Sasha'},
             {id: v1(), name: 'Kate'},
@@ -18,10 +20,11 @@ test('new message should be added', () => {
             {id: v1(), message: 'Buy, Sasha!'}
         ],
     }
+});
 
-    const endState = messagesReducer(initialState, addMessage('rrr'))
+test('new message should be added', () => {
+    const endState = messagesReducer(initialState, addMessage('New message'));
 
-    expect(endState.messages.length).toBe(6)
-    expect(endState.messages[5].message).toBe('rrr')
-    expect(initialState.messages.length).toBe(5)
-})
+    expect(endState.messages.length).toBe(6);
+    expect(endState.messages[5].message).toBe('New message');
+});

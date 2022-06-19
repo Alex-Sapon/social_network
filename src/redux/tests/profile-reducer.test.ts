@@ -2,6 +2,7 @@ import {v1} from 'uuid';
 import {addPost, profileReducer, ProfileType, RootProfileType, setUserProfile} from '../reducers/profile-reducer';
 
 let startState: RootProfileType;
+let profile: ProfileType;
 
 beforeEach(() => {
     startState = {
@@ -14,20 +15,12 @@ beforeEach(() => {
         profile: {} as ProfileType,
         status: ''
     }
-})
 
-test('new post should be added', () => {
-    const endState = profileReducer(startState, addPost('New post'));
-
-    expect(endState.posts.length).toBe(5);
-})
-
-test('current profile should be added', () => {
-    const profile: ProfileType = {
+    profile = {
         aboutMe: 'I`m happy!',
         contacts: {
             facebook: 'FB.com',
-            website: 'asdasd.com',
+            website: 'fake@.com',
             vk: 'VK.ru',
             twitter: 'twitter.com',
             instagram: 'instagram.com',
@@ -44,12 +37,20 @@ test('current profile should be added', () => {
             large: 'non'
         }
     }
+});
 
-    const endState = profileReducer(startState, setUserProfile(profile))
+test('new post should be added', () => {
+    const endState = profileReducer(startState, addPost('New post'));
 
-    const keys = Object.keys(profile)
+    expect(endState.posts.length).toBe(5);
+});
 
-    expect(keys.length).toBe(7)
-    expect(endState.profile.fullName).toBe('Bob')
-    expect(endState.profile.photos.small).toBe('non')
-})
+test('current profile should be added', () => {
+    const endState = profileReducer(startState, setUserProfile(profile));
+
+    const keys = Object.keys(endState.profile);
+
+    expect(keys.length).toBe(7);
+    expect(endState.profile.fullName).toBe('Bob');
+    expect(endState.profile.photos.small).toBe('non');
+});

@@ -22,7 +22,6 @@ export const setInitialized = (initialized: boolean) => ({
     },
 } as const);
 
-
 // ------- thunks -------
 export const initializeApp = (): AppThunk => dispatch => {
     const userData = dispatch(getAuthUserData());
@@ -32,7 +31,6 @@ export const initializeApp = (): AppThunk => dispatch => {
             dispatch(setInitialized(true));
         })
 }
-
 
 // ------- types -------
 export type AppStateType = {

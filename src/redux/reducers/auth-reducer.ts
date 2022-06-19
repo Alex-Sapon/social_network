@@ -3,7 +3,6 @@ import {stopSubmit} from 'redux-form';
 import {AppThunk} from '../redux-store';
 import {ResultCode} from '../../enums/result-code';
 import {AxiosError} from 'axios';
-import {getUserProfile} from './profile-reducer';
 
 const initialState: AuthStateType = {
     userId: 0,

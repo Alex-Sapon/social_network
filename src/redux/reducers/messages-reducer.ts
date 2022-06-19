@@ -49,6 +49,6 @@ export type MessageType = {
 };
 
 export type MessagesStateType = {
-    users: Array<UserType>
-    messages: Array<MessageType>
+    users: UserType[]
+    messages: MessageType[]
 };
