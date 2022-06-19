@@ -36,11 +36,16 @@ class UsersContainer extends React.Component<UsersContainerType> {
         this.props.fetchUsers(this.props.currentPage, this.props.pageSize);
     };
 
+    shouldComponentUpdate(nextProps: Readonly<UsersContainerType>, nextState: Readonly<UsersContainerType>): boolean {
+        return nextProps !== this.props || nextState !== this.state;
+    }
+
     onChangePage = (page: number) => {
         this.props.fetchUsers(page, this.props.pageSize);
     };
 
     render() {
+        console.log('RENDER')
         return <Users {...this.props} onChangePage={this.onChangePage}/>
     }
 };

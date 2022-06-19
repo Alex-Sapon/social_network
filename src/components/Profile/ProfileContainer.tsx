@@ -32,7 +32,7 @@ const ProfileContainer = () => {
 
         dispatch(getUserProfile(userId));
         dispatch(getStatus(userId));
-    }, [userId, dispatch, isAuth, id]);
+    }, [userId, dispatch, isAuth]);
 
     return <Profile profile={profile} status={status}/>
 };

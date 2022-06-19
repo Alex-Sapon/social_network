@@ -3,6 +3,7 @@ import {stopSubmit} from 'redux-form';
 import {AppThunk} from '../redux-store';
 import {ResultCode} from '../../enums/result-code';
 import {AxiosError} from 'axios';
+import {getUserProfile} from './profile-reducer';
 
 const initialState: AuthStateType = {
     userId: 0,
@@ -43,7 +44,7 @@ export const setAuthUser = (isAuth: boolean) => ({
 
 // ------- thunks -------
 export const getAuthUserData = (): AppThunk => dispatch => {
-    return authAPI.me()
+    authAPI.me()
         .then(res => {
             if (res.data.resultCode === ResultCode.Success) {
                 const {id, login, email} = res.data.data;
@@ -61,6 +62,7 @@ export const login = (data: IUserParams): AppThunk => dispatch => {
     authAPI.login(data)
         .then(res => {
             if (res.data.resultCode === ResultCode.Success) {
+
                 dispatch(getAuthUserData());
                 dispatch(setAuthUser(true));
             }
