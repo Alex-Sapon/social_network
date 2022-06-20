@@ -26,8 +26,6 @@ export const messagesReducer = (state: MessagesStateType = InitialState, action:
     }
 };
 
-
-// ----- actions -----
 export const addMessage = (message: string) => ({
     type: 'MESSAGES/ADD-MESSAGE',
     payload: {
@@ -35,7 +33,6 @@ export const addMessage = (message: string) => ({
     }
 } as const);
 
-// ----- types -----
 export type MessageActionsType = ReturnType<typeof addMessage>;
 
 export type UserType = {

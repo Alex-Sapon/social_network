@@ -5,7 +5,7 @@ const instance = axios.create({
     withCredentials: true,
     baseURL: 'https://social-network.samuraijs.com/api/1.0/',
     headers: {
-        'api-key': '8fd3ebb9-d9a7-4b2a-a136-7442a306a767'
+        'api-key': 'bb42dfc0-a52d-4990-8930-87029e909d55',
     },
 });
 
@@ -95,7 +95,7 @@ interface IProfile {
     }
 }
 
-interface IAuthData {
+export interface IAuthData {
     id: number
     login: string
     email: string

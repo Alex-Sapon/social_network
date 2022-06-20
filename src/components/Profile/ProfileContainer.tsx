@@ -6,6 +6,7 @@ import {useAppDispatch, useAppSelector} from '../../redux/hooks';
 import {withAuthRedirect} from '../../hoc/withAuthRedirect';
 import {compose} from 'redux';
 import {AppStateType} from '../../redux/redux-store';
+import {Preloader} from '../../common/Preloader/Preloader';
 
 export const selectProfile = (state: AppStateType) => state.profilePage.profile;
 export const selectStatus = (state: AppStateType) => state.profilePage.status;
@@ -34,7 +35,15 @@ const ProfileContainer = () => {
         dispatch(getStatus(userId));
     }, [userId, dispatch, isAuth]);
 
-    return <Profile profile={profile} status={status}/>
+    const profileNotReceived = Object.keys(profile).length === 0;
+
+    if (profileNotReceived) {
+        return <Preloader/>
+    }
+
+    return (
+        <Profile profile={profile} status={status}/>
+    )
 };
 
 export default compose<ComponentType>(

@@ -1,6 +1,6 @@
 import {
     followUnfollowToUser,
-    ItemsType,
+    UserType,
     setCurrentPage,
     setTotalUsersCount,
     setUsers,
@@ -10,11 +10,11 @@ import {
 } from '../reducers/users-reducer';
 
 let initialUsers: UsersStateType;
-let users: ItemsType[];
+let users: UserType[];
 
 beforeEach(() => {
     initialUsers = {
-        items: [
+        users: [
             {
                 id: 1,
                 followed: false,
@@ -62,21 +62,21 @@ beforeEach(() => {
 test('change status to follow', () => {
     const endState = usersReducer(initialUsers, followUnfollowToUser(1, true));
 
-    expect(endState.items[0].followed).toBe(true);
+    expect(endState.users[0].followed).toBe(true);
 });
 
 test('change status to unfollow', () => {
     const endState = usersReducer(initialUsers, followUnfollowToUser(2, false));
 
-    expect(endState.items[1].followed).toBe(false);
+    expect(endState.users[1].followed).toBe(false);
 });
 
 test('set new users', () => {
     const endState = usersReducer(initialUsers, setUsers(users))
 
-    expect(endState.items).not.toBe(initialUsers.items);
-    expect(endState.items[0].name).toBe('Jay');
-    expect(endState.items[1].name).toBe('Jon');
+    expect(endState.users).not.toBe(initialUsers.users);
+    expect(endState.users[0].name).toBe('Jay');
+    expect(endState.users[1].name).toBe('Jon');
 });
 
 test('set current page', () => {

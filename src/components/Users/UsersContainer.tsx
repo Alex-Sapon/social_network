@@ -2,7 +2,7 @@ import React, {ComponentType} from 'react';
 import {connect} from 'react-redux';
 import {compose} from 'redux';
 import {Users} from './Users';
-import {fetchUsers, followUnfollow, ItemsType, toggleIsFetching} from '../../redux/reducers/users-reducer';
+import {fetchUsers, followUnfollow, UserType, toggleIsFetching} from '../../redux/reducers/users-reducer';
 import {AppStateType} from '../../redux/redux-store';
 import {withAuthRedirect} from '../../hoc/withAuthRedirect';
 import {
@@ -15,7 +15,7 @@ import {
 } from '../../redux/selectors/users-selectors';
 
 type MapStatePropsType = {
-    users: ItemsType[]
+    users: UserType[]
     pageSize: number
     totalUsersCount: number
     currentPage: number

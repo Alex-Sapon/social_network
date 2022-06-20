@@ -1,4 +1,4 @@
-import {Route, Routes} from 'react-router-dom';
+import {Navigate, Route, Routes} from 'react-router-dom';
 
 import {Box, CircularProgress, Container, Grid} from '@mui/material';
 import './app.css';
@@ -45,13 +45,14 @@ const App = () => {
                     </Grid>
                     <Grid item xs={9}>
                         <Routes>
-                            <Route path={PATH.PROFILE} element={<ProfileContainer/>}/>
-                            <Route path={PATH.MESSAGES} element={<MessagesContainer/>}/>
-                            <Route path={PATH.FRIENDS} element={<UsersContainer/>}/>
-                            <Route path={PATH.NEWS} element={<News/>}/>
-                            <Route path={PATH.MUSIC} element={<Music/>}/>
-                            <Route path={PATH.SETTINGS} element={<Settings/>}/>
-                            <Route path={PATH.LOGIN} element={<Login/>}/>
+                            <Route path={'/'} element={<Navigate to={PATH.PROFILE} />}/>
+                            <Route path={PATH.PROFILE} element={<ProfileContainer />} />
+                            <Route path={PATH.MESSAGES} element={<MessagesContainer />} />
+                            <Route path={PATH.FRIENDS} element={<UsersContainer />} />
+                            <Route path={PATH.NEWS} element={<News />} />
+                            <Route path={PATH.MUSIC} element={<Music />} />
+                            <Route path={PATH.SETTINGS} element={<Settings />} />
+                            <Route path={PATH.LOGIN} element={<Login />} />
                         </Routes>
                     </Grid>
                 </Grid>

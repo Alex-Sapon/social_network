@@ -23,6 +23,7 @@ export const setInitialized = (initialized: boolean) => ({
 
 export const initializeApp = (): AppThunk => async dispatch => {
     await dispatch(getAuthUserData());
+
     dispatch(setInitialized(true));
 };
 

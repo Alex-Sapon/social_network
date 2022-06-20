@@ -3,6 +3,7 @@ import {stopSubmit} from 'redux-form';
 import {AppThunk} from '../redux-store';
 import {ResultCode} from '../../enums/result-code';
 import {AxiosError} from 'axios';
+import {getUserProfile, setUserProfile} from './profile-reducer';
 
 const initialState: AuthStateType = {
     userId: 0,
@@ -16,7 +17,7 @@ export const authReducer = (state: AuthStateType = initialState, action: AuthAct
     switch (action.type) {
         case 'AUTH/SET-AUTH-USER-DATA':
             return {...state, ...action.payload};
-        case 'AUTH/SET-AUTH-USER':
+        case 'AUTH/SET-IS-AUTH-USER':
             return {...state, isAuth: action.payload.isAuth};
         default:
             return state;
@@ -33,7 +34,7 @@ export const setAuthUserData = (userId: number, login: string | null, email: str
 } as const);
 
 export const setAuthUser = (isAuth: boolean) => ({
-    type: 'AUTH/SET-AUTH-USER',
+    type: 'AUTH/SET-IS-AUTH-USER',
     payload: {
         isAuth,
     },
@@ -58,9 +59,7 @@ export const login = (data: IUserParams): AppThunk => dispatch => {
     authAPI.login(data)
         .then(res => {
             if (res.data.resultCode === ResultCode.Success) {
-
                 dispatch(getAuthUserData());
-                dispatch(setAuthUser(true));
             }
 
             if (res.data.resultCode === ResultCode.Error) {

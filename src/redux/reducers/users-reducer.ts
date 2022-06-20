@@ -4,7 +4,7 @@ import {AxiosError} from 'axios';
 import {ResultCode} from '../../enums/result-code';
 
 const initialState = {
-    items: [] as ItemsType[],
+    users: [] as UserType[],
     totalCount: 0,
     pageSize: 6,
     currentPage: 1,
@@ -17,10 +17,10 @@ export type UsersStateType = typeof initialState;
 export const usersReducer = (state: UsersStateType = initialState, action: UsersActionsType): UsersStateType => {
     switch (action.type) {
         case 'USERS/FOLLOW-UNFOLLOW-TO-USER':
-            return {...state, items: state.items
+            return {...state, users: state.users
                     .map(u => u.id === action.payload.userId ? {...u, followed: action.payload.isFollow} : u)};
         case 'USERS/SET-USERS':
-            return {...state, items: action.payload.users};
+            return {...state, users: action.payload.users};
         case 'USERS/SET-CURRENT-PAGE':
             return {...state, currentPage: action.payload.page};
         case 'USERS/SET-TOTAL-USERS-COUNT':
@@ -28,11 +28,9 @@ export const usersReducer = (state: UsersStateType = initialState, action: Users
         case 'USERS/TOGGLE-IS-FETCHING':
             return {...state, isFetching: action.payload.isFetching};
         case 'USERS/TOGGLE-FOLLOWING-PROGRESS':
-            return {
-                ...state, followingProgress: action.payload.isFetching
+            return {...state, followingProgress: action.payload.isFetching
                     ? [...state.followingProgress, action.payload.userId]
-                    : state.followingProgress.filter(i => i !== action.payload.userId)
-            };
+                    : state.followingProgress.filter(i => i !== action.payload.userId)};
         default:
             return state;
     }
@@ -46,7 +44,7 @@ export const followUnfollowToUser = (userId: number, isFollow: boolean) => ({
     },
 } as const);
 
-export const setUsers = (users: ItemsType[]) => ({
+export const setUsers = (users: UserType[]) => ({
     type: 'USERS/SET-USERS',
     payload: {
         users,
@@ -126,7 +124,7 @@ export type UsersActionsType =
     | ReturnType<typeof toggleIsFetching>
     | ReturnType<typeof toggleFollowingProgress>
 
-export type ItemsType = {
+export type UserType = {
     name: string
     id: number
     uniqueUrlName: string | null

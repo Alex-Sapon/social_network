@@ -2,15 +2,15 @@ import {Avatar, Divider, FormControlLabel, ListItem, ListItemAvatar, ListItemTex
 import {NavLink} from 'react-router-dom';
 import userAvatar from '../../../assets/img/avatar/avatar.jpg';
 import React, {FC} from 'react';
-import {ItemsType} from '../../../redux/reducers/users-reducer';
+import {UserType} from '../../../redux/reducers/users-reducer';
 
-type UserType = {
-    user: ItemsType
+type UserPropsType = {
+    user: UserType
     followingProgress: number[]
     followUnfollow: (userId: number, isFollow: boolean) => void
 }
 
-export const User: FC<UserType> = props => {
+export const User: FC<UserPropsType> = props => {
     const {user, followingProgress, followUnfollow} = props;
 
     const followHandler = () => followUnfollow(user.id, true);

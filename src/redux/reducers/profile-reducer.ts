@@ -6,10 +6,10 @@ import {AxiosError} from 'axios';
 
 const initialState: RootProfileType = {
     posts: [
-        {id: v1(), message: 'It\'s my first Post', likesCount: 3},
-        {id: v1(), message: 'Hi, how are you?', likesCount: 4},
-        {id: v1(), message: 'I want to learn React and TypeScript.', likesCount: 5},
-        {id: v1(), message: 'I learn English every day.', likesCount: 3},
+        {id: v1(), post: 'It\'s my first Post', likesCount: 3},
+        {id: v1(), post: 'Hi, how are you?', likesCount: 4},
+        {id: v1(), post: 'I want to learn React and TypeScript.', likesCount: 5},
+        {id: v1(), post: 'I learn English every day.', likesCount: 3},
     ],
     profile: {} as ProfileType,
     status: '',
@@ -17,8 +17,8 @@ const initialState: RootProfileType = {
 
 export const profileReducer = (state: RootProfileType = initialState, action: ProfileActionsType): RootProfileType => {
     switch (action.type) {
-        case 'PROFILE/ADD-POST':
-            return {...state, posts: [...state.posts, {id: v1(), message: action.payload.post, likesCount: 0}]};
+        case 'PROFILE/SET-POST':
+            return {...state, posts: [...state.posts, {id: v1(), post: action.payload.post, likesCount: 0}]};
         case 'PROFILE/SET-PROFILE':
             return {...state, profile: action.payload.profile};
         case 'PROFILE/SET-USER-STATUS':
@@ -29,7 +29,7 @@ export const profileReducer = (state: RootProfileType = initialState, action: Pr
 };
 
 export const addPost = (post: string) => ({
-    type: 'PROFILE/ADD-POST',
+    type: 'PROFILE/SET-POST',
     payload: {
         post,
     },
@@ -83,7 +83,7 @@ export const updateStatus = (status: string): AppThunk => dispatch => {
 
 export type PostType = {
     id: string
-    message: string
+    post: string
     likesCount: number
 };
 
@@ -104,8 +104,8 @@ export type ProfileType = {
     fullName: string
     userId: number
     photos: {
-        small: string
-        large: string
+        small: string | null
+        large: string | null
     }
 };
 

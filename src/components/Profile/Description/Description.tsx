@@ -15,11 +15,13 @@ export const Description = memo(({profile, status}: DescriptionType) => {
             <Avatar
                 variant="square"
                 sx={{mr: '2rem', width: 60, height: 60}}
-                src={profile.photos.small !== null ? profile.photos.small : userAvatar}
+                src={profile.photos.small === null ? userAvatar : profile.photos.small}
             />
             <Box sx={{display: 'flex', flexDirection: 'column', flex: '1 1 auto'}}>
-                <Typography variant={'body2'}
-                            sx={{fontSize: '1.4rem', mb: '0.5rem'}}>{profile.fullName}</Typography>
+                <Typography 
+                    variant={'body2'}
+                    sx={{fontSize: '1.4rem', mb: '0.5rem'}}>{profile.fullName}
+                </Typography>
                 <ProfileStatus status={status}/>
             </Box>
         </Box>

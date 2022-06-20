@@ -7,7 +7,7 @@ import PostForm, {PostFormDataType} from '../PostForm/PostForm';
 
 export type PostsProps = {
     id: string
-    message: string
+    post: string
     likesCount: number
 }
 
