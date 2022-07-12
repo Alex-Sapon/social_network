@@ -17,6 +17,7 @@ export const Users: FC<UsersTypeProps> = props => {
         users,
         followingProgress,
         followUnfollow,
+        pageSize
     } = props;
 
     const onChangePageHandler = (e: ChangeEvent<unknown>, page: number) => onChangePage(page);
@@ -25,10 +26,12 @@ export const Users: FC<UsersTypeProps> = props => {
         return <Preloader/>
     }
 
+    const pageCount = Math.ceil(totalUsersCount / pageSize);
+
     return (
         <div>
             <Stack spacing={2} sx={{m: '1rem 0rem 2rem', alignItems: 'center'}}>
-                <Pagination count={totalUsersCount} page={currentPage} onChange={onChangePageHandler}/>
+                <Pagination count={pageCount} page={currentPage} onChange={onChangePageHandler}/>
             </Stack>
             <List>
                 {users.map(user =>

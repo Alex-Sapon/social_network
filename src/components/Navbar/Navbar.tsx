@@ -21,7 +21,7 @@ const Navbar: FC = () => {
     return (
         <List component="nav" aria-label="mailbox folders" sx={navbarStyles}>
             <ListItem button>
-                <NavLink className={setActiveClass} to={`/profile/:id`}><ListItemText primary="Profile"/></NavLink>
+                <NavLink className={setActiveClass} to={`/profile/${id}`}><ListItemText primary="Profile"/></NavLink>
             </ListItem>
             <Divider light/>
             <ListItem button>

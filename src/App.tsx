@@ -1,22 +1,26 @@
-import {Navigate, Route, Routes} from 'react-router-dom';
+import {BrowserRouter, Navigate, Route, Routes} from 'react-router-dom';
 
 import {Box, CircularProgress, Container, Grid} from '@mui/material';
 import './app.css';
 
 import Navbar from './components/Navbar/Navbar';
-import MessagesContainer from './components/Messages/MessagesContainer';
 import News from './components/News/News';
 import Music from './components/Music/Music';
 import Settings from './components/Settings/Settings';
-import UsersContainer from './components/Users/UsersContainer';
 import ProfileContainer from './components/Profile/ProfileContainer';
 import Login from './components/Login/Login';
 
 import {PATH} from './enums/path';
-import {useEffect} from 'react';
+import React, {lazy, Suspense, useEffect} from 'react';
 import {useAppDispatch, useAppSelector} from './redux/hooks';
 import {initializeApp} from './redux/reducers/app-reducer';
 import {Header} from './components/Header/Header';
+import {Provider} from 'react-redux';
+import {store} from './redux/redux-store';
+import {Preloader} from './common/Preloader/Preloader';
+
+const UsersContainer = lazy(() => import('./components/Users/UsersContainer'));
+const MessagesContainer = lazy(() => import('./components/Messages/MessagesContainer'));
 
 const App = () => {
     const dispatch = useAppDispatch();
@@ -44,21 +48,31 @@ const App = () => {
                         <Navbar/>
                     </Grid>
                     <Grid item xs={9}>
-                        <Routes>
-                            <Route path={'/'} element={<Navigate to={PATH.PROFILE} />}/>
-                            <Route path={PATH.PROFILE} element={<ProfileContainer />} />
-                            <Route path={PATH.MESSAGES} element={<MessagesContainer />} />
-                            <Route path={PATH.FRIENDS} element={<UsersContainer />} />
-                            <Route path={PATH.NEWS} element={<News />} />
-                            <Route path={PATH.MUSIC} element={<Music />} />
-                            <Route path={PATH.SETTINGS} element={<Settings />} />
-                            <Route path={PATH.LOGIN} element={<Login />} />
-                        </Routes>
+                        <Suspense fallback={<Preloader/>}>
+                            <Routes>
+                                <Route path={'/'} element={<Navigate to={PATH.PROFILE}/>}/>
+                                <Route path={PATH.PROFILE} element={<ProfileContainer/>}/>
+                                <Route path={PATH.MESSAGES} element={<MessagesContainer/>}/>
+                                <Route path={PATH.FRIENDS} element={<UsersContainer/>}/>
+                                <Route path={PATH.NEWS} element={<News/>}/>
+                                <Route path={PATH.MUSIC} element={<Music/>}/>
+                                <Route path={PATH.SETTINGS} element={<Settings/>}/>
+                                <Route path={PATH.LOGIN} element={<Login/>}/>
+                            </Routes>
+                        </Suspense>
                     </Grid>
                 </Grid>
             </Container>
         </>
     );
-}
+};
 
-export default App;
+export const SamuraiJSApp = () => {
+    return (
+        <BrowserRouter>
+            <Provider store={store}>
+                <App/>
+            </Provider>
+        </BrowserRouter>
+    )
+};

@@ -3,7 +3,6 @@ import RatingStars from '../RatingStars/RatingStars';
 
 import {Card, Typography} from '@mui/material';
 import {teal} from '@mui/material/colors';
-import styles from './Post.module.css';
 import {PostsProps} from '../Posts';
 
 type PostType = {

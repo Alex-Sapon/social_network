@@ -24,8 +24,6 @@ const ProfileContainer = () => {
     const params = useParams<'id'>();
     const userId = Number(params.id) || id;
 
-    console.log(params)
-
     useEffect(() => {
         if (!isAuth || !userId) {
             return;

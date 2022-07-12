@@ -21,9 +21,11 @@ export const User: FC<UserPropsType> = props => {
             <ListItem sx={{display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', p: '1rem'}}>
                 <ListItemAvatar sx={{width: '150px'}}>
                     <NavLink to={`/profile/${user.id}`}>
-                        <Avatar alt="Avatar"
-                                src={user.photos.small !== null ? user.photos.small : userAvatar}
-                                sx={{mb: '0.5rem'}}/>
+                        <Avatar
+                            alt="Avatar"
+                            src={user.photos.small !== null ? user.photos.small : userAvatar}
+                            sx={{mb: '0.5rem'}}
+                        />
                     </NavLink>
                     <FormControlLabel
                         sx={{display: 'block'}}

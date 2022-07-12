@@ -44,7 +44,6 @@ class UsersContainer extends React.Component<UsersContainerType> {
     };
 
     render() {
-        console.log('RENDER')
         return <Users {...this.props} onChangePage={this.onChangePage}/>
     }
 };

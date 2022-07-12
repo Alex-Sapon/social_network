@@ -15,6 +15,7 @@ export const ProfileStatus: FC<ProfileStatusType> = ({status}) => {
 
     const activateMode = () => {
         setEditMode(true);
+        setValue(status);
     }
 
     const deactivateMode = () => {

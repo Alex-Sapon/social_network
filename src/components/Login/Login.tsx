@@ -1,4 +1,4 @@
-import {Box, Typography} from '@mui/material';
+import {Box, Button, Typography} from '@mui/material';
 import {Field, Form, InjectedFormProps, reduxForm} from 'redux-form';
 import {FC, useMemo} from 'react';
 import {login} from '../../redux/reducers/auth-reducer';
@@ -40,7 +40,7 @@ const LoginForm: FC<InjectedFormProps<FormDataType>> = props => {
                 <Field name="rememberMe" component="input" type="checkbox"/>
             </div>
             {error && <div style={{color: 'red', marginTop: '-20px', marginBottom: '10px'}}>{error}</div>}
-            <button type="submit">Log In</button>
+            <Button type="submit" variant="contained">Log In</Button>
         </Form>
     )
 };
