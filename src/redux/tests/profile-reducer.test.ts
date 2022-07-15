@@ -1,8 +1,9 @@
 import {v1} from 'uuid';
-import {addPost, profileReducer, ProfileType, RootProfileType, setUserProfile} from '../reducers/profile-reducer';
+import {addPost, profileReducer, RootProfileType, setUserProfile} from '../reducers/profile-reducer';
+import {IProfile} from '../../api/api';
 
 let startState: RootProfileType;
-let profile: ProfileType;
+let profile: IProfile;
 
 beforeEach(() => {
     startState = {
@@ -12,8 +13,9 @@ beforeEach(() => {
             {id: v1(), post: 'I want to learn React and TypeScript.', likesCount: 5},
             {id: v1(), post: 'I learn English every day.', likesCount: 3},
         ],
-        profile: {} as ProfileType,
-        status: ''
+        profile: {} as IProfile,
+        status: '',
+        statusLoading: 'idle',
     }
 
     profile = {

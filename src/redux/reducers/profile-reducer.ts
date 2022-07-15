@@ -1,8 +1,7 @@
 import {v1} from 'uuid';
-import {profileAPI} from '../../api/api';
+import {INewPhoto, IProfile, profileAPI} from '../../api/api';
 import {AppThunk} from '../redux-store';
 import {ResultCode} from '../../enums/result-code';
-import {AxiosError} from 'axios';
 
 const initialState: RootProfileType = {
     posts: [
@@ -11,18 +10,23 @@ const initialState: RootProfileType = {
         {id: v1(), post: 'I want to learn React and TypeScript.', likesCount: 5},
         {id: v1(), post: 'I learn English every day.', likesCount: 3},
     ],
-    profile: {} as ProfileType,
+    profile: {} as IProfile,
     status: '',
+    statusLoading: 'idle',
 };
 
 export const profileReducer = (state: RootProfileType = initialState, action: ProfileActionsType): RootProfileType => {
     switch (action.type) {
         case 'PROFILE/SET-POST':
-            return {...state, posts: [...state.posts, {id: v1(), post: action.payload.post, likesCount: 0}]};
+            return {...state, posts: [...state.posts, {id: v1(), post: action.post, likesCount: 0}]};
         case 'PROFILE/SET-PROFILE':
-            return {...state, profile: action.payload.profile};
+            return {...state, profile: action.profile};
         case 'PROFILE/SET-USER-STATUS':
-            return {...state, status: action.payload.status};
+            return {...state, status: action.status};
+        case 'PROFILE/SET-PROFILE-PHOTO':
+            return {...state, profile: {...state.profile, photos: action.photos}};
+        case 'PROFILE/SET-LOADING-STATUS':
+            return {...state, statusLoading: action.status};
         default:
             return state;
     }
@@ -30,55 +34,75 @@ export const profileReducer = (state: RootProfileType = initialState, action: Pr
 
 export const addPost = (post: string) => ({
     type: 'PROFILE/SET-POST',
-    payload: {
-        post,
-    },
+    post,
 } as const);
 
-export const setUserProfile = (profile: ProfileType) => ({
+export const setUserProfile = (profile: IProfile) => ({
     type: 'PROFILE/SET-PROFILE',
-    payload: {
-        profile,
-    },
+    profile,
 } as const);
 
 export const setUserStatus = (status: string) => ({
     type: 'PROFILE/SET-USER-STATUS',
-    payload: {
-        status,
-    },
+    status,
 } as const);
 
-export const getUserProfile = (userId: number): AppThunk => dispatch => {
-    profileAPI.getProfile(userId)
-        .then(res => {
-            dispatch(setUserProfile(res.data));
-        })
-        .catch((err: AxiosError) => {
-            console.error(err.message)
-        })
+export const setUserPhoto = (photos: INewPhoto) => ({
+    type: 'PROFILE/SET-PROFILE-PHOTO',
+    photos,
+} as const);
+
+export const setLoadingStatus = (status: 'idle' | 'loading') => ({
+    type: 'PROFILE/SET-LOADING-STATUS',
+    status,
+} as const);
+
+export const getUserProfile = (userId: number): AppThunk => async dispatch => {
+    dispatch(setLoadingStatus('loading'));
+
+    try {
+        const res = await profileAPI.getProfile(userId);
+        dispatch(setUserProfile(res.data));
+    } catch (e) {
+
+    } finally {
+        dispatch(setLoadingStatus('idle'));
+    }
 };
 
-export const getStatus = (userId: number): AppThunk => dispatch => {
-    profileAPI.getStatus(userId)
-        .then(res => {
-            dispatch(setUserStatus(res.data));
-        })
-        .catch((err: AxiosError) => {
-            console.error(err.message)
-        })
+export const getStatus = (userId: number): AppThunk => async dispatch => {
+    try {
+        const res = await profileAPI.getStatus(userId);
+        dispatch(setUserStatus(res.data));
+    } catch (e) {
+
+    }
 };
 
-export const updateStatus = (status: string): AppThunk => dispatch => {
-    profileAPI.updateStatus(status)
-        .then(res => {
-            if (res.data.resultCode === ResultCode.Success) {
-                dispatch(setUserStatus(status));
-            }
-        })
-        .catch((err: AxiosError) => {
-            console.error(err.message)
-        })
+export const updateStatus = (status: string): AppThunk => async dispatch => {
+    dispatch(setLoadingStatus('loading'));
+
+    try {
+        const res = await profileAPI.updateStatus(status);
+        if (res.data.resultCode === ResultCode.Success) {
+            dispatch(setUserStatus(status));
+        }
+    } catch (e) {
+
+    } finally {
+        dispatch(setLoadingStatus('idle'));
+    }
+};
+
+export const setPhoto = (photo: File): AppThunk => async dispatch => {
+    try {
+        const res = await profileAPI.savePhoto(photo);
+        if (res.data.resultCode === ResultCode.Success) {
+            dispatch(setUserPhoto(res.data.data.photos));
+        }
+    } catch (e) {
+
+    }
 };
 
 export type PostType = {
@@ -87,38 +111,20 @@ export type PostType = {
     likesCount: number
 };
 
-export type ProfileType = {
-    aboutMe: string
-    contacts: {
-        facebook: string
-        website: string
-        vk: string
-        twitter: string
-        instagram: string
-        youtube: string
-        github: string
-        mainLink: string
-    }
-    lookingForAJob: boolean
-    lookingForAJobDescription: string
-    fullName: string
-    userId: number
-    photos: {
-        small: string | null
-        large: string | null
-    }
-};
-
 export type RootProfileType = {
     posts: PostType[]
-    profile: ProfileType
+    profile: IProfile
     status: string
+    statusLoading: 'idle' | 'loading'
 };
 
 export type ProfileActionsType =
     | ReturnType<typeof addPost>
     | ReturnType<typeof setUserProfile>
     | ReturnType<typeof setUserStatus>
+    | ReturnType<typeof setUserStatus>
+    | ReturnType<typeof setUserPhoto>
+    | ReturnType<typeof setLoadingStatus>
 
 
 

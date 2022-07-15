@@ -1,5 +1,4 @@
 import {ComponentType, useEffect} from 'react';
-import {Profile} from './Profile';
 import {useParams} from 'react-router';
 import {getStatus, getUserProfile} from '../../redux/reducers/profile-reducer';
 import {useAppDispatch, useAppSelector} from '../../redux/hooks';
@@ -7,43 +6,46 @@ import {withAuthRedirect} from '../../hoc/withAuthRedirect';
 import {compose} from 'redux';
 import {AppStateType} from '../../redux/redux-store';
 import {Preloader} from '../../common/Preloader/Preloader';
+import {Description} from './Description/Description';
+import PostsContainer from './Posts/PostsContainer';
 
 export const selectProfile = (state: AppStateType) => state.profilePage.profile;
+export const selectProfilePhotos = (state: AppStateType) => state.profilePage.profile.photos;
+export const selectLoadingStatus = (state: AppStateType) => state.profilePage.statusLoading;
 export const selectStatus = (state: AppStateType) => state.profilePage.status;
-export const selectUserId = (state: AppStateType) => state.auth.userId;
 export const selectIsAuth = (state: AppStateType) => state.auth.isAuth;
 
-const ProfileContainer = () => {
+const Profile = () => {
     const dispatch = useAppDispatch();
 
     const profile = useAppSelector(selectProfile);
+    const profilePhotos = useAppSelector(selectProfilePhotos);
+    const loadingStatus = useAppSelector(selectLoadingStatus);
     const status = useAppSelector(selectStatus);
-    const id = useAppSelector(selectUserId);
     const isAuth = useAppSelector(selectIsAuth);
 
-    const params = useParams<'id'>();
-    const userId = Number(params.id) || id;
+    const {id} = useParams<{ id: string }>();
 
     useEffect(() => {
-        if (!isAuth || !userId) {
-            return;
+        if (id) {
+            dispatch(getUserProfile(Number(id)));
+            dispatch(getStatus(Number(id)));
         }
-
-        dispatch(getUserProfile(userId));
-        dispatch(getStatus(userId));
-    }, [userId, dispatch, isAuth]);
+    }, [id, dispatch, isAuth, profilePhotos]);
 
     const profileNotReceived = Object.keys(profile).length === 0;
 
-    if (profileNotReceived) {
-        return <Preloader/>
-    }
+    if (loadingStatus === 'loading' || profileNotReceived) return <Preloader/>
 
     return (
-        <Profile profile={profile} status={status}/>
+        <>
+            <Description profile={profile} status={status}/>
+            <PostsContainer/>
+        </>
+
     )
 };
 
 export default compose<ComponentType>(
     withAuthRedirect,
-)(ProfileContainer);
+)(Profile);

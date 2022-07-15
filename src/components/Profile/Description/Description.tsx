@@ -1,26 +1,67 @@
-import React, {memo} from 'react';
-import {Avatar, Box, Typography} from '@mui/material';
-import {ProfileType} from '../../../redux/reducers/profile-reducer';
+import React, {ChangeEvent, memo, useRef} from 'react';
+import {Avatar, Box, IconButton, Typography} from '@mui/material';
+import {setPhoto} from '../../../redux/reducers/profile-reducer';
 import {ProfileStatus} from '../ProfileStatus/ProfileStatus';
 import userAvatar from '../../../assets/img/avatar/avatar.jpg';
+import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
+import Badge from '@mui/material/Badge';
+import {useAppDispatch, useAppSelector} from '../../../redux/hooks';
+import {useParams} from 'react-router';
+import {IProfile} from '../../../api/api';
 
 type DescriptionType = {
-    profile: ProfileType
+    profile: IProfile
     status: string
 }
 
 export const Description = memo(({profile, status}: DescriptionType) => {
+    const dispatch = useAppDispatch();
+
+    const {id} = useParams<{ id: string }>();
+
+    const userId = useAppSelector(state => state.auth.userId);
+
+    const ref = useRef<HTMLInputElement>(null);
+
+    const addPhoto = () => {
+        ref && ref.current && ref.current.click();
+    }
+
+    const upload = (e: ChangeEvent<HTMLInputElement>) => {
+        const photo = e.target.files && e.target.files[0];
+
+        if (photo) {
+            dispatch(setPhoto(photo));
+        }
+    }
+
+    const showBtn = userId === Number(id);
+
     return (
         <Box alignItems="flex-start" sx={{mb: '1.5rem', display: 'flex', alignItems: 'center'}}>
-            <Avatar
-                variant="square"
-                sx={{mr: '2rem', width: 60, height: 60}}
-                src={profile.photos.small === null ? userAvatar : profile.photos.small}
+            <input
+                ref={ref}
+                type="file"
+                multiple
+                onChange={upload}
+                accept=".jpg, .jpeg, .png"
+                style={{display: 'none'}}
             />
+            <Badge
+                sx={{mr: '2rem'}}
+                overlap="circular"
+                anchorOrigin={{vertical: 'bottom', horizontal: 'right'}}
+                badgeContent={showBtn && <IconButton onClick={addPhoto}><AddAPhotoIcon/></IconButton>}
+            >
+                <Avatar
+                    variant="square"
+                    sx={{width: 70, height: 70, borderRadius: '100%'}}
+                    src={profile.photos.small === null ? userAvatar : profile.photos.small}
+                />
+            </Badge>
             <Box sx={{display: 'flex', flexDirection: 'column', flex: '1 1 auto'}}>
-                <Typography 
-                    variant={'body2'}
-                    sx={{fontSize: '1.4rem', mb: '0.5rem'}}>{profile.fullName}
+                <Typography variant='body2' sx={{fontSize: '1.4rem', mb: '0.5rem'}}>
+                    {profile.fullName}
                 </Typography>
                 <ProfileStatus status={status}/>
             </Box>

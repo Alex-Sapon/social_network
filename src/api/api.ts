@@ -5,7 +5,7 @@ const instance = axios.create({
     withCredentials: true,
     baseURL: 'https://social-network.samuraijs.com/api/1.0/',
     headers: {
-        'api-key': 'bb42dfc0-a52d-4990-8930-87029e909d55',
+        'api-key': '22627d77-7d54-449a-a486-59a8089273ac',
     },
 });
 
@@ -32,6 +32,16 @@ export const profileAPI = {
     updateStatus(status: string) {
         return instance.put<IResponse>(`profile/status`, {status: status});
     },
+    savePhoto(photo: File) {
+        const formData = new FormData();
+        formData.append('image', photo);
+
+        return instance.put<IResponse<{ photos: INewPhoto }>>(`profile/photo`, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            },
+        });
+    },
 };
 
 export const authAPI = {
@@ -45,7 +55,6 @@ export const authAPI = {
         return instance.delete<IResponse>(`auth/login`);
     },
 };
-
 
 // Interface
 interface IUser {
@@ -66,6 +75,11 @@ interface IUserData {
     error: string | null
 }
 
+export interface INewPhoto {
+    large: string
+    small: string
+}
+
 interface IResponse<D = {}> {
     data: D
     fieldsErrors: string[]
@@ -73,7 +87,7 @@ interface IResponse<D = {}> {
     messages: string[]
 }
 
-interface IProfile {
+export interface IProfile {
     aboutMe: string
     contacts: {
         facebook: string

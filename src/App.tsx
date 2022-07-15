@@ -1,4 +1,4 @@
-import {BrowserRouter, Navigate, Route, Routes} from 'react-router-dom';
+import {BrowserRouter, HashRouter, Navigate, Route, Routes} from 'react-router-dom';
 
 import {Box, CircularProgress, Container, Grid} from '@mui/material';
 import './app.css';
@@ -69,10 +69,10 @@ const App = () => {
 
 export const SamuraiJSApp = () => {
     return (
-        <BrowserRouter>
+        <HashRouter>
             <Provider store={store}>
                 <App/>
             </Provider>
-        </BrowserRouter>
+        </HashRouter>
     )
 };
