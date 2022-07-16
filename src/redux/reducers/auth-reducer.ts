@@ -1,97 +1,92 @@
-import {authAPI, IUserParams} from '../../api/api';
+import {authAPI, IAuthData, IUserParams} from '../../api/api';
 import {stopSubmit} from 'redux-form';
 import {AppThunk} from '../redux-store';
 import {ResultCode} from '../../enums/result-code';
-import {AxiosError} from 'axios';
-import {getUserProfile, setUserProfile} from './profile-reducer';
 
 const initialState: AuthStateType = {
-    userId: 0,
-    login: null,
-    email: null,
+    id: 0,
+    login: '',
+    email: '',
     rememberMe: false,
     isAuth: false,
 };
 
-export const authReducer = (state: AuthStateType = initialState, action: AuthActionsType): AuthStateType => {
+export const authReducer = (state: AuthStateType = initialState, action: AuthActions): AuthStateType => {
     switch (action.type) {
         case 'AUTH/SET-AUTH-USER-DATA':
-            return {...state, ...action.payload};
-        case 'AUTH/SET-IS-AUTH-USER':
-            return {...state, isAuth: action.payload.isAuth};
+            return {...state, ...action.auth};
         default:
             return state;
     }
 };
 
-export const setAuthUserData = (userId: number, login: string | null, email: string | null) => ({
+export const setAuthUserData = (auth: AuthStateType) => ({
     type: 'AUTH/SET-AUTH-USER-DATA',
-    payload: {
-        userId,
-        login,
-        email,
-    },
+    auth,
 } as const);
 
-export const setAuthUser = (isAuth: boolean) => ({
-    type: 'AUTH/SET-IS-AUTH-USER',
-    payload: {
-        isAuth,
-    },
-} as const);
+export const getAuthUserData = (): AppThunk => async dispatch => {
+    try {
+        const res = await authAPI.me();
 
-export const getAuthUserData = (): AppThunk => dispatch => {
-    return authAPI.me()
-        .then(res => {
-            if (res.data.resultCode === ResultCode.Success) {
-                const {id, login, email} = res.data.data;
+        if (res.data.resultCode === ResultCode.Success) {
+            const {id, login, email} = res.data.data;
 
-                dispatch(setAuthUserData(id, login, email));
-                dispatch(setAuthUser(true));
-            }
-        })
-        .catch((err: AxiosError) => {
-            console.error(err.message);
-        })
+            const authData: AuthStateType = {
+                id: id,
+                login: login,
+                email: email,
+                isAuth: true,
+            };
+
+            dispatch(setAuthUserData(authData));
+        }
+    } catch (e) {
+
+    }
 };
 
-export const login = (data: IUserParams): AppThunk => dispatch => {
-    authAPI.login(data)
-        .then(res => {
-            if (res.data.resultCode === ResultCode.Success) {
-                dispatch(getAuthUserData());
-            }
+export const login = (data: IUserParams): AppThunk => async dispatch => {
+    try {
+        const res = await authAPI.login(data);
 
-            if (res.data.resultCode === ResultCode.Error) {
-                dispatch(stopSubmit('loginForm', {_error: res.data.messages}))
-            }
-        })
-        .catch((err: AxiosError) => {
-            dispatch(stopSubmit('loginForm', {_error: err.message}))
-        })
+        if (res.data.resultCode === ResultCode.Success) {
+            dispatch(getAuthUserData());
+        }
+
+        if (res.data.resultCode === ResultCode.Error) {
+            dispatch(stopSubmit('loginForm', {_error: res.data.messages}))
+        }
+    } catch (e: any) {
+        dispatch(stopSubmit('loginForm', {_error: e.message}))
+    }
 };
 
-export const logout = (): AppThunk => dispatch => {
-    authAPI.logout()
-        .then(res => {
-            if (res.data.resultCode === ResultCode.Success) {
-                dispatch(setAuthUser(false));
-            }
-        })
-        .catch((err: AxiosError) => {
-            alert(err.message);
-        })
+export const logout = (): AppThunk => async dispatch => {
+    try {
+        const res = await authAPI.logout();
+
+        if (res.data.resultCode === ResultCode.Success) {
+
+            const authData: AuthStateType = {
+                id: 0,
+                login: '',
+                email: '',
+                isAuth: false,
+            };
+
+            dispatch(setAuthUserData(authData));
+        }
+    } catch (e) {
+
+    }
 };
 
-export type AuthStateType = {
-    userId: number
-    login: string | null
-    email: string | null
-    rememberMe: boolean
+export type AuthStateType = IAuthData & {
+    rememberMe?: boolean
     isAuth: boolean
 };
 
-export type AuthActionsType =
-    | ReturnType<typeof setAuthUserData>
-    | ReturnType<typeof stopSubmit>
-    | ReturnType<typeof setAuthUser>;
+export type AuthActions = ReturnType<typeof setAuthUserData>
+
+export type SubmitActions = ReturnType<typeof stopSubmit>

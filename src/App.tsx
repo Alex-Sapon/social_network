@@ -1,4 +1,4 @@
-import {BrowserRouter, HashRouter, Navigate, Route, Routes} from 'react-router-dom';
+import {HashRouter, Route, Routes} from 'react-router-dom';
 
 import {Box, CircularProgress, Container, Grid} from '@mui/material';
 import './app.css';
@@ -7,16 +7,15 @@ import Navbar from './components/Navbar/Navbar';
 import News from './components/News/News';
 import Music from './components/Music/Music';
 import Settings from './components/Settings/Settings';
-import ProfileContainer from './components/Profile/ProfileContainer';
+import Profile from './components/Profile/ProfileContainer';
 import Login from './components/Login/Login';
 
 import {PATH} from './enums/path';
 import React, {lazy, Suspense, useEffect} from 'react';
-import {useAppDispatch, useAppSelector} from './redux/hooks';
 import {initializeApp} from './redux/reducers/app-reducer';
 import {Header} from './components/Header/Header';
 import {Provider} from 'react-redux';
-import {store} from './redux/redux-store';
+import {store, useAppDispatch, useAppSelector} from './redux/redux-store';
 import {Preloader} from './common/Preloader/Preloader';
 
 const UsersContainer = lazy(() => import('./components/Users/UsersContainer'));
@@ -50,8 +49,7 @@ const App = () => {
                     <Grid item xs={9}>
                         <Suspense fallback={<Preloader/>}>
                             <Routes>
-                                <Route path={'/'} element={<Navigate to={PATH.PROFILE}/>}/>
-                                <Route path={PATH.PROFILE} element={<ProfileContainer/>}/>
+                                <Route path={PATH.PROFILE} element={<Profile/>}/>
                                 <Route path={PATH.MESSAGES} element={<MessagesContainer/>}/>
                                 <Route path={PATH.FRIENDS} element={<UsersContainer/>}/>
                                 <Route path={PATH.NEWS} element={<News/>}/>

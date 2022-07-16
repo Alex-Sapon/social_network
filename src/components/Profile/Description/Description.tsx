@@ -5,9 +5,9 @@ import {ProfileStatus} from '../ProfileStatus/ProfileStatus';
 import userAvatar from '../../../assets/img/avatar/avatar.jpg';
 import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
 import Badge from '@mui/material/Badge';
-import {useAppDispatch, useAppSelector} from '../../../redux/hooks';
 import {useParams} from 'react-router';
 import {IProfile} from '../../../api/api';
+import {useAppDispatch, useAppSelector} from '../../../redux/redux-store';
 
 type DescriptionType = {
     profile: IProfile
@@ -19,7 +19,7 @@ export const Description = memo(({profile, status}: DescriptionType) => {
 
     const {id} = useParams<{ id: string }>();
 
-    const userId = useAppSelector(state => state.auth.userId);
+    const userId = useAppSelector(state => state.auth.id);
 
     const ref = useRef<HTMLInputElement>(null);
 
@@ -56,7 +56,7 @@ export const Description = memo(({profile, status}: DescriptionType) => {
                 <Avatar
                     variant="square"
                     sx={{width: 70, height: 70, borderRadius: '100%'}}
-                    src={profile.photos.small === null ? userAvatar : profile.photos.small}
+                    src={profile.photos ? profile.photos.small : userAvatar}
                 />
             </Badge>
             <Box sx={{display: 'flex', flexDirection: 'column', flex: '1 1 auto'}}>

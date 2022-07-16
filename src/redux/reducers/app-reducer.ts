@@ -8,7 +8,7 @@ const InitialState: AppStateType = {
 export const appReducer = (state: AppStateType = InitialState, action: AppActionsType): AppStateType => {
     switch (action.type) {
         case 'APP/SET-INITIALIZED':
-            return {...state, isInitialized: action.payload.initialized};
+            return {...state, isInitialized: action.initialized};
         default:
             return state;
     }
@@ -16,15 +16,17 @@ export const appReducer = (state: AppStateType = InitialState, action: AppAction
 
 export const setInitialized = (initialized: boolean) => ({
     type: 'APP/SET-INITIALIZED',
-    payload: {
-        initialized,
-    },
+    initialized,
 } as const);
 
 export const initializeApp = (): AppThunk => async dispatch => {
-    await dispatch(getAuthUserData());
+    try {
+        const res = await dispatch(getAuthUserData());
+    } catch (e) {
 
-    dispatch(setInitialized(true));
+    } finally {
+        dispatch(setInitialized(true));
+    }
 };
 
 export type AppStateType = {

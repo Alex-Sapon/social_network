@@ -1,9 +1,9 @@
 import {addMessage} from '../../redux/reducers/messages-reducer';
 import {Messages} from './Messages';
-import {useAppSelector} from '../../redux/hooks';
 import {withAuthRedirect} from '../../hoc/withAuthRedirect';
 import {compose} from 'redux';
 import {ComponentType} from 'react';
+import {useAppSelector} from '../../redux/redux-store';
 
 const MessagesContainer = () => {
     const messages = useAppSelector(state => state.messagesPage.messages);

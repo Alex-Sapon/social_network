@@ -1,12 +1,12 @@
 import {Box, Button, Typography} from '@mui/material';
 import {Field, Form, InjectedFormProps, reduxForm} from 'redux-form';
-import {FC, useMemo} from 'react';
+import {FC, useEffect, useMemo} from 'react';
 import {login} from '../../redux/reducers/auth-reducer';
 import {required} from '../../common/validators';
 import {renderField} from '../../common/FormControl';
-import {useAppDispatch, useAppSelector} from '../../redux/hooks';
-import {Navigate} from 'react-router-dom';
+import {Navigate, useNavigate} from 'react-router-dom';
 import {PATH} from '../../enums/path';
+import {useAppDispatch, useAppSelector} from '../../redux/redux-store';
 
 type FormDataType = {
     email: string
@@ -50,15 +50,17 @@ const LoginReduxForm = reduxForm<FormDataType>({form: 'loginForm'})(LoginForm);
 const Login = () => {
     const dispatch = useAppDispatch();
 
-    const isAuth = useAppSelector(state => state.auth.isAuth);
+    const navigate = useNavigate();
+
+    const {isAuth, id} = useAppSelector(state => state.auth);
 
     const onSubmit = (data: FormDataType) => {
         dispatch(login(data));
     }
 
-    if (isAuth) {
-        return <Navigate to={PATH.PROFILE}/>
-    }
+    useEffect(() => {
+        if (isAuth) navigate(`/profile/${id}`);
+    }, []);
 
     return (
         <Box sx={{

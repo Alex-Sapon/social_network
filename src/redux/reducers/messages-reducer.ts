@@ -17,7 +17,7 @@ const InitialState: MessagesStateType = {
     ],
 };
 
-export const messagesReducer = (state: MessagesStateType = InitialState, action: MessageActionsType): MessagesStateType => {
+export const messagesReducer = (state: MessagesStateType = InitialState, action: MessageActions): MessagesStateType => {
     switch (action.type) {
         case 'MESSAGES/ADD-MESSAGE':
             return {...state, messages: [...state.messages, {id: v1(), message: action.payload.message}]};
@@ -33,8 +33,6 @@ export const addMessage = (message: string) => ({
     }
 } as const);
 
-export type MessageActionsType = ReturnType<typeof addMessage>;
-
 export type UserType = {
     id: string
     name: string
@@ -49,3 +47,5 @@ export type MessagesStateType = {
     users: UserType[]
     messages: MessageType[]
 };
+
+export type MessageActions = ReturnType<typeof addMessage>;

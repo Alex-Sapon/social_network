@@ -15,7 +15,7 @@ const initialState: RootProfileType = {
     statusLoading: 'idle',
 };
 
-export const profileReducer = (state: RootProfileType = initialState, action: ProfileActionsType): RootProfileType => {
+export const profileReducer = (state: RootProfileType = initialState, action: ProfileActions): RootProfileType => {
     switch (action.type) {
         case 'PROFILE/SET-POST':
             return {...state, posts: [...state.posts, {id: v1(), post: action.post, likesCount: 0}]};
@@ -118,7 +118,7 @@ export type RootProfileType = {
     statusLoading: 'idle' | 'loading'
 };
 
-export type ProfileActionsType =
+export type ProfileActions =
     | ReturnType<typeof addPost>
     | ReturnType<typeof setUserProfile>
     | ReturnType<typeof setUserStatus>

@@ -1,7 +1,7 @@
 import {ChangeEvent, FC, useState} from 'react';
 import {TextField} from '@mui/material';
-import {useAppDispatch} from '../../../redux/hooks';
 import {updateStatus} from '../../../redux/reducers/profile-reducer';
+import {useAppDispatch} from '../../../redux/redux-store';
 
 type ProfileStatusType = {
     status: string
