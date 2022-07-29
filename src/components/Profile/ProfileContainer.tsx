@@ -8,16 +8,12 @@ import {Preloader} from '../../common/Preloader/Preloader';
 import {Description} from './Description/Description';
 import PostsContainer from './Posts/PostsContainer';
 
-export const selectProfile = (state: AppStateType) => state.profilePage.profile;
 export const selectLoadingStatus = (state: AppStateType) => state.profilePage.statusLoading;
-export const selectStatus = (state: AppStateType) => state.profilePage.status;
 
 const Profile = () => {
     const dispatch = useAppDispatch();
 
-    const profile = useAppSelector(selectProfile);
     const loadingStatus = useAppSelector(selectLoadingStatus);
-    const status = useAppSelector(selectStatus);
 
     const {id} = useParams<{ id: string }>();
 
@@ -32,7 +28,7 @@ const Profile = () => {
 
     return (
         <>
-            <Description profile={profile} status={status}/>
+            <Description/>
             <PostsContainer/>
         </>
 

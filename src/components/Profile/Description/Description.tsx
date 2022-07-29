@@ -1,4 +1,4 @@
-import React, {ChangeEvent, memo, useRef} from 'react';
+import React, {ChangeEvent, useRef} from 'react';
 import {Avatar, Box, IconButton, Typography} from '@mui/material';
 import {setPhoto} from '../../../redux/reducers/profile-reducer';
 import {ProfileStatus} from '../ProfileStatus/ProfileStatus';
@@ -6,20 +6,19 @@ import userAvatar from '../../../assets/img/avatar/avatar.jpg';
 import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
 import Badge from '@mui/material/Badge';
 import {useParams} from 'react-router';
-import {IProfile} from '../../../api/api';
-import {useAppDispatch, useAppSelector} from '../../../redux/redux-store';
+import {AppStateType, useAppDispatch, useAppSelector} from '../../../redux/redux-store';
 
-type DescriptionType = {
-    profile: IProfile
-    status: string
-}
+export const selectProfile = (state: AppStateType) => state.profilePage.profile;
+export const selectStatus = (state: AppStateType) => state.profilePage.status;
 
-export const Description = memo(({profile, status}: DescriptionType) => {
+export const Description = () => {
     const dispatch = useAppDispatch();
 
     const {id} = useParams<{ id: string }>();
 
+    const {fullName, photos} = useAppSelector(selectProfile);
     const userId = useAppSelector(state => state.auth.id);
+    const status = useAppSelector(selectStatus);
 
     const ref = useRef<HTMLInputElement>(null);
 
@@ -56,15 +55,13 @@ export const Description = memo(({profile, status}: DescriptionType) => {
                 <Avatar
                     variant="square"
                     sx={{width: 70, height: 70, borderRadius: '100%'}}
-                    src={profile.photos ? profile.photos.small : userAvatar}
+                    src={photos ? photos.small : userAvatar}
                 />
             </Badge>
             <Box sx={{display: 'flex', flexDirection: 'column', flex: '1 1 auto'}}>
-                <Typography variant='body2' sx={{fontSize: '1.4rem', mb: '0.5rem'}}>
-                    {profile.fullName}
-                </Typography>
+                <Typography variant='body2' sx={{fontSize: '1.4rem', mb: '0.5rem'}}>{fullName}</Typography>
                 <ProfileStatus status={status}/>
             </Box>
         </Box>
     )
-});
+};

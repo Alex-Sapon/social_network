@@ -8,10 +8,10 @@ type ProfileStatusType = {
 }
 
 export const ProfileStatus: FC<ProfileStatusType> = ({status}) => {
+    const dispatch = useAppDispatch();
+
     const [editMode, setEditMode] = useState(false);
     const [value, setValue] = useState(status);
-
-    const dispatch = useAppDispatch();
 
     const activateMode = () => {
         setEditMode(true);

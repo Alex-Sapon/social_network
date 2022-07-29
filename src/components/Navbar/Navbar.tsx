@@ -1,50 +1,21 @@
-import {FC} from 'react';
 import {NavLink} from 'react-router-dom';
-
-import {Divider, List, ListItem, ListItemText} from '@mui/material';
-import {red} from '@mui/material/colors';
-import classes from './Navbar.module.css';
+import styles from './Navbar.module.css';
 import {useAppSelector} from '../../redux/redux-store';
 
-const navbarStyles = {
-    backgroundColor: 'background.paper',
-    color: red[200],
-    width: '100%',
-    height: '100vh'
-}
-
-const Navbar: FC = () => {
-    const setActiveClass = (navData: { isActive: boolean }): string => navData.isActive ? classes.active : classes.item;
+const Navbar = () => {
+    const setActiveClass = (navData: { isActive: boolean }): string => navData.isActive ? styles.active : styles.item;
 
     const id = useAppSelector(state => state.auth.id);
 
     return (
-        <List component="nav" aria-label="mailbox folders" sx={navbarStyles}>
-            <ListItem button>
-                <NavLink className={setActiveClass} to={`/profile/${id}`}><ListItemText primary="Profile"/></NavLink>
-            </ListItem>
-            <Divider light/>
-            <ListItem button>
-                <NavLink className={setActiveClass} to="/messages"><ListItemText primary="Messages"/></NavLink>
-            </ListItem>
-            <Divider light/>
-            <ListItem button>
-                <NavLink className={setActiveClass} to="/friends"><ListItemText primary="Users"/></NavLink>
-            </ListItem>
-            <Divider light/>
-            <ListItem button>
-                <NavLink className={setActiveClass} to="/news"><ListItemText primary="News"/></NavLink>
-            </ListItem>
-            <Divider light/>
-            <ListItem button>
-                <NavLink className={setActiveClass} to="/music"><ListItemText primary="Music"/></NavLink>
-            </ListItem>
-            <Divider light/>
-            <ListItem button>
-                <NavLink className={setActiveClass} to="/settings"><ListItemText primary="Settings"/></NavLink>
-            </ListItem>
-            <Divider light/>
-        </List>
+        <nav className={styles.nav}>
+            <NavLink className={setActiveClass} to={`/profile/${id}`}>Profile</NavLink>
+            <NavLink className={setActiveClass} to="/messages">Messages</NavLink>
+            <NavLink className={setActiveClass} to="/friends">Users</NavLink>
+            <NavLink className={setActiveClass} to="/news">News</NavLink>
+            <NavLink className={setActiveClass} to="/music">Music</NavLink>
+            <NavLink className={setActiveClass} to="/settings">Settings</NavLink>
+        </nav>
     )
 }
 
