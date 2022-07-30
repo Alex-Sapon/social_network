@@ -5,12 +5,12 @@ import {withAuthRedirect} from '../../hoc/withAuthRedirect';
 import {compose} from 'redux';
 import {AppStateType, useAppDispatch, useAppSelector} from '../../redux/redux-store';
 import {Preloader} from '../../common/Preloader/Preloader';
-import {Description} from './Description/Description';
+import {Profile} from './Profile/Profile';
 import PostsContainer from './Posts/PostsContainer';
 
 export const selectLoadingStatus = (state: AppStateType) => state.profilePage.statusLoading;
 
-const Profile = () => {
+const ProfileContainer = () => {
     const dispatch = useAppDispatch();
 
     const loadingStatus = useAppSelector(selectLoadingStatus);
@@ -28,8 +28,8 @@ const Profile = () => {
 
     return (
         <>
-            <Description/>
-            <PostsContainer/>
+            <Profile/>
+            {/*<PostsContainer/>*/}
         </>
 
     )
@@ -37,4 +37,4 @@ const Profile = () => {
 
 export default compose<ComponentType>(
     withAuthRedirect,
-)(Profile);
+)(ProfileContainer);

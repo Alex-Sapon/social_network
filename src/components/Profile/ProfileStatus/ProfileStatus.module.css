@@ -1,0 +1,8 @@
+.view {
+    display: flex;
+    align-items: center;
+}
+
+.view span {
+    width: 100%;
+}

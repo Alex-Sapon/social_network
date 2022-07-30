@@ -1,4 +1,4 @@
-import {HashRouter, Route, Routes} from 'react-router-dom';
+import {HashRouter, Route, Routes, Navigate} from 'react-router-dom';
 
 import {Box, CircularProgress, Container, Grid} from '@mui/material';
 import './app.css';
@@ -7,7 +7,7 @@ import Navbar from './components/Navbar/Navbar';
 import News from './components/News/News';
 import Music from './components/Music/Music';
 import Settings from './components/Settings/Settings';
-import Profile from './components/Profile/ProfileContainer';
+import ProfileContainer from './components/Profile/ProfileContainer';
 import Login from './components/Login/Login';
 
 import {PATH} from './enums/path';
@@ -40,18 +40,19 @@ const App = () => {
 
     return (
         <>
-            <Header/>
-            <Container sx={{height: '100vh'}}>
-                <Grid container columnSpacing={{xs: 2, sm: 3, md: 5}} sx={{height: '100vh'}} columns={12}>
+            {/*<Header/>*/}
+            <Container sx={{mt: '3rem'}}>
+                <Grid container columns={12} columnGap={8}>
                     <Grid item xs={3}>
                         <Navbar/>
                     </Grid>
-                    <Grid item xs={9}>
+                    <Grid item xs>
                         <Suspense fallback={<Preloader/>}>
                             <Routes>
-                                <Route path={PATH.PROFILE} element={<Profile/>}/>
+                                {/*<Route path={'/'} element={<Navigate to={PATH.LOGIN}/>}/>*/}
+                                <Route path={PATH.PROFILE} element={<ProfileContainer/>}/>
                                 <Route path={PATH.MESSAGES} element={<MessagesContainer/>}/>
-                                <Route path={PATH.FRIENDS} element={<UsersContainer/>}/>
+                                <Route path={PATH.USERS} element={<UsersContainer/>}/>
                                 <Route path={PATH.NEWS} element={<News/>}/>
                                 <Route path={PATH.MUSIC} element={<Music/>}/>
                                 <Route path={PATH.SETTINGS} element={<Settings/>}/>

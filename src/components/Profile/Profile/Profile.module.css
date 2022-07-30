@@ -1,0 +1,35 @@
+.wrapper {
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: flex-start;
+    border-radius: 11px;
+    background: #fff;
+    box-shadow: 0 .125rem .25rem rgba(0,0,0,.075)!important;
+    padding: 20px;
+}
+
+.description {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+}
+
+.name {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.job,
+.job_description {
+    display: flex;
+    align-items: center;
+}
+
+.job svg {
+    margin-left: 1rem;
+}
+
+.contact {
+    padding-left: 1rem;
+}

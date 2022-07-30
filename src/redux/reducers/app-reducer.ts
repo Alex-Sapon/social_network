@@ -20,13 +20,8 @@ export const setInitialized = (initialized: boolean) => ({
 } as const);
 
 export const initializeApp = (): AppThunk => async dispatch => {
-    try {
-        const res = await dispatch(getAuthUserData());
-    } catch (e) {
-
-    } finally {
-        dispatch(setInitialized(true));
-    }
+    await dispatch(getAuthUserData());
+    dispatch(setInitialized(true));
 };
 
 export type AppStateType = {

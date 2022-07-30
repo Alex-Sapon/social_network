@@ -1,7 +1,9 @@
 import {ChangeEvent, FC, useState} from 'react';
-import {TextField} from '@mui/material';
+import {IconButton, TextField} from '@mui/material';
 import {updateStatus} from '../../../redux/reducers/profile-reducer';
 import {useAppDispatch} from '../../../redux/redux-store';
+import ModeEditIcon from '@mui/icons-material/ModeEdit';
+import styles from './ProfileStatus.module.css';
 
 type ProfileStatusType = {
     status: string
@@ -30,7 +32,10 @@ export const ProfileStatus: FC<ProfileStatusType> = ({status}) => {
     return (
         <div>
             {!editMode
-                ? <span onDoubleClick={activateMode}>{status !== null ? status : 'No status'}</span>
+                ? <div className={styles.view}>
+                    <span>{status !== null ? status : 'No status'}</span>
+                    <IconButton onClick={activateMode}><ModeEditIcon/></IconButton>
+                </div>
                 : <TextField
                     autoFocus
                     size='small'

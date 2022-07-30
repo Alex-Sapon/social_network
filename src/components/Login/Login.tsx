@@ -60,7 +60,7 @@ const Login = () => {
 
     useEffect(() => {
         if (isAuth) navigate(`/profile/${id}`);
-    }, []);
+    }, [isAuth, id, navigate]);
 
     return (
         <Box sx={{

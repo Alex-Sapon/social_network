@@ -1,7 +1,15 @@
 .nav {
     display: flex;
     flex-direction: column;
-    margin-right: 3rem;
+}
+
+.nav a {
+    display: flex;
+    align-items: center;
+}
+
+.nav a svg {
+    margin-right: 1rem;
 }
 
 .item {

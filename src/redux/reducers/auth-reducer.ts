@@ -14,15 +14,15 @@ const initialState: AuthStateType = {
 export const authReducer = (state: AuthStateType = initialState, action: AuthActions): AuthStateType => {
     switch (action.type) {
         case 'AUTH/SET-AUTH-USER-DATA':
-            return {...state, ...action.auth};
+            return {...state, ...action.authData};
         default:
             return state;
     }
 };
 
-export const setAuthUserData = (auth: AuthStateType) => ({
+export const setAuthUserData = (authData: AuthStateType) => ({
     type: 'AUTH/SET-AUTH-USER-DATA',
-    auth,
+    authData,
 } as const);
 
 export const getAuthUserData = (): AppThunk => async dispatch => {
