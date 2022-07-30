@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useRef} from 'react';
+import React, {ChangeEvent, useRef, useState} from 'react';
 import {Avatar, Button, IconButton, Typography} from '@mui/material';
 import {setPhoto} from '../../../redux/reducers/profile-reducer';
 import {ProfileStatus} from '../ProfileStatus/ProfileStatus';
@@ -11,6 +11,7 @@ import styles from './Profile.module.css';
 import {useParams} from 'react-router';
 import {AppStateType, useAppDispatch, useAppSelector} from '../../../redux/redux-store';
 import {logout} from '../../../redux/reducers/auth-reducer';
+import {Form, InjectedFormProps, reduxForm} from 'redux-form';
 
 export const selectProfile = (state: AppStateType) => state.profilePage.profile;
 export const selectStatus = (state: AppStateType) => state.profilePage.status;
@@ -18,9 +19,11 @@ export const selectStatus = (state: AppStateType) => state.profilePage.status;
 export const Profile = () => {
     const dispatch = useAppDispatch();
 
+    const [editMode, setEditMode] = useState(false);
+
     const {id} = useParams<{ id: string }>();
 
-    const {fullName, photos, contacts, lookingForAJob, lookingForAJobDescription} = useAppSelector(selectProfile);
+    const {fullName, photos} = useAppSelector(selectProfile);
     const userId = useAppSelector(state => state.auth.id);
     const status = useAppSelector(selectStatus);
 
@@ -38,7 +41,15 @@ export const Profile = () => {
         }
     }
 
-    const handlerLogout = () => dispatch(logout());
+    const handleLogout = () => dispatch(logout());
+
+    const handleEditProfile = () => {
+        setEditMode(true);
+    }
+
+    const handleSendUpdateProfile = () => {
+        setEditMode(false);
+    }
 
     const isShowBtn = userId === Number(id);
 
@@ -67,24 +78,19 @@ export const Profile = () => {
             <div className={styles.description}>
                 <div className={styles.name}>
                     <Typography variant="body2" sx={{fontSize: '1.4rem', mb: '0.5rem'}}>{fullName}</Typography>
-                    {isShowBtn && <Button color="inherit" variant="text" onClick={handlerLogout}>Log out</Button>}
+                    {isShowBtn && <Button color="inherit" variant="text" onClick={handleLogout}>Log out</Button>}
                 </div>
                 <ProfileStatus status={status} isShowBtn={isShowBtn}/><br/>
-                <div className={styles.job}>
-                    Looking for a job:
-                    {lookingForAJob ? <CheckIcon sx={{color: 'green'}}/> : <DangerousIcon sx={{color: 'red'}}/>}
-                </div><br/>
-                <div className={styles.job_description}>
-                    Looking for a job description: {lookingForAJobDescription}
-                </div><br/>
-                Contacts: {contacts && Object.keys(contacts).map(contact =>
-                <Contact
-                    key={contact}
-                    title={contact}
-                    value={contacts[contact as keyof typeof contacts]}
-                    className={styles.contact}
-                />
-            )}
+                {isShowBtn &&
+                    <div className={styles.btn}>
+                        <Button
+                            sx={{ml: 'auto'}}
+                            color="inherit"
+                            variant="text"
+                            onClick={!editMode ? handleEditProfile : handleSendUpdateProfile}
+                        >{!editMode ? 'Edit profile' : 'Send update profile'}</Button>
+                    </div>}
+                <div>{!editMode ? <ViewProfile/> : <EditProfileForm/>}</div>
             </div>
         </div>
     )
@@ -101,3 +107,44 @@ export const Contact = ({title, value, className}: ContactType) => {
         <div className={className}><b>{title}:</b> {value}</div>
     )
 };
+
+type ViewProfile = {}
+
+export const ViewProfile = () => {
+    const {contacts, lookingForAJob, lookingForAJobDescription} = useAppSelector(selectProfile);
+
+    return (
+        <>
+            <div className={styles.job}>
+                Looking for a job:
+                {lookingForAJob ? <CheckIcon sx={{color: 'green'}}/> : <DangerousIcon sx={{color: 'red'}}/>}
+            </div>
+            <br/>
+            <div className={styles.job_description}>
+                Looking for a job description: {lookingForAJobDescription}
+            </div>
+            <br/>
+            Contacts: {contacts && Object.keys(contacts).map(contact =>
+            <Contact
+                key={contact}
+                title={contact}
+                value={contacts[contact as keyof typeof contacts]}
+                className={styles.contact}
+            />
+        )}
+        </>
+    )
+};
+
+type EditProfile = {}
+
+export const EditProfile = ({handleSubmit}: InjectedFormProps<EditProfile>) => {
+    return (
+        <Form onSubmit={handleSubmit}>
+            Hello
+        </Form>
+    )
+};
+
+const EditProfileForm = reduxForm<EditProfile>({form: 'profileForm'})(EditProfile);
+

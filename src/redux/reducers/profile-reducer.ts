@@ -1,6 +1,6 @@
 import {v1} from 'uuid';
 import {INewPhoto, IProfile, profileAPI} from '../../api/api';
-import {AppThunk} from '../redux-store';
+import {AppStateType, AppThunk} from '../redux-store';
 import {ResultCode} from '../../enums/result-code';
 
 const initialState: RootProfileType = {
@@ -101,6 +101,20 @@ export const setPhoto = (photo: File): AppThunk => async dispatch => {
             dispatch(setUserPhoto(res.data.data.photos));
         }
     } catch (e) {
+
+    }
+};
+
+export const updateProfile = (): AppThunk => async (dispatch, getState: () => AppStateType) => {
+    const userId = getState().auth.id;
+
+
+
+    try {
+        // const res = await profileAPI.updateProfile()
+    } catch (e) {
+
+    } finally {
 
     }
 };

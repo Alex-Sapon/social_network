@@ -49,7 +49,7 @@ const App = () => {
                     <Grid item xs>
                         <Suspense fallback={<Preloader/>}>
                             <Routes>
-                                {/*<Route path={'/'} element={<Navigate to={PATH.LOGIN}/>}/>*/}
+                                <Route path={'/'} element={<Navigate to={PATH.LOGIN}/>}/>
                                 <Route path={PATH.PROFILE} element={<ProfileContainer/>}/>
                                 <Route path={PATH.MESSAGES} element={<MessagesContainer/>}/>
                                 <Route path={PATH.USERS} element={<UsersContainer/>}/>

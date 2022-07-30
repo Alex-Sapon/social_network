@@ -33,3 +33,8 @@
 .contact {
     padding-left: 1rem;
 }
+
+.btn {
+    display: flex;
+    justify-content: flex-end;
+}

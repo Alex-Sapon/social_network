@@ -1,11 +1,10 @@
 import {Box, Button, Typography} from '@mui/material';
 import {Field, Form, InjectedFormProps, reduxForm} from 'redux-form';
-import {FC, useEffect, useMemo} from 'react';
+import {useEffect, useMemo} from 'react';
 import {login} from '../../redux/reducers/auth-reducer';
 import {required} from '../../common/validators';
 import {renderField} from '../../common/FormControl';
-import {Navigate, useNavigate} from 'react-router-dom';
-import {PATH} from '../../enums/path';
+import {useNavigate} from 'react-router-dom';
 import {useAppDispatch, useAppSelector} from '../../redux/redux-store';
 
 type FormDataType = {
@@ -14,9 +13,7 @@ type FormDataType = {
     rememberMe: boolean
 }
 
-const LoginForm: FC<InjectedFormProps<FormDataType>> = props => {
-    const {handleSubmit, error} = props;
-
+const LoginForm = ({handleSubmit, error}: InjectedFormProps<FormDataType>) => {
     const inputField = useMemo(() => {
         return renderField('input');
     }, []);
