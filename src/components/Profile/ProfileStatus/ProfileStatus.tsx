@@ -7,9 +7,10 @@ import styles from './ProfileStatus.module.css';
 
 type ProfileStatusType = {
     status: string
+    isShowBtn: boolean
 }
 
-export const ProfileStatus: FC<ProfileStatusType> = ({status}) => {
+export const ProfileStatus: FC<ProfileStatusType> = ({status, isShowBtn}) => {
     const dispatch = useAppDispatch();
 
     const [editMode, setEditMode] = useState(false);
@@ -34,7 +35,7 @@ export const ProfileStatus: FC<ProfileStatusType> = ({status}) => {
             {!editMode
                 ? <div className={styles.view}>
                     <span>{status !== null ? status : 'No status'}</span>
-                    <IconButton onClick={activateMode}><ModeEditIcon/></IconButton>
+                    {isShowBtn && <IconButton onClick={activateMode}><ModeEditIcon/></IconButton>}
                 </div>
                 : <TextField
                     autoFocus

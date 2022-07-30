@@ -1,4 +1,4 @@
-import React, {ChangeEvent, CSSProperties, useRef} from 'react';
+import React, {ChangeEvent, useRef} from 'react';
 import {Avatar, Button, IconButton, Typography} from '@mui/material';
 import {setPhoto} from '../../../redux/reducers/profile-reducer';
 import {ProfileStatus} from '../ProfileStatus/ProfileStatus';
@@ -40,7 +40,7 @@ export const Profile = () => {
 
     const handlerLogout = () => dispatch(logout());
 
-    const showBtn = userId === Number(id);
+    const isShowBtn = userId === Number(id);
 
     return (
         <div className={styles.wrapper}>
@@ -56,7 +56,7 @@ export const Profile = () => {
                 sx={{mr: '2rem'}}
                 overlap="circular"
                 anchorOrigin={{vertical: 'bottom', horizontal: 'right'}}
-                badgeContent={showBtn && <IconButton onClick={addPhoto}><AddAPhotoIcon/></IconButton>}
+                badgeContent={isShowBtn && <IconButton onClick={addPhoto}><AddAPhotoIcon/></IconButton>}
             >
                 <Avatar
                     variant="square"
@@ -67,11 +67,12 @@ export const Profile = () => {
             <div className={styles.description}>
                 <div className={styles.name}>
                     <Typography variant="body2" sx={{fontSize: '1.4rem', mb: '0.5rem'}}>{fullName}</Typography>
-                    {showBtn && <Button color="inherit" variant="text" onClick={handlerLogout}>Log out</Button>}
+                    {isShowBtn && <Button color="inherit" variant="text" onClick={handlerLogout}>Log out</Button>}
                 </div>
-                <ProfileStatus status={status}/><br/>
+                <ProfileStatus status={status} isShowBtn={isShowBtn}/><br/>
                 <div className={styles.job}>
-                    Looking for a job: {lookingForAJob ? <CheckIcon sx={{color: 'green'}}/> : <DangerousIcon sx={{color: 'red'}}/>}
+                    Looking for a job:
+                    {lookingForAJob ? <CheckIcon sx={{color: 'green'}}/> : <DangerousIcon sx={{color: 'red'}}/>}
                 </div><br/>
                 <div className={styles.job_description}>
                     Looking for a job description: {lookingForAJobDescription}
@@ -99,4 +100,4 @@ export const Contact = ({title, value, className}: ContactType) => {
     return (
         <div className={className}><b>{title}:</b> {value}</div>
     )
-}
+};

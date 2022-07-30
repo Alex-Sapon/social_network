@@ -42,6 +42,9 @@ export const profileAPI = {
             },
         });
     },
+    updateProfile(profile: IProfile) {
+        return instance.put<IResponse>(`/profile`, profile);
+    },
 };
 
 export const authAPI = {
