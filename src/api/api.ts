@@ -42,7 +42,7 @@ export const profileAPI = {
             },
         });
     },
-    updateProfile(profile: IProfile) {
+    updateProfile(profile: IUpdateProfile) {
         return instance.put<IResponse>(`/profile`, profile);
     },
 };
@@ -59,7 +59,6 @@ export const authAPI = {
     },
 };
 
-// Interface
 interface IUser {
     name: string
     id: number
@@ -109,6 +108,23 @@ export interface IProfile {
     photos: {
         small: string
         large: string
+    }
+}
+
+export interface IUpdateProfile {
+    userId: number
+    lookingForAJob: boolean
+    lookingForAJobDescription: string
+    fullName: string
+    contacts: {
+        github: string
+        vk: string
+        facebook: string
+        instagram: string
+        twitter: string
+        website: string
+        youtube: string
+        mainLink: string
     }
 }
 

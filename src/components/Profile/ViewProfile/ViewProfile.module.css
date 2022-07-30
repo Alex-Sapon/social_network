@@ -1,0 +1,18 @@
+.job,
+.job_description {
+    display: flex;
+    align-items: center;
+}
+
+.job svg {
+    margin-left: 1rem;
+}
+
+.contact {
+    padding: 0.3rem 0.3rem 0.3rem 1rem;
+}
+
+.btn {
+    display: flex;
+    justify-content: flex-end;
+}

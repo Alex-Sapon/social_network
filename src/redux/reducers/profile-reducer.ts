@@ -1,7 +1,8 @@
 import {v1} from 'uuid';
-import {INewPhoto, IProfile, profileAPI} from '../../api/api';
+import {INewPhoto, IProfile, IUpdateProfile, profileAPI} from '../../api/api';
 import {AppStateType, AppThunk} from '../redux-store';
 import {ResultCode} from '../../enums/result-code';
+import {stopSubmit} from 'redux-form';
 
 const initialState: RootProfileType = {
     posts: [
@@ -40,6 +41,11 @@ export const addPost = (post: string) => ({
 export const setUserProfile = (profile: IProfile) => ({
     type: 'PROFILE/SET-PROFILE',
     profile,
+} as const);
+
+export const updateUserProfile = (updatedProfile: IUpdateProfile) => ({
+    type: 'PROFILE/UPDATE-PROFILE',
+    updatedProfile,
 } as const);
 
 export const setUserStatus = (status: string) => ({
@@ -105,13 +111,25 @@ export const setPhoto = (photo: File): AppThunk => async dispatch => {
     }
 };
 
-export const updateProfile = (): AppThunk => async (dispatch, getState: () => AppStateType) => {
+export const updateProfile = (profile: IUpdateProfile): AppThunk => async (dispatch, getState: () => AppStateType) => {
     const userId = getState().auth.id;
 
-
-
     try {
-        // const res = await profileAPI.updateProfile()
+        const res = await profileAPI.updateProfile(profile);
+
+        if (res.data.resultCode === ResultCode.Success) {
+            dispatch(getUserProfile(userId));
+        }
+
+        if (res.data.resultCode === ResultCode.Error) {
+            let wrongNetwork = res.data.messages[0]
+                .slice(res.data.messages[0].indexOf(">") + 1, res.data.messages[0].indexOf(")"))
+                .toLowerCase();
+
+            dispatch(stopSubmit('profileForm', {"contacts": {[wrongNetwork]: res.data.messages[0]}}));
+            return Promise.reject(res.data.messages[0]);
+        }
+
     } catch (e) {
 
     } finally {
@@ -139,6 +157,7 @@ export type ProfileActions =
     | ReturnType<typeof setUserStatus>
     | ReturnType<typeof setUserPhoto>
     | ReturnType<typeof setLoadingStatus>
+    | ReturnType<typeof updateUserProfile>
 
 
 

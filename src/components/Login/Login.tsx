@@ -44,7 +44,7 @@ const LoginForm = ({handleSubmit, error}: InjectedFormProps<FormDataType>) => {
 
 const LoginReduxForm = reduxForm<FormDataType>({form: 'loginForm'})(LoginForm);
 
-const Login = () => {
+export const Login = () => {
     const dispatch = useAppDispatch();
 
     const navigate = useNavigate();
@@ -60,18 +60,10 @@ const Login = () => {
     }, [isAuth, id, navigate]);
 
     return (
-        <Box sx={{
-            p: '1rem',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center'
-        }}>
+        <Box sx={{p: '1rem', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
             <Typography variant="h4" component="h4" sx={{mb: '2rem'}}>Login</Typography>
             <LoginReduxForm onSubmit={onSubmit}/>
         </Box>
     )
 };
-
-export default Login;
 

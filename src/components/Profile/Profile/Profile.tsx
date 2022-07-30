@@ -1,20 +1,21 @@
 import React, {ChangeEvent, useRef, useState} from 'react';
 import {Avatar, Button, IconButton, Typography} from '@mui/material';
-import {setPhoto} from '../../../redux/reducers/profile-reducer';
+import {setPhoto, updateProfile} from '../../../redux/reducers/profile-reducer';
 import {ProfileStatus} from '../ProfileStatus/ProfileStatus';
 import userAvatar from '../../../assets/img/avatar/avatar.jpg';
 import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
-import CheckIcon from '@mui/icons-material/Check';
-import DangerousIcon from '@mui/icons-material/Dangerous';
+import LogoutIcon from '@mui/icons-material/Logout';
 import Badge from '@mui/material/Badge';
 import styles from './Profile.module.css';
 import {useParams} from 'react-router';
 import {AppStateType, useAppDispatch, useAppSelector} from '../../../redux/redux-store';
 import {logout} from '../../../redux/reducers/auth-reducer';
-import {Form, InjectedFormProps, reduxForm} from 'redux-form';
+import {ViewProfile} from '../ViewProfile/ViewProfile';
+import {EditProfileForm, EditProfileType} from '../EditProfileForm/EditProfileForm';
 
 export const selectProfile = (state: AppStateType) => state.profilePage.profile;
 export const selectStatus = (state: AppStateType) => state.profilePage.status;
+export const selectUserId = (state: AppStateType) => state.auth.id;
 
 export const Profile = () => {
     const dispatch = useAppDispatch();
@@ -23,8 +24,8 @@ export const Profile = () => {
 
     const {id} = useParams<{ id: string }>();
 
-    const {fullName, photos} = useAppSelector(selectProfile);
-    const userId = useAppSelector(state => state.auth.id);
+    const profile = useAppSelector(selectProfile);
+    const userId = useAppSelector(selectUserId);
     const status = useAppSelector(selectStatus);
 
     const ref = useRef<HTMLInputElement>(null);
@@ -47,7 +48,8 @@ export const Profile = () => {
         setEditMode(true);
     }
 
-    const handleSendUpdateProfile = () => {
+    const handleSubmitProfile = (data: EditProfileType) => {
+        dispatch(updateProfile(data));
         setEditMode(false);
     }
 
@@ -72,79 +74,21 @@ export const Profile = () => {
                 <Avatar
                     variant="square"
                     sx={{width: 70, height: 70, borderRadius: '100%'}}
-                    src={photos ? photos.small : userAvatar}
+                    src={profile.photos ? profile.photos.small : userAvatar}
                 />
             </Badge>
             <div className={styles.description}>
                 <div className={styles.name}>
-                    <Typography variant="body2" sx={{fontSize: '1.4rem', mb: '0.5rem'}}>{fullName}</Typography>
-                    {isShowBtn && <Button color="inherit" variant="text" onClick={handleLogout}>Log out</Button>}
+                    <Typography sx={{fontSize: '1.4rem', mb: '0.5rem'}}>{profile.fullName}</Typography>
+                    {isShowBtn
+                        && <Button color="inherit" variant="text" onClick={handleLogout}>
+                            <LogoutIcon sx={{mr: '5px'}}/>LOGOUT</Button>}
                 </div>
                 <ProfileStatus status={status} isShowBtn={isShowBtn}/><br/>
-                {isShowBtn &&
-                    <div className={styles.btn}>
-                        <Button
-                            sx={{ml: 'auto'}}
-                            color="inherit"
-                            variant="text"
-                            onClick={!editMode ? handleEditProfile : handleSendUpdateProfile}
-                        >{!editMode ? 'Edit profile' : 'Send update profile'}</Button>
-                    </div>}
-                <div>{!editMode ? <ViewProfile/> : <EditProfileForm/>}</div>
+                {editMode
+                    ? <EditProfileForm initialValues={profile} onSubmit={handleSubmitProfile}/>
+                    : <ViewProfile isShowBtn={isShowBtn} onEdit={handleEditProfile}/>}
             </div>
         </div>
     )
 };
-
-type ContactType = {
-    title: string
-    value: string | null
-    className: string
-}
-
-export const Contact = ({title, value, className}: ContactType) => {
-    return (
-        <div className={className}><b>{title}:</b> {value}</div>
-    )
-};
-
-type ViewProfile = {}
-
-export const ViewProfile = () => {
-    const {contacts, lookingForAJob, lookingForAJobDescription} = useAppSelector(selectProfile);
-
-    return (
-        <>
-            <div className={styles.job}>
-                Looking for a job:
-                {lookingForAJob ? <CheckIcon sx={{color: 'green'}}/> : <DangerousIcon sx={{color: 'red'}}/>}
-            </div>
-            <br/>
-            <div className={styles.job_description}>
-                Looking for a job description: {lookingForAJobDescription}
-            </div>
-            <br/>
-            Contacts: {contacts && Object.keys(contacts).map(contact =>
-            <Contact
-                key={contact}
-                title={contact}
-                value={contacts[contact as keyof typeof contacts]}
-                className={styles.contact}
-            />
-        )}
-        </>
-    )
-};
-
-type EditProfile = {}
-
-export const EditProfile = ({handleSubmit}: InjectedFormProps<EditProfile>) => {
-    return (
-        <Form onSubmit={handleSubmit}>
-            Hello
-        </Form>
-    )
-};
-
-const EditProfileForm = reduxForm<EditProfile>({form: 'profileForm'})(EditProfile);
-
