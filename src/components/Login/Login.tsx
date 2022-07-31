@@ -6,17 +6,21 @@ import {required} from '../../common/validators';
 import {renderField} from '../../common/FormControl';
 import {useNavigate} from 'react-router-dom';
 import {useAppDispatch, useAppSelector} from '../../redux/redux-store';
+import {renderCheckbox} from '../../assets/utils/renderCheckbox';
 
 type FormDataType = {
     email: string
     password: string
     rememberMe: boolean
+    captcha: null | string
 }
 
 const LoginForm = ({handleSubmit, error}: InjectedFormProps<FormDataType>) => {
     const inputField = useMemo(() => {
         return renderField('input');
     }, []);
+
+    const captcha = useAppSelector(state => state.auth.captcha);
 
     return (
         <Form onSubmit={handleSubmit}>
@@ -33,9 +37,12 @@ const LoginForm = ({handleSubmit, error}: InjectedFormProps<FormDataType>) => {
                 />
             </div>
             <div style={{display: 'flex', alignItems: 'center', marginBottom: '30px'}}>
-                <label htmlFor="rememberMe">Remember me</label>
-                <Field name="rememberMe" component="input" type="checkbox"/>
+                <Field name="rememberMe" component={renderCheckbox} label="Remember me"/>
             </div>
+            {captcha && <div>
+                <img src={captcha} alt="Captcha image"/>
+                <Field name="captcha" component={inputField}/>
+            </div>}
             {error && <div style={{color: 'red', marginTop: '-20px', marginBottom: '10px'}}>{error}</div>}
             <Button type="submit" variant="contained">Log In</Button>
         </Form>

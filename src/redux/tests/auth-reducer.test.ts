@@ -1,4 +1,4 @@
-import {setAuthUserData, authReducer, AuthStateType} from '../reducers/auth-reducer';
+import {setAuthUserData, authReducer, AuthStateType, setCaptchaUrl} from '../reducers/auth-reducer';
 
 let initialState: AuthStateType;
 
@@ -8,6 +8,7 @@ beforeEach(() => {
         login: '',
         email: '',
         rememberMe: false,
+        captcha: null,
         isAuth: false,
     }
 });
@@ -17,6 +18,7 @@ test('auth state should be created', () => {
         id: 2,
         login: '246hDaS3l66',
         email: 'rrr@gmail.com',
+        captcha: null,
         isAuth: true,
     };
 
@@ -33,10 +35,17 @@ test('isAuth of state should be change from false to true', () => {
         id: 0,
         login: '',
         email: '',
+        captcha: null,
         isAuth: false,
     };
 
     const endState = authReducer(initialState, setAuthUserData(authData))
 
     expect(endState.isAuth).toBeTruthy();
+});
+
+test('url of captcha should be set', () => {
+    const endState = authReducer(initialState, setCaptchaUrl('https://fake.com/blabla'))
+
+    expect(endState.captcha).toBe('https://fake.com/blabla');
 });

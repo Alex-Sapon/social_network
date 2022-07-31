@@ -49,8 +49,8 @@ export const Profile = () => {
     }
 
     const handleSubmitProfile = (data: EditProfileType) => {
-        dispatch(updateProfile(data));
-        // setEditMode(false);
+        dispatch(updateProfile(data))
+        setEditMode(false);
     }
 
     const isShowBtn = userId === Number(id);

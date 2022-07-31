@@ -59,6 +59,12 @@ export const authAPI = {
     },
 };
 
+export const securityAPI = {
+    getCaptchaUrl() {
+        return instance.get<{ url: string }>(`security/get-captcha-url`);
+    },
+};
+
 interface IUser {
     name: string
     id: number
@@ -138,5 +144,5 @@ export interface IUserParams {
     email: string
     password: string
     rememberMe: boolean
-    captcha?: string
+    captcha: null | string
 }
