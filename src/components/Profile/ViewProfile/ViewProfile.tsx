@@ -1,5 +1,5 @@
 import {useAppSelector} from '../../../redux/redux-store';
-import styles from '../Profile/Profile.module.css';
+import styles from './ViewProfile.module.css';
 import {Button} from '@mui/material';
 import CheckIcon from '@mui/icons-material/Check';
 import DangerousIcon from '@mui/icons-material/Dangerous';
@@ -34,7 +34,7 @@ export const ViewProfile = ({isShowBtn, onEdit}: ViewProfile) => {
                 key={contact}
                 title={contact}
                 value={contacts[contact as keyof typeof contacts]}
-                className={styles.contact}
+                className={styles.subtitle}
             />
         )}
         </div>

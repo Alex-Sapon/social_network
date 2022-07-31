@@ -1,11 +1,12 @@
 import {Field, Form, InjectedFormProps, reduxForm} from 'redux-form';
 import {useAppSelector} from '../../../redux/redux-store';
-import styles from '../Profile/Profile.module.css';
+import styles from './EditProfileForm.module.css';
 import {Button} from '@mui/material';
 import React from 'react';
 import {selectProfile} from '../Profile/Profile';
 import {Contact} from '../Contact/Contact';
-import {log} from 'util';
+import {renderCheckbox} from '../../../assets/utils/renderCheckbox';
+import {renderTextField} from '../../../assets/utils/renderTextField';
 
 export type EditProfileType = {
     userId: number
@@ -24,7 +25,7 @@ export type EditProfileType = {
     }
 }
 
-const EditProfile = ({handleSubmit, error}: InjectedFormProps<EditProfileType>) => {
+const EditProfile = ({handleSubmit}: InjectedFormProps<EditProfileType>) => {
     const {contacts} = useAppSelector(selectProfile);
 
     return (
@@ -33,14 +34,12 @@ const EditProfile = ({handleSubmit, error}: InjectedFormProps<EditProfileType>) 
                 <div className={styles.btn}>
                     <Button sx={{ml: 'auto'}} color="inherit" variant="text" type="submit">Send update profile</Button>
                 </div>
-                <div className={styles.job}>
-                    <b>About me:</b>
-                    <Field name="aboutMe" component="input"/>
+                <div className={styles.about}><b>About me:</b>
+                    <Field name="aboutMe" component={renderTextField}/>
                 </div>
                 <br/>
                 <div className={styles.job}>
-                    <b>Looking for a job:</b>
-                    <Field name="lookingForAJob" component="input" type="checkbox"/>
+                    <Field name="lookingForAJob" component={renderCheckbox} label="Looking for a job"/>
                 </div>
                 <br/>
                 <div className={styles.job_description}><b>My skills:</b></div>
@@ -51,14 +50,12 @@ const EditProfile = ({handleSubmit, error}: InjectedFormProps<EditProfileType>) 
                     key={contact}
                     title={contact}
                     isEdit={true}
-                    nameField={'contacts.' + contact}
+                    nameField={`contacts.${contact.toLowerCase()}`}
                     value={contacts[contact as keyof typeof contacts]}
-                    className={styles.contact}
+                    className={styles.subtitle}
                 />
             )}
             </Form>
-            {console.log(error)}
-            {error && <div style={{color: 'red', marginTop: '-20px', marginBottom: '10px'}}>{error}</div>}
         </>
     )
 };

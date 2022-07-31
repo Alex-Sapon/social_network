@@ -26,15 +26,26 @@
     align-items: center;
 }
 
-.job svg {
-    margin-left: 1rem;
+.job_description b {
+    display: inline-block;
+    min-width: 80px;
 }
 
-.contact {
+.job b {
+    display: inline-block;
+    min-width: 150px;
+}
+
+.subtitle {
     padding: 0.3rem 0.3rem 0.3rem 1rem;
 }
 
 .btn {
     display: flex;
     justify-content: flex-end;
+}
+
+.subtitle b {
+    display: inline-block;
+    min-width: 100px;
 }

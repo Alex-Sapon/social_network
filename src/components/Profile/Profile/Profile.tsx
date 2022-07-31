@@ -50,7 +50,7 @@ export const Profile = () => {
 
     const handleSubmitProfile = (data: EditProfileType) => {
         dispatch(updateProfile(data));
-        setEditMode(false);
+        // setEditMode(false);
     }
 
     const isShowBtn = userId === Number(id);
@@ -80,9 +80,8 @@ export const Profile = () => {
             <div className={styles.description}>
                 <div className={styles.name}>
                     <Typography sx={{fontSize: '1.4rem', mb: '0.5rem'}}>{profile.fullName}</Typography>
-                    {isShowBtn
-                        && <Button color="inherit" variant="text" onClick={handleLogout}>
-                            <LogoutIcon sx={{mr: '5px'}}/>LOGOUT</Button>}
+                    {isShowBtn && <Button color="inherit" variant="text" onClick={handleLogout}>
+                        <LogoutIcon sx={{mr: '5px'}}/>LOGOUT</Button>}
                 </div>
                 <ProfileStatus status={status} isShowBtn={isShowBtn}/><br/>
                 {editMode

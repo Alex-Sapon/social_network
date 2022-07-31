@@ -1,5 +1,6 @@
 import React from 'react';
 import {Field} from 'redux-form';
+import {renderTextField} from '../../../assets/utils/renderTextField';
 
 type ContactType = {
     title: string
@@ -11,8 +12,9 @@ type ContactType = {
 
 export const Contact = ({title, value, isEdit, nameField, className}: ContactType) => {
     return (
-        <div className={className}><b>{title}:</b>
-            {isEdit ? <Field name={nameField} component="input"/> : value}
+        <div className={className}>
+            <b>{title}: </b>
+            {isEdit ? <Field  name={nameField} component={renderTextField}/> : value}
         </div>
     )
 };
