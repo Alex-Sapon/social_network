@@ -29,34 +29,32 @@ const EditProfile = ({handleSubmit}: InjectedFormProps<EditProfileType>) => {
     const {contacts} = useAppSelector(selectProfile);
 
     return (
-        <>
-            <Form onSubmit={handleSubmit}>
-                <div className={styles.btn}>
-                    <Button sx={{ml: 'auto'}} color="inherit" variant="text" type="submit">Send update profile</Button>
-                </div>
-                <div className={styles.about}><b>About me:</b>
-                    <Field name="aboutMe" component={renderTextField}/>
-                </div>
-                <br/>
-                <div className={styles.job}>
-                    <Field name="lookingForAJob" component={renderCheckbox} label="Looking for a job"/>
-                </div>
-                <br/>
-                <div className={styles.job_description}><b>My skills:</b></div>
-                <Field name="lookingForAJobDescription" component="textarea"/>
-                <br/>
-                Contacts: {contacts && Object.keys(contacts).map(contact =>
-                <Contact
-                    key={contact}
-                    title={contact}
-                    isEdit={true}
-                    nameField={`contacts.${contact.toLowerCase()}`}
-                    value={contacts[contact as keyof typeof contacts]}
-                    className={styles.subtitle}
-                />
-            )}
-            </Form>
-        </>
+        <Form onSubmit={handleSubmit}>
+            <div className={styles.btn}>
+                <Button sx={{ml: 'auto'}} color="inherit" variant="text" type="submit">Send update profile</Button>
+            </div>
+            <div className={styles.about}><b>About me:</b>
+                <Field name="aboutMe" component={renderTextField}/>
+            </div>
+            <br/>
+            <div className={styles.job}>
+                <Field name="lookingForAJob" component={renderCheckbox} label="Looking for a job"/>
+            </div>
+            <br/>
+            <div className={styles.job_description}><b>My skills:</b></div>
+            <Field name="lookingForAJobDescription" component="textarea"/>
+            <br/>
+            Contacts: {contacts && Object.keys(contacts).map(contact =>
+            <Contact
+                key={contact}
+                title={contact}
+                isEdit={true}
+                nameField={`contacts.${contact.toLowerCase()}`}
+                value={contacts[contact as keyof typeof contacts]}
+                className={styles.subtitle}
+            />
+        )}
+        </Form>
     )
 };
 

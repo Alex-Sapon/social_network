@@ -1,33 +1,43 @@
-import {HashRouter, Route, Routes, Navigate} from 'react-router-dom';
+import {Navigate, Route, Routes} from 'react-router-dom';
 
 import {Box, CircularProgress, Container, Grid} from '@mui/material';
 import './app.css';
 
-import Navbar from './components/Navbar/Navbar';
-import News from './components/News/News';
-import Music from './components/Music/Music';
-import Settings from './components/Settings/Settings';
-import ProfileContainer from './components/Profile/ProfileContainer';
-import {Login} from './components/Login/Login';
+import {Navbar} from '../Navbar/Navbar';
+import {News} from '../News/News';
+import Music from '../Music/Music';
+import Settings from '../Settings/Settings';
+import ProfileContainer from '../Profile/ProfileContainer';
+import {Login} from '../Login/Login';
 
-import {PATH} from './enums/path';
+import {PATH} from '../../enums/path';
 import React, {lazy, Suspense, useEffect} from 'react';
-import {initializeApp} from './redux/reducers/app-reducer';
-import {Header} from './components/Header/Header';
-import {Provider} from 'react-redux';
-import {store, useAppDispatch, useAppSelector} from './redux/redux-store';
-import {Preloader} from './common/Preloader/Preloader';
+import {initializeApp} from '../../redux/reducers/app-reducer';
+import {useAppDispatch, useAppSelector} from '../../redux/redux-store';
+import {Preloader} from '../../common/Preloader/Preloader';
 
-const UsersContainer = lazy(() => import('./components/Users/UsersContainer'));
-const MessagesContainer = lazy(() => import('./components/Messages/MessagesContainer'));
+const UsersContainer = lazy(() => import('../Users/UsersContainer'));
+const MessagesContainer = lazy(() => import('../Messages/MessagesContainer'));
 
-const App = () => {
+export const App = () => {
     const dispatch = useAppDispatch();
 
     const isInitialized = useAppSelector(state => state.app.isInitialized);
 
     useEffect(() => {
         dispatch(initializeApp());
+
+        window.addEventListener('unhandledrejection', () => {
+
+        });
+
+        return () => {
+            window.removeEventListener('unhandledrejection', () => {
+
+            });
+        }
+
+
     }, [dispatch])
 
     if (!isInitialized) {
@@ -49,7 +59,7 @@ const App = () => {
                     <Grid item xs>
                         <Suspense fallback={<Preloader/>}>
                             <Routes>
-                                <Route path={'/'} element={<Navigate to={PATH.LOGIN}/>}/>
+                                <Route path={PATH.HOME} element={<Navigate to={PATH.LOGIN}/>}/>
                                 <Route path={PATH.PROFILE} element={<ProfileContainer/>}/>
                                 <Route path={PATH.MESSAGES} element={<MessagesContainer/>}/>
                                 <Route path={PATH.USERS} element={<UsersContainer/>}/>
@@ -64,14 +74,4 @@ const App = () => {
             </Container>
         </>
     );
-};
-
-export const SamuraiJSApp = () => {
-    return (
-        <HashRouter>
-            <Provider store={store}>
-                <App/>
-            </Provider>
-        </HashRouter>
-    )
 };

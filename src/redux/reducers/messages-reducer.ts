@@ -1,4 +1,6 @@
 import {v1} from 'uuid';
+import {createAsyncThunk} from '@reduxjs/toolkit';
+import {dialogsAPI} from '../../api/apiDialogs';
 
 const InitialState: MessagesStateType = {
     users: [
@@ -16,6 +18,17 @@ const InitialState: MessagesStateType = {
         {id: v1(), message: 'Buy, Sasha!'}
     ],
 };
+
+export const fetchDialogs = createAsyncThunk<any, number, { state: { rejectValue: string } }>('dialogs/fetchDialogs', async (id, {
+    dispatch,
+    rejectWithValue
+}) => {
+    try {
+        const res = await dialogsAPI.createDialogsUser(id);
+    } catch (e) {
+
+    }
+})
 
 export const messagesReducer = (state: MessagesStateType = InitialState, action: MessageActions): MessagesStateType => {
     switch (action.type) {

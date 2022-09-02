@@ -1,7 +1,6 @@
-import {usersAPI} from '../../api/api';
 import {AppThunk} from '../redux-store';
-import {AxiosError} from 'axios';
 import {ResultCode} from '../../enums/result-code';
+import {usersAPI} from '../../api';
 
 const initialState = {
     users: [] as UserType[],

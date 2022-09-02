@@ -1,13 +1,11 @@
-import React, {FC} from "react";
+import React from 'react';
 import styles from './News.module.css'
 import {NewsCard} from './NewsCard/NewsCard'
 
-const News: FC = () => {
+export const News = () => {
     return (
         <div className={styles.news_container}>
-            {[...Array(4)].map((_, i) => <NewsCard key={i}/>)}
+            {new Array(4).fill(null).map((_, i) => <NewsCard key={i}/>)}
         </div>
     )
 }
-
-export default News;

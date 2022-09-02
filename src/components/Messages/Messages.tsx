@@ -1,20 +1,29 @@
-import React, {FC} from 'react';
+import React, {useEffect} from 'react';
 import Message from './Message/Message';
 import Dialog from './Dialog/Dialog';
 
 import {Grid, List, Typography} from '@mui/material';
-import {MessageType, UserType} from '../../redux/reducers/messages-reducer';
+import {fetchDialogs, MessageType, UserType} from '../../redux/reducers/messages-reducer';
 import MessageForm, {MessageFormDataType} from './AddMessageForm/AddMessageForm';
 import {useDispatch} from 'react-redux';
 
 type MessagesPropsType = {
-    messages: Array<MessageType>
-    users: Array<UserType>
+    messages: MessageType[]
+    users: UserType[]
     addMessage: (message: string) => void
 };
 
-export const Messages: FC<MessagesPropsType> = props => {
+export const Messages = (props: MessagesPropsType) => {
     const {messages, users, addMessage} = props;
+
+    useEffect(() => {
+        const socket = new WebSocket('wss://social-network.samuraijs.com/handlers/ChatHandler.ashx');
+
+        // socket.onmessage = ev => {
+        //
+        // }
+
+    }, [])
 
     const dispatch = useDispatch();
 
@@ -22,6 +31,7 @@ export const Messages: FC<MessagesPropsType> = props => {
         const message = formData.messageForm;
 
         message && message.trim() !== '' && dispatch(addMessage(message));
+        dispatch(fetchDialogs(23550))
     };
 
     return (

@@ -42,8 +42,6 @@ export const Profile = () => {
         }
     }
 
-    const handleLogout = () => dispatch(logout());
-
     const handleEditProfile = () => {
         setEditMode(true);
     }
@@ -80,7 +78,7 @@ export const Profile = () => {
             <div className={styles.description}>
                 <div className={styles.name}>
                     <Typography sx={{fontSize: '1.4rem', mb: '0.5rem'}}>{profile.fullName}</Typography>
-                    {isShowBtn && <Button color="inherit" variant="text" onClick={handleLogout}>
+                    {isShowBtn && <Button color="inherit" variant="text" onClick={() => dispatch(logout())}>
                         <LogoutIcon sx={{mr: '5px'}}/>LOGOUT</Button>}
                 </div>
                 <ProfileStatus status={status} isShowBtn={isShowBtn}/><br/>

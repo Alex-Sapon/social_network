@@ -8,11 +8,10 @@ import NewspaperIcon from '@mui/icons-material/Newspaper';
 import LibraryMusicIcon from '@mui/icons-material/LibraryMusic';
 import SettingsIcon from '@mui/icons-material/Settings';
 
-const Navbar = () => {
+export const Navbar = () => {
     const setActiveClass = (navData: { isActive: boolean }): string => navData.isActive ? styles.active : styles.item;
 
     const id = useAppSelector(state => state.auth.id);
-    const userId = useAppSelector(state => state.profilePage.profile.userId);
 
     return (
         <nav className={styles.nav}>
@@ -25,5 +24,3 @@ const Navbar = () => {
         </nav>
     )
 }
-
-export default Navbar;

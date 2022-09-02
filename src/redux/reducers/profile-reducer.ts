@@ -1,8 +1,8 @@
 import {v1} from 'uuid';
-import {INewPhoto, IProfile, IUpdateProfile, profileAPI} from '../../api/api';
 import {AppStateType, AppThunk} from '../redux-store';
 import {ResultCode} from '../../enums/result-code';
 import {stopSubmit} from 'redux-form';
+import {INewPhoto, IProfile, IUpdateProfile, profileAPI} from '../../api';
 
 const initialState: RootProfileType = {
     posts: [

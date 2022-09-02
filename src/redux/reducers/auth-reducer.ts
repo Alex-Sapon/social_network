@@ -1,7 +1,9 @@
-import {authAPI, IAuthData, IUserParams, securityAPI} from '../../api/api';
 import {stopSubmit} from 'redux-form';
 import {AppThunk} from '../redux-store';
 import {ResultCode} from '../../enums/result-code';
+import {authAPI, IAuthData, IUserParams} from '../../api';
+import {securityAPI} from '../../api/apiSecurity';
+import {createAsyncThunk} from '@reduxjs/toolkit';
 
 const initialState: AuthStateType = {
     id: 0,
@@ -11,6 +13,28 @@ const initialState: AuthStateType = {
     isAuth: false,
     captcha: null,
 };
+
+export const getAuthUserData = createAsyncThunk('auth/getAuthUserData', async (_, {dispatch}) => {
+    try {
+        const res = await authAPI.me();
+
+        if (res.data.resultCode === ResultCode.Success) {
+            const {id, login, email} = res.data.data;
+
+            const authData: AuthStateType = {
+                id: id,
+                login: login,
+                email: email,
+                captcha: null,
+                isAuth: true,
+            };
+
+            dispatch(setAuthUserData(authData));
+        }
+    } catch (e) {
+
+    }
+})
 
 export const authReducer = (state: AuthStateType = initialState, action: AuthActions): AuthStateType => {
     switch (action.type) {
@@ -33,27 +57,27 @@ export const setCaptchaUrl = (url: string) => ({
     url,
 } as const);
 
-export const getAuthUserData = (): AppThunk => async dispatch => {
-    try {
-        const res = await authAPI.me();
-
-        if (res.data.resultCode === ResultCode.Success) {
-            const {id, login, email} = res.data.data;
-
-            const authData: AuthStateType = {
-                id: id,
-                login: login,
-                email: email,
-                captcha: null,
-                isAuth: true,
-            };
-
-            dispatch(setAuthUserData(authData));
-        }
-    } catch (e) {
-
-    }
-};
+// export const getAuthUserData_ = (): AppThunk => async dispatch => {
+//     try {
+//         const res = await authAPI.me();
+//
+//         if (res.data.resultCode === ResultCode.Success) {
+//             const {id, login, email} = res.data.data;
+//
+//             const authData: AuthStateType = {
+//                 id: id,
+//                 login: login,
+//                 email: email,
+//                 captcha: null,
+//                 isAuth: true,
+//             };
+//
+//             dispatch(setAuthUserData(authData));
+//         }
+//     } catch (e) {
+//
+//     }
+// };
 
 export const login = (data: IUserParams): AppThunk => async dispatch => {
     try {
