@@ -112,7 +112,7 @@ export const setPhoto = (photo: File): AppThunk => async dispatch => {
 };
 
 export const updateProfile = (profile: IUpdateProfile): AppThunk => async (dispatch, getState: () => AppStateType) => {
-    const userId = getState().auth.id;
+    const userId = getState().auth.authParams.id;
 
     try {
         const res = await profileAPI.updateProfile(profile);

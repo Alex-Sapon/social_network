@@ -4,15 +4,15 @@ import {Button} from '@mui/material';
 import CheckIcon from '@mui/icons-material/Check';
 import DangerousIcon from '@mui/icons-material/Dangerous';
 import React from 'react';
-import {selectProfile} from '../Profile/Profile';
 import {Contact} from '../Contact/Contact';
+import {selectProfile} from '../selectors';
 
-type ViewProfile = {
+type ViewProfileType = {
     isShowBtn: boolean
     onEdit: () => void
 }
 
-export const ViewProfile = ({isShowBtn, onEdit}: ViewProfile) => {
+export const ViewProfile = ({isShowBtn, onEdit}: ViewProfileType) => {
     const {contacts, lookingForAJob, lookingForAJobDescription, aboutMe} = useAppSelector(selectProfile);
 
     return (

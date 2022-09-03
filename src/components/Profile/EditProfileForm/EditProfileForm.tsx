@@ -3,10 +3,10 @@ import {useAppSelector} from '../../../redux/redux-store';
 import styles from './EditProfileForm.module.css';
 import {Button} from '@mui/material';
 import React from 'react';
-import {selectProfile} from '../Profile/Profile';
 import {Contact} from '../Contact/Contact';
 import {renderCheckbox} from '../../../assets/utils/renderCheckbox';
 import {renderTextField} from '../../../assets/utils/renderTextField';
+import {selectProfile} from '../selectors';
 
 export type EditProfileType = {
     userId: number

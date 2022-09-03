@@ -11,7 +11,7 @@ import SettingsIcon from '@mui/icons-material/Settings';
 export const Navbar = () => {
     const setActiveClass = (navData: { isActive: boolean }): string => navData.isActive ? styles.active : styles.item;
 
-    const id = useAppSelector(state => state.auth.id);
+    const id = useAppSelector(state => state.auth.authParams.id);
 
     return (
         <nav className={styles.nav}>

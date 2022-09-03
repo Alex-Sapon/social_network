@@ -1,4 +1,4 @@
-import {getAuthUserData} from './auth-reducer';
+import {getAuthUserData} from '../Login';
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 
 export const initializeApp = createAsyncThunk('app/initializeApp', async (_, {dispatch}) => {
@@ -18,13 +18,6 @@ export const appSlice = createSlice({
 
 export const appReducer = appSlice.reducer;
 
-export const setInitialized = (initialized: boolean) => ({
-    type: 'APP/SET-INITIALIZED',
-    initialized,
-} as const);
-
 export type AppStateType = {
     isInitialized: boolean
 };
-
-export type AppActionsType = ReturnType<typeof setInitialized>

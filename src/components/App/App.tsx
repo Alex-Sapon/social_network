@@ -8,11 +8,11 @@ import {News} from '../News/News';
 import Music from '../Music/Music';
 import Settings from '../Settings/Settings';
 import ProfileContainer from '../Profile/ProfileContainer';
-import {Login} from '../Login/Login';
+import {Login} from '../Login';
 
 import {PATH} from '../../enums/path';
 import React, {lazy, Suspense, useEffect} from 'react';
-import {initializeApp} from '../../redux/reducers/app-reducer';
+import {initializeApp} from './app-reducer';
 import {useAppDispatch, useAppSelector} from '../../redux/redux-store';
 import {Preloader} from '../../common/Preloader/Preloader';
 

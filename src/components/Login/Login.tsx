@@ -1,12 +1,13 @@
 import {Box, Button, Typography} from '@mui/material';
 import {Field, Form, InjectedFormProps, reduxForm} from 'redux-form';
 import {useEffect, useMemo} from 'react';
-import {login} from '../../redux/reducers/auth-reducer';
+import {login} from './auth-reducer';
 import {required} from '../../common/validators';
 import {renderField} from '../../common/FormControl';
 import {useNavigate} from 'react-router-dom';
 import {useAppDispatch, useAppSelector} from '../../redux/redux-store';
 import {renderCheckbox} from '../../assets/utils/renderCheckbox';
+import {selectAuthCaptcha, selectAuthId, selectIsAuth} from './selectors';
 
 type FormDataType = {
     email: string
@@ -20,7 +21,7 @@ const LoginForm = ({handleSubmit, error}: InjectedFormProps<FormDataType>) => {
         return renderField('input');
     }, []);
 
-    const captcha = useAppSelector(state => state.auth.captcha);
+    const captcha = useAppSelector(selectAuthCaptcha);
 
     return (
         <Form onSubmit={handleSubmit}>
@@ -40,7 +41,7 @@ const LoginForm = ({handleSubmit, error}: InjectedFormProps<FormDataType>) => {
                 <Field name="rememberMe" component={renderCheckbox} label="Remember me"/>
             </div>
             {captcha && <div>
-                <img src={captcha} alt="Captcha image"/>
+                <img src={captcha} alt="Captcha"/>
                 <Field name="captcha" component={inputField}/>
             </div>}
             {error && <div style={{color: 'red', marginTop: '-20px', marginBottom: '10px'}}>{error}</div>}
@@ -56,14 +57,17 @@ export const Login = () => {
 
     const navigate = useNavigate();
 
-    const {isAuth, id} = useAppSelector(state => state.auth);
+    const id = useAppSelector(selectAuthId);
+    const isAuth = useAppSelector(selectIsAuth);
 
     const onSubmit = (data: FormDataType) => {
         dispatch(login(data));
     }
 
     useEffect(() => {
-        if (isAuth) navigate(`/profile/${id}`);
+        if (isAuth) {
+            navigate(`/profile/${id}`);
+        }
     }, [isAuth, id, navigate]);
 
     return (
