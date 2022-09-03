@@ -2,7 +2,7 @@ import React from 'react';
 import {AppBar, Box, Button, IconButton, Toolbar, Typography} from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import {logout} from '../Login';
-import {useAppDispatch, useAppSelector} from '../../redux/redux-store';
+import {useAppDispatch, useAppSelector} from '../../assets/utils';
 
 export const Header = () => {
     const dispatch = useAppDispatch();

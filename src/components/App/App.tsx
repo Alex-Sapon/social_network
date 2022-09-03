@@ -13,16 +13,17 @@ import {Login} from '../Login';
 import {PATH} from '../../enums/path';
 import React, {lazy, Suspense, useEffect} from 'react';
 import {initializeApp} from './app-reducer';
-import {useAppDispatch, useAppSelector} from '../../redux/redux-store';
-import {Preloader} from '../../common/Preloader/Preloader';
+import {Preloader} from '../../common/Preloader';
+import {useAppDispatch, useAppSelector} from '../../assets/utils';
+import {selectAppIsInitialized} from './selectors';
 
 const UsersContainer = lazy(() => import('../Users/UsersContainer'));
-const MessagesContainer = lazy(() => import('../Messages/MessagesContainer'));
+const MessagesContainer = lazy(() => import('../Messages/Messages'));
 
 export const App = () => {
     const dispatch = useAppDispatch();
 
-    const isInitialized = useAppSelector(state => state.app.isInitialized);
+    const isInitialized = useAppSelector(selectAppIsInitialized);
 
     useEffect(() => {
         dispatch(initializeApp());

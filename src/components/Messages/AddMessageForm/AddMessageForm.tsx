@@ -1,13 +1,11 @@
-import React, {FC} from 'react';
+import React from 'react';
 import {Field, InjectedFormProps, reduxForm} from 'redux-form';
 
 export type MessageFormDataType = {
     messageForm: string
 }
 
-const MessageForm: FC<InjectedFormProps<MessageFormDataType>> = props => {
-    const {handleSubmit} = props;
-
+const MessageForm = ({handleSubmit}: InjectedFormProps<MessageFormDataType>) => {
     return (
         <form onSubmit={handleSubmit}>
             <Field name="messageForm" component="textarea" type="textarea"/>
@@ -16,4 +14,4 @@ const MessageForm: FC<InjectedFormProps<MessageFormDataType>> = props => {
     )
 };
 
-export default reduxForm<MessageFormDataType>({form: 'messageForm'})(MessageForm);
+export const MessageFormData = reduxForm<MessageFormDataType>({form: 'messageForm'})(MessageForm);

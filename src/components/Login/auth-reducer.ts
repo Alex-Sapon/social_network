@@ -5,7 +5,8 @@ import {securityAPI} from '../../api/apiSecurity';
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import {AxiosError} from 'axios';
 
-export const getAuthUserData = createAsyncThunk<AuthStateType, void, { rejectValue: string }>('auth/getAuthUserData', async (_, {rejectWithValue}) => {
+export const getAuthUserData = createAsyncThunk<AuthStateType, void, { rejectValue: string }>
+('auth/getAuthUserData', async (_, {rejectWithValue}) => {
     try {
         const res = await authAPI.me();
 
@@ -27,7 +28,7 @@ export const getAuthUserData = createAsyncThunk<AuthStateType, void, { rejectVal
     }
 })
 
-export const login = createAsyncThunk('auth/login', async (data: IUserParams, {dispatch}) => {
+export const login = createAsyncThunk<void, IUserParams>('auth/login', async (data, {dispatch}) => {
     try {
         const res = await authAPI.login(data);
 
@@ -50,11 +51,7 @@ export const logout = createAsyncThunk<AuthStateType, void, { rejectValue: strin
     if (res.data.resultCode === ResultCode.Success) {
 
         const authData: AuthStateType = {
-            authParams: {
-                id: 0,
-                login: '',
-                email: '',
-            },
+            authParams: {id: 0, login: '', email: ''},
             captcha: null,
             isAuth: false,
             error: null
@@ -66,19 +63,15 @@ export const logout = createAsyncThunk<AuthStateType, void, { rejectValue: strin
     return rejectWithValue(res.data.messages[0]);
 })
 
-export const getCaptchaUrl = createAsyncThunk<string, void>('auth/captcha', async () => {
+export const getCaptchaUrl = createAsyncThunk<{ url: string }, void>('auth/captcha', async () => {
     const res = await securityAPI.getCaptchaUrl();
-    return res.data.url;
+    return {url: res.data.url};
 })
 
 export const authSlice = createSlice({
     name: 'auth',
     initialState: {
-        authParams: {
-            id: 0,
-            login: '',
-            email: '',
-        },
+        authParams: {id: 0, login: '', email: ''},
         rememberMe: false,
         isAuth: false,
         captcha: null,
@@ -88,7 +81,7 @@ export const authSlice = createSlice({
     extraReducers: builder => {
         builder
             .addCase(getCaptchaUrl.fulfilled, (state, action) => {
-                state.captcha = action.payload;
+                state.captcha = action.payload.url;
             })
             .addCase(getAuthUserData.fulfilled, (state, action) => {
                 state.authParams = action.payload.authParams;
@@ -103,6 +96,7 @@ export const authSlice = createSlice({
 })
 
 export const authReducer = authSlice.reducer;
+export const authAsyncActions = {getAuthUserData, login, logout};
 
 export type AuthStateType = {
     authParams: {

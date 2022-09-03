@@ -1,6 +1,6 @@
 import React from 'react';
 import {Field} from 'redux-form';
-import {renderTextField} from '../../../assets/utils/renderTextField';
+import {renderTextField} from '../../../assets/utils';
 
 type ContactType = {
     title: string

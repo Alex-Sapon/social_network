@@ -51,7 +51,7 @@ test('isAuth of state should be change from false to true', () => {
 });
 
 test('url of captcha should be set', () => {
-    const endState = authReducer(initialState, getCaptchaUrl.fulfilled('https://fake.com/blabla', ''))
+    const endState = authReducer(initialState, getCaptchaUrl.fulfilled({url: 'https://fake.com/blabla'}, ''))
 
     expect(endState.captcha).toBe('https://fake.com/blabla');
 });

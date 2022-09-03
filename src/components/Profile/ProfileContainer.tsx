@@ -1,35 +1,35 @@
 import {ComponentType, useEffect} from 'react';
 import {useParams} from 'react-router';
-import {getStatus, getUserProfile} from '../../redux/reducers/profile-reducer';
+import {profileAsyncActions} from './profile-reducer';
 import {withAuthRedirect} from '../../hoc/withAuthRedirect';
 import {compose} from 'redux';
-import {AppStateType, useAppDispatch, useAppSelector} from '../../redux/redux-store';
-import {Preloader} from '../../common/Preloader/Preloader';
-import {Profile} from './Profile/Profile';
-import PostsContainer from './Posts/PostsContainer';
-
-export const selectLoadingStatus = (state: AppStateType) => state.profilePage.statusLoading;
+import {Preloader} from '../../common/Preloader';
+import {Profile} from './Profile';
+import {useActions, useAppSelector} from '../../assets/utils';
+import {selectProfileLoading} from './selectors';
 
 const ProfileContainer = () => {
-    const dispatch = useAppDispatch();
+    const {getUserProfile, getStatus} = useActions(profileAsyncActions);
 
-    const loadingStatus = useAppSelector(selectLoadingStatus);
+    const loadingStatus = useAppSelector(selectProfileLoading);
 
     const {id} = useParams<{ id: string }>();
 
     useEffect(() => {
         if (Number(id)) {
-            dispatch(getUserProfile(Number(id)));
-            dispatch(getStatus(Number(id)));
+            getUserProfile(Number(id));
+            getStatus(Number(id));
         }
-    }, [id]);
+    }, [id, getStatus, getUserProfile]);
 
-    if (loadingStatus === 'loading') return <Preloader/>
+    if (loadingStatus === 'loading') {
+        return <Preloader/>;
+    }
 
     return (
         <>
             <Profile/>
-            {/*<PostsContainer/>*/}
+            {/*<Posts/>*/}
         </>
 
     )

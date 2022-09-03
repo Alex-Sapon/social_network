@@ -1,11 +1,11 @@
-import {useAppSelector} from '../../../redux/redux-store';
 import styles from './ViewProfile.module.css';
 import {Button} from '@mui/material';
 import CheckIcon from '@mui/icons-material/Check';
 import DangerousIcon from '@mui/icons-material/Dangerous';
 import React from 'react';
-import {Contact} from '../Contact/Contact';
+import {Contact} from '../Contact';
 import {selectProfile} from '../selectors';
+import {useAppSelector} from '../../../assets/utils';
 
 type ViewProfileType = {
     isShowBtn: boolean

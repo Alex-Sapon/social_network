@@ -1,20 +1,18 @@
-import React, {useEffect} from 'react';
-import Message from './Message/Message';
-import Dialog from './Dialog/Dialog';
-
+import {addMessage, fetchDialogs} from '../../redux/reducers/messages-reducer';
+import {withAuthRedirect} from '../../hoc/withAuthRedirect';
+import {compose} from 'redux';
+import React, {ComponentType, useEffect} from 'react';
+import {useAppSelector} from '../../assets/utils';
 import {Grid, List, Typography} from '@mui/material';
-import {fetchDialogs, MessageType, UserType} from '../../redux/reducers/messages-reducer';
-import MessageForm, {MessageFormDataType} from './AddMessageForm/AddMessageForm';
+import Dialog from './Dialog/Dialog';
+import Message from './Message/Message';
+import {MessageFormData} from './AddMessageForm';
 import {useDispatch} from 'react-redux';
+import {MessageFormDataType} from './AddMessageForm/AddMessageForm';
 
-type MessagesPropsType = {
-    messages: MessageType[]
-    users: UserType[]
-    addMessage: (message: string) => void
-};
-
-export const Messages = (props: MessagesPropsType) => {
-    const {messages, users, addMessage} = props;
+const MessagesContainer = () => {
+    const messages = useAppSelector(state => state.messagesPage.messages);
+    const users = useAppSelector(state => state.messagesPage.users);
 
     useEffect(() => {
         const socket = new WebSocket('wss://social-network.samuraijs.com/handlers/ChatHandler.ashx');
@@ -46,10 +44,10 @@ export const Messages = (props: MessagesPropsType) => {
             </Grid>
             <Grid item xs={8}>
                 {messages.map(text => <Message key={text.id} message={text.message}/>)}
-                <MessageForm onSubmit={onSubmit}/>
+                <MessageFormData onSubmit={onSubmit}/>
             </Grid>
         </Grid>
     )
 };
 
-
+export default compose<ComponentType>(withAuthRedirect)(MessagesContainer);

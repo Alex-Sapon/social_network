@@ -1,21 +1,22 @@
 import React, {ChangeEvent, useRef, useState} from 'react';
 import {Avatar, Button, IconButton, Typography} from '@mui/material';
-import {setPhoto, updateProfile} from '../../../redux/reducers/profile-reducer';
-import {ProfileStatus} from '../ProfileStatus/ProfileStatus';
+import {profileAsyncActions} from '../profile-reducer';
+import {ProfileStatus} from '../ProfileStatus';
 import userAvatar from '../../../assets/img/avatar/avatar.jpg';
 import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
 import LogoutIcon from '@mui/icons-material/Logout';
 import Badge from '@mui/material/Badge';
 import styles from './Profile.module.css';
 import {useParams} from 'react-router';
-import {useAppDispatch, useAppSelector} from '../../../redux/redux-store';
-import {logout, selectAuthId} from '../../Login';
+import {authAsyncActions, selectAuthId} from '../../Login';
 import {ViewProfile} from '../ViewProfile/ViewProfile';
 import {EditProfileForm, EditProfileType} from '../EditProfileForm/EditProfileForm';
 import {selectProfile, selectProfileStatus} from '../selectors';
+import {useActions, useAppSelector} from '../../../assets/utils';
 
 export const Profile = () => {
-    const dispatch = useAppDispatch();
+    const {setPhoto, updateProfile} = useActions(profileAsyncActions);
+    const {logout} = useActions(authAsyncActions);
 
     const [editMode, setEditMode] = useState(false);
 
@@ -35,7 +36,7 @@ export const Profile = () => {
         const photo = e.target.files && e.target.files[0];
 
         if (photo) {
-            dispatch(setPhoto(photo));
+            setPhoto(photo);
         }
     }
 
@@ -44,7 +45,7 @@ export const Profile = () => {
     }
 
     const handleSubmitProfile = (data: EditProfileType) => {
-        dispatch(updateProfile(data))
+        updateProfile(data);
         setEditMode(false);
     }
 
@@ -75,7 +76,7 @@ export const Profile = () => {
             <div className={styles.description}>
                 <div className={styles.name}>
                     <Typography sx={{fontSize: '1.4rem', mb: '0.5rem'}}>{profile.fullName}</Typography>
-                    {isShowBtn && <Button color="inherit" variant="text" onClick={() => dispatch(logout())}>
+                    {isShowBtn && <Button color="inherit" variant="text" onClick={() => logout()}>
                         <LogoutIcon sx={{mr: '5px'}}/>Logout</Button>}
                 </div>
                 <ProfileStatus status={status} isShowBtn={isShowBtn}/><br/>

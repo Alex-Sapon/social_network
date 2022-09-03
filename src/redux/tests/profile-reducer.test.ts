@@ -1,5 +1,5 @@
 import {v1} from 'uuid';
-import {addPost, profileReducer, RootProfileType, setUserProfile} from '../reducers/profile-reducer';
+import {addPost, profileReducer, RootProfileType, getUserProfile} from '../../components/Profile/profile-reducer';
 import {IProfile} from '../../api';
 
 let startState: RootProfileType;
@@ -42,13 +42,13 @@ beforeEach(() => {
 });
 
 test('new post should be added', () => {
-    const endState = profileReducer(startState, addPost('New post'));
+    const endState = profileReducer(startState, addPost({post: 'New post'}));
 
     expect(endState.posts.length).toBe(5);
 });
 
 test('current profile should be added', () => {
-    const endState = profileReducer(startState, setUserProfile(profile));
+    const endState = profileReducer(startState, getUserProfile.fulfilled({profile}, '', 23551));
 
     const keys = Object.keys(endState.profile);
 

@@ -1,16 +1,16 @@
-import {ChangeEvent, FC, useState} from 'react';
+import {ChangeEvent, useState} from 'react';
 import {IconButton, TextField} from '@mui/material';
-import {updateStatus} from '../../../redux/reducers/profile-reducer';
-import {useAppDispatch} from '../../../redux/redux-store';
+import {updateStatus} from '../profile-reducer';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import styles from './ProfileStatus.module.css';
+import {useAppDispatch} from '../../../assets/utils';
 
 type ProfileStatusType = {
     status: string
     isShowBtn: boolean
 }
 
-export const ProfileStatus: FC<ProfileStatusType> = ({status, isShowBtn}) => {
+export const ProfileStatus = ({status, isShowBtn}: ProfileStatusType) => {
     const dispatch = useAppDispatch();
 
     const [editMode, setEditMode] = useState(false);

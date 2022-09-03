@@ -5,8 +5,7 @@ import {login} from './auth-reducer';
 import {required} from '../../common/validators';
 import {renderField} from '../../common/FormControl';
 import {useNavigate} from 'react-router-dom';
-import {useAppDispatch, useAppSelector} from '../../redux/redux-store';
-import {renderCheckbox} from '../../assets/utils/renderCheckbox';
+import {renderCheckbox, useAppDispatch, useAppSelector} from '../../assets/utils';
 import {selectAuthCaptcha, selectAuthId, selectIsAuth} from './selectors';
 
 type FormDataType = {

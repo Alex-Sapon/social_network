@@ -1,11 +1,9 @@
 import {Field, Form, InjectedFormProps, reduxForm} from 'redux-form';
-import {useAppSelector} from '../../../redux/redux-store';
 import styles from './EditProfileForm.module.css';
 import {Button} from '@mui/material';
 import React from 'react';
-import {Contact} from '../Contact/Contact';
-import {renderCheckbox} from '../../../assets/utils/renderCheckbox';
-import {renderTextField} from '../../../assets/utils/renderTextField';
+import {Contact} from '../Contact';
+import {renderCheckbox, renderTextField, useAppSelector} from '../../../assets/utils';
 import {selectProfile} from '../selectors';
 
 export type EditProfileType = {
