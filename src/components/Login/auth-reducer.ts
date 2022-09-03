@@ -49,12 +49,11 @@ export const logout = createAsyncThunk<AuthStateType, void, { rejectValue: strin
     const res = await authAPI.logout();
 
     if (res.data.resultCode === ResultCode.Success) {
-
         const authData: AuthStateType = {
             authParams: {id: 0, login: '', email: ''},
             captcha: null,
             isAuth: false,
-            error: null
+            error: null,
         };
 
         return authData;

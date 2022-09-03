@@ -1,6 +1,6 @@
 import React, {ChangeEvent, FC} from 'react';
 import {List, Pagination, Stack} from '@mui/material';
-import {Preloader} from '../../common/Preloader/Preloader';
+import {Preloader} from '../../common/Preloader';
 import {UsersContainerType} from './UsersContainer';
 import {User} from './User/User';
 
@@ -12,24 +12,24 @@ export const Users: FC<UsersTypeProps> = props => {
     const {
         onChangePage,
         totalUsersCount,
-        currentPage,
+        page,
         isFetching,
         users,
         followingProgress,
         followUnfollow,
-        pageSize
+        count
     } = props;
 
     const onChangePageHandler = (e: ChangeEvent<unknown>, page: number) => onChangePage(page);
 
     if (isFetching) return <Preloader/>;
 
-    const pageCount = Math.ceil(totalUsersCount / pageSize);
+    const pageCount = Math.ceil(totalUsersCount / count);
 
     return (
         <div>
             <Stack spacing={2} sx={{m: '1rem 0rem 2rem', alignItems: 'center'}}>
-                <Pagination count={pageCount} page={currentPage} onChange={onChangePageHandler}/>
+                <Pagination count={pageCount} page={page} onChange={onChangePageHandler}/>
             </Stack>
             <List>
                 {users.map(user =>

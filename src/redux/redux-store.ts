@@ -2,7 +2,7 @@ import {combineReducers} from 'redux';
 import thunk, {ThunkAction} from 'redux-thunk';
 import {profileReducer} from '../components/Profile';
 import {MessageActions, messagesReducer} from './reducers/messages-reducer';
-import {UsersActions, usersReducer} from './reducers/users-reducer';
+import {UsersActions, usersReducer} from '../components/Users/users-reducer';
 import {authReducer} from '../components/Login';
 import {reducer as formReducer} from 'redux-form';
 import {appReducer} from '../components/App';

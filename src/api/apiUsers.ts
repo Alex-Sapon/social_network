@@ -2,8 +2,8 @@ import {instance} from './instanceApi';
 import {IResponse, IUserData} from './types';
 
 export const usersAPI = {
-    getUsers(currentPage: number, pageSize: number) {
-        return instance.get<IUserData>(`users?page=${currentPage}&count=${pageSize}`);
+    getUsers(params: IUsersParams) {
+        return instance.get<IUserData>(`users`, {params});
     },
     followUser(userId: number) {
         return instance.post<IResponse>(`follow/${userId}`);
@@ -12,3 +12,11 @@ export const usersAPI = {
         return instance.delete<IResponse>(`follow/${userId}`);
     },
 };
+
+export interface IUsersParams {
+    count: number
+    page: number
+    term?: string
+    friend?: boolean
+}
+

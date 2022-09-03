@@ -9,8 +9,8 @@ import Badge from '@mui/material/Badge';
 import styles from './Profile.module.css';
 import {useParams} from 'react-router';
 import {authAsyncActions, selectAuthId} from '../../Login';
-import {ViewProfile} from '../ViewProfile/ViewProfile';
-import {EditProfileForm, EditProfileType} from '../EditProfileForm/EditProfileForm';
+import {ViewProfile} from '../ViewProfile';
+import {EditProfileForm, EditProfileType} from '../EditProfileForm';
 import {selectProfile, selectProfileStatus} from '../selectors';
 import {useActions, useAppSelector} from '../../../assets/utils';
 

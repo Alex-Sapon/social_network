@@ -1,9 +1,9 @@
 import {ChangeEvent, useState} from 'react';
 import {IconButton, TextField} from '@mui/material';
-import {updateStatus} from '../profile-reducer';
+import {profileAsyncActions} from '../profile-reducer';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import styles from './ProfileStatus.module.css';
-import {useAppDispatch} from '../../../assets/utils';
+import {useActions} from '../../../assets/utils';
 
 type ProfileStatusType = {
     status: string
@@ -11,7 +11,7 @@ type ProfileStatusType = {
 }
 
 export const ProfileStatus = ({status, isShowBtn}: ProfileStatusType) => {
-    const dispatch = useAppDispatch();
+    const {updateStatus} = useActions(profileAsyncActions);
 
     const [editMode, setEditMode] = useState(false);
     const [value, setValue] = useState(status);
@@ -23,7 +23,7 @@ export const ProfileStatus = ({status, isShowBtn}: ProfileStatusType) => {
 
     const deactivateMode = () => {
         setEditMode(false);
-        dispatch(updateStatus(value));
+        updateStatus(value);
     }
 
     const changeValueHandler = (e: ChangeEvent<HTMLInputElement>) => {
@@ -34,7 +34,7 @@ export const ProfileStatus = ({status, isShowBtn}: ProfileStatusType) => {
         <div>
             {!editMode
                 ? <div className={styles.view}>
-                    <span>{status !== null ? status : 'No status'}</span>
+                    <span>{status ? status : 'No status'}</span>
                     {isShowBtn && <IconButton onClick={activateMode}><ModeEditIcon/></IconButton>}
                 </div>
                 : <TextField

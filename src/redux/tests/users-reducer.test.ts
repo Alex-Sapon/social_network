@@ -1,15 +1,10 @@
 import {
     followUnfollowToUser,
     UserType,
-    setCurrentPage,
-    setTotalUsersCount,
-    setUsers,
-    toggleIsFetching,
-    usersReducer,
-    UsersStateType
-} from '../reducers/users-reducer';
+    usersSlice, fetchUsers,
+} from '../../components/Users/users-reducer';
 
-let initialUsers: UsersStateType;
+let initialUsers: any;
 let users: UserType[];
 
 beforeEach(() => {
@@ -32,9 +27,9 @@ beforeEach(() => {
                 status: 'I`am very happy',
             }
         ],
-        pageSize: 6,
+        count: 6,
         totalCount: 0,
-        currentPage: 1,
+        page: 1,
         isFetching: false,
         followingProgress: [] as number[],
     }
@@ -60,42 +55,25 @@ beforeEach(() => {
 });
 
 test('change status to follow', () => {
-    const endState = usersReducer(initialUsers, followUnfollowToUser(1, true));
+    const endState = usersSlice.reducer(initialUsers, followUnfollowToUser(1, true));
 
     expect(endState.users[0].followed).toBe(true);
 });
 
 test('change status to unfollow', () => {
-    const endState = usersReducer(initialUsers, followUnfollowToUser(2, false));
+    const endState = usersSlice.reducer(initialUsers, followUnfollowToUser(2, false));
 
     expect(endState.users[1].followed).toBe(false);
 });
 
-test('set new users', () => {
-    const endState = usersReducer(initialUsers, setUsers(users))
+test('set users data', () => {
+    const endState = usersSlice.reducer(initialUsers, fetchUsers.fulfilled({
+        users: initialUsers.users,
+        page: initialUsers.page,
+        totalCount: initialUsers.totalCount
+    }, '', {page: 1, count: 6}))
 
     expect(endState.users).not.toBe(initialUsers.users);
     expect(endState.users[0].name).toBe('Jay');
     expect(endState.users[1].name).toBe('Jon');
-});
-
-test('set current page', () => {
-    const endState = usersReducer(initialUsers, setCurrentPage(2))
-
-    expect(endState).not.toBe(initialUsers);
-    expect(endState.currentPage).toBe(2);
-});
-
-test('set total users count to page', () => {
-    const endState = usersReducer(initialUsers, setTotalUsersCount(7))
-
-    expect(endState).not.toBe(initialUsers);
-    expect(endState.totalCount).toBe(7);
-});
-
-test('set total count to page', () => {
-    const endState = usersReducer(initialUsers, toggleIsFetching(true))
-
-    expect(endState).not.toBe(initialUsers);
-    expect(endState.isFetching).toBe(true);
 });

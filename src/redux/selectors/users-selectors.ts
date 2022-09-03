@@ -3,13 +3,13 @@ import {createSelector} from 'reselect';
 
 const getUsersSelector = (state: AppStateType) => state.usersPage.users;
 
-export const getPageSize = (state: AppStateType) => state.usersPage.pageSize;
+export const getPageSize = (state: AppStateType) => state.usersPage.count;
 
 export const getTotalCount = (state: AppStateType) => state.usersPage.totalCount;
 
-export const getPage = (state: AppStateType) => state.usersPage.currentPage;
+export const getPage = (state: AppStateType) => state.usersPage.page;
 
-export const getIsFetching = (state: AppStateType) => state.usersPage.isFetching;
+export const getIsFetching = (state: AppStateType) => state.usersPage.isLoading;
 
 export const getFollowingProgress = (state: AppStateType) => state.usersPage.followingProgress;
 
