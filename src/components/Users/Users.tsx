@@ -22,7 +22,9 @@ export const Users: FC<UsersTypeProps> = props => {
 
     const onChangePageHandler = (e: ChangeEvent<unknown>, page: number) => onChangePage(page);
 
-    if (isFetching) return <Preloader/>;
+    if (isFetching) {
+        return <Preloader/>;
+    }
 
     const pageCount = Math.ceil(totalUsersCount / count);
 

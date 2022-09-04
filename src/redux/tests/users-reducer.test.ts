@@ -1,8 +1,4 @@
-import {
-    followUnfollowToUser,
-    UserType,
-    usersSlice, fetchUsers,
-} from '../../components/Users/users-reducer';
+import {followUnfollow, UserType, usersSlice, fetchUsers,} from '../../components/Users/users-reducer';
 
 let initialUsers: any;
 let users: UserType[];
@@ -55,13 +51,13 @@ beforeEach(() => {
 });
 
 test('change status to follow', () => {
-    const endState = usersSlice.reducer(initialUsers, followUnfollowToUser(1, true));
+    const endState = usersSlice.reducer(initialUsers, followUnfollow.fulfilled({userId: 1, isFollow: true}, '', {userId: 1, isFollow: true}));
 
     expect(endState.users[0].followed).toBe(true);
 });
 
 test('change status to unfollow', () => {
-    const endState = usersSlice.reducer(initialUsers, followUnfollowToUser(2, false));
+    const endState = usersSlice.reducer(initialUsers, followUnfollow.fulfilled({userId: 2, isFollow: false}, '', {userId: 2, isFollow: false}));
 
     expect(endState.users[1].followed).toBe(false);
 });

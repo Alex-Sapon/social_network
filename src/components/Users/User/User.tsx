@@ -1,20 +1,20 @@
 import {Avatar, Divider, FormControlLabel, ListItem, ListItemAvatar, ListItemText, Switch} from '@mui/material';
 import {NavLink} from 'react-router-dom';
 import userAvatar from '../../../assets/img/avatar/avatar.jpg';
-import React, {FC} from 'react';
+import React from 'react';
 import {UserType} from '../users-reducer';
 
 type UserPropsType = {
     user: UserType
     followingProgress: number[]
-    followUnfollow: (userId: number, isFollow: boolean) => void
+    followUnfollow: ({userId, isFollow}: {userId: number, isFollow: boolean}) => void
 }
 
-export const User: FC<UserPropsType> = props => {
-    const {user, followingProgress, followUnfollow} = props;
+export const User = ({user, followingProgress, followUnfollow}: UserPropsType) => {
+    const onFollowClick = () => followUnfollow({userId: user.id, isFollow: true});
+    const onUnfollowClick = () => followUnfollow({userId: user.id,  isFollow: false});
 
-    const followHandler = () => followUnfollow(user.id, true);
-    const unfollowHandler = () => followUnfollow(user.id, false);
+    console.log(followingProgress)
 
     return (
         <>
@@ -23,7 +23,7 @@ export const User: FC<UserPropsType> = props => {
                     <NavLink to={`/profile/${user.id}`}>
                         <Avatar
                             alt="Avatar"
-                            src={user.photos.small !== null ? user.photos.small : userAvatar}
+                            src={user.photos.small ? user.photos.small : userAvatar}
                             sx={{mb: '0.5rem'}}
                         />
                     </NavLink>
@@ -34,7 +34,7 @@ export const User: FC<UserPropsType> = props => {
                         control={
                             <Switch
                                 checked={user.followed}
-                                onChange={user.followed ? unfollowHandler : followHandler}
+                                onChange={user.followed ? onUnfollowClick : onFollowClick}
                                 name="loading" color="success"
                             />}
                     />
@@ -42,7 +42,7 @@ export const User: FC<UserPropsType> = props => {
                 <ListItemText
                     sx={{width: '50%'}}
                     primary={user.name}
-                    secondary={user.status === null ? 'No status...' : user.status}
+                    secondary={user.status ? user.status : 'No status...'}
                 />
             </ListItem>
             <Divider variant="inset" component="li"/>

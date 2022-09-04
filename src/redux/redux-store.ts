@@ -2,7 +2,7 @@ import {combineReducers} from 'redux';
 import thunk, {ThunkAction} from 'redux-thunk';
 import {profileReducer} from '../components/Profile';
 import {MessageActions, messagesReducer} from './reducers/messages-reducer';
-import {UsersActions, usersReducer} from '../components/Users/users-reducer';
+import {usersReducer} from '../components/Users/users-reducer';
 import {authReducer} from '../components/Login';
 import {reducer as formReducer} from 'redux-form';
 import {appReducer} from '../components/App';
@@ -31,10 +31,7 @@ export type AppDispatch = typeof store.dispatch;
 
 export type AppStateType = ReturnType<typeof rootReducer>;
 
-type ActionsType =
-    | UsersActions
-    | MessageActions
-    | SubmitActions
+type ActionsType = MessageActions | SubmitActions
 
 export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, AppStateType, unknown, ActionsType>;
 

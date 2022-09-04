@@ -13,5 +13,4 @@ export const getIsFetching = (state: AppStateType) => state.usersPage.isLoading;
 
 export const getFollowingProgress = (state: AppStateType) => state.usersPage.followingProgress;
 
-
 export const getUsers = createSelector(getUsersSelector, (users) => users);
