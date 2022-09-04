@@ -1,13 +1,12 @@
 import {combineReducers} from 'redux';
-import thunk, {ThunkAction} from 'redux-thunk';
+import thunk from 'redux-thunk';
 import {profileReducer} from '../components/Profile';
-import {MessageActions, messagesReducer} from './reducers/messages-reducer';
+import {messagesReducer} from '../components/Messages/messages-reducer';
 import {usersReducer} from '../components/Users/users-reducer';
 import {authReducer} from '../components/Login';
 import {reducer as formReducer} from 'redux-form';
 import {appReducer} from '../components/App';
 import {configureStore} from '@reduxjs/toolkit';
-import {SubmitActions} from '../components/Login/auth-reducer';
 
 const rootReducer = combineReducers({
     profilePage: profileReducer,
@@ -31,9 +30,7 @@ export type AppDispatch = typeof store.dispatch;
 
 export type AppStateType = ReturnType<typeof rootReducer>;
 
-type ActionsType = MessageActions | SubmitActions
-
-export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, AppStateType, unknown, ActionsType>;
+// export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, AppStateType, unknown, ActionsType>;
 
 // @ts-ignore
 window.store = store;

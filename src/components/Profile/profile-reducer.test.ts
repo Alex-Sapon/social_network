@@ -1,5 +1,5 @@
 import {v1} from 'uuid';
-import {addPost, profileReducer, RootProfileType, getUserProfile} from '../../components/Profile/profile-reducer';
+import {addPost, profileReducer, RootProfileType, getUserProfile} from './profile-reducer';
 import {IProfile} from '../../api';
 
 let startState: RootProfileType;

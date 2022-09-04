@@ -1,4 +1,4 @@
-import {getAuthUserData, authReducer, AuthStateType, getCaptchaUrl} from '../../components/Login/auth-reducer';
+import {getAuthUserData, authReducer, AuthStateType, getCaptchaUrl} from './auth-reducer';
 
 let initialState: AuthStateType;
 

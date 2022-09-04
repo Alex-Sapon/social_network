@@ -1,5 +1,5 @@
 import {v1} from 'uuid';
-import {addMessage, messagesReducer, MessagesStateType} from '../reducers/messages-reducer';
+import {addMessage, messagesReducer, MessagesStateType} from './messages-reducer';
 
 let initialState: MessagesStateType;
 

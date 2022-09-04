@@ -1,4 +1,4 @@
-import {addMessage, fetchDialogs} from '../../redux/reducers/messages-reducer';
+import {addMessage, fetchDialogs} from './messages-reducer';
 import {withAuthRedirect} from '../../hoc/withAuthRedirect';
 import {compose} from 'redux';
 import React, {ComponentType, useEffect} from 'react';

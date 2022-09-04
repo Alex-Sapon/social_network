@@ -7,7 +7,7 @@ import {AppStateType} from '../../redux/redux-store';
 import {withAuthRedirect} from '../../hoc/withAuthRedirect';
 import {
     getFollowingProgress, getIsFetching, getPage, getPageSize, getTotalCount, getUsers
-} from '../../redux/selectors/users-selectors';
+} from './users-selectors';
 
 type MapStatePropsType = {
     users: UserType[]

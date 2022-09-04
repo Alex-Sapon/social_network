@@ -51,9 +51,7 @@ export const logout = createAsyncThunk<AuthStateType, void, { rejectValue: strin
     if (res.data.resultCode === ResultCode.Success) {
         const authData: AuthStateType = {
             authParams: {id: 0, login: '', email: ''},
-            captcha: null,
             isAuth: false,
-            error: null,
         };
 
         return authData;
@@ -90,6 +88,10 @@ export const authSlice = createSlice({
             .addCase(getAuthUserData.rejected, (state, action) => {
                 state.error = action.payload;
                 state.isAuth = false;
+            })
+            .addCase(logout.fulfilled, (state, action) => {
+                state.isAuth = action.payload.isAuth;
+                state.authParams = action.payload.authParams;
             })
     }
 })

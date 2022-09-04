@@ -1,4 +1,4 @@
-import {followUnfollow, UserType, usersSlice, fetchUsers,} from '../../components/Users/users-reducer';
+import {followUnfollow, UserType, usersSlice, fetchUsers,} from './users-reducer';
 
 let initialUsers: any;
 let users: UserType[];

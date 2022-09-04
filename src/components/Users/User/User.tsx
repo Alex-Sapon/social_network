@@ -14,8 +14,6 @@ export const User = ({user, followingProgress, followUnfollow}: UserPropsType) =
     const onFollowClick = () => followUnfollow({userId: user.id, isFollow: true});
     const onUnfollowClick = () => followUnfollow({userId: user.id,  isFollow: false});
 
-    console.log(followingProgress)
-
     return (
         <>
             <ListItem sx={{display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', p: '1rem'}}>
