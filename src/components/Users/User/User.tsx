@@ -2,6 +2,7 @@ import {Avatar, Divider, FormControlLabel, ListItem, ListItemAvatar, ListItemTex
 import {NavLink} from 'react-router-dom';
 import userAvatar from '../../../assets/img/avatar/avatar.jpg';
 import React from 'react';
+import styles from './User.module.css';
 import {UserType} from '../users-reducer';
 
 type UserPropsType = {
@@ -16,7 +17,7 @@ export const User = ({user, followingProgress, followUnfollow}: UserPropsType) =
 
     return (
         <>
-            <ListItem sx={{display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', p: '1rem'}}>
+            <ListItem className={styles.user_item}>
                 <ListItemAvatar sx={{width: '150px'}}>
                     <NavLink to={`/profile/${user.id}`}>
                         <Avatar

@@ -3,7 +3,13 @@ import {IResponse} from './types';
 
 export const dialogsAPI = {
     getDialogs() {
-        return instance.get<IResponse<IDialogs>>(`dialogs`);
+        return instance.get<IAllDialogs[]>(`dialogs`);
+    },
+    getDialogsMessages(userId: string, page: number, count: number) {
+      return instance.get(`dialogs/${userId}/messages?page=${page}&count=${count}`)
+    },
+    sendMessage(userId: string, message: string) {
+        return instance.post(`dialogs/${userId}/messages`, message);
     },
     createDialogsUser(userId: number) {
         return instance.put(`dialogs/${userId}`);
@@ -17,12 +23,9 @@ export const dialogsAPI = {
     getDialogsViewed(messageId: number) {
         return instance.get(`dialogs/messages/${messageId}/viewed`);
     },
-
-
-
 }
 
-export interface IDialogs {
+export interface IAllDialogs {
     id: number
     userName: string
     hasNewMessages: boolean

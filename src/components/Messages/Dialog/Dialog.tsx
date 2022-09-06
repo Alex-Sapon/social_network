@@ -2,22 +2,39 @@ import React from 'react';
 import styles from './Dialog.module.css';
 import {NavLink} from 'react-router-dom';
 
-import PersonIcon from '@mui/icons-material/Person';
-import {grey} from '@mui/material/colors';
-import {ListItem} from '@mui/material';
+import {Avatar, Divider, ListItem, ListItemAvatar, ListItemText, Typography} from '@mui/material';
+import {IAllDialogs} from '../../../api/apiDialogs';
+import userAvatar from '../../../assets/img/avatar/avatar.jpg';
 
-type DialogType = {
-    id: string
-    name: string
-}
+export const Dialog = (props: IAllDialogs) => {
+    const {
+        id,
+        userName,
+        photos,
+        hasNewMessages,
+        newMessagesCount,
+        lastDialogActivityDate,
+        lastUserActivityDate
+    } = props;
 
-const Dialog = ({id, name}: DialogType) => {
     return (
-        <ListItem>
-            <PersonIcon sx={{color: grey, mr: '0.5rem'}}/>
-            <NavLink className={styles.item} to={`${id}`}>{name}</NavLink>
-        </ListItem>
+        <>
+            <NavLink to={``}>
+                <ListItem className={styles.dialog_item}>
+                    <ListItemAvatar>
+                        <Avatar alt="Avatar" src={photos.small ? photos.small : userAvatar}/>
+                    </ListItemAvatar>
+                    <ListItemText
+                        sx={{width: '50%'}}
+                        primary={userName}
+                        // secondary={}
+                    />
+                    <Typography variant="body2" color="text.secondary">
+                        {new Date(lastDialogActivityDate).toLocaleDateString()}
+                    </Typography>
+                </ListItem>
+            </NavLink>
+            <Divider variant="inset" component="li" sx={{width: '80%', mt: '-1px'}}/>
+        </>
     )
 }
-
-export default Dialog;

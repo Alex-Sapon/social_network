@@ -1,19 +1,21 @@
 import {combineReducers} from 'redux';
 import thunk from 'redux-thunk';
 import {profileReducer} from '../components/Profile';
-import {messagesReducer} from '../components/Messages/messages-reducer';
+import {dialogsReducer} from '../components/Messages';
 import {usersReducer} from '../components/Users/users-reducer';
 import {authReducer} from '../components/Login';
 import {reducer as formReducer} from 'redux-form';
 import {appReducer} from '../components/App';
 import {configureStore} from '@reduxjs/toolkit';
+import {newsReducer} from '../components/News';
 
 const rootReducer = combineReducers({
     profilePage: profileReducer,
-    messagesPage: messagesReducer,
+    dialogsPage: dialogsReducer,
     usersPage: usersReducer,
     auth: authReducer,
     app: appReducer,
+    newsPage: newsReducer,
     form: formReducer,
 });
 

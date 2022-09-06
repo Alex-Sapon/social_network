@@ -1,34 +1,12 @@
-.dialogs {
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-    grid-template-rows: auto 1fr;
-}
-
-.title {
-    grid-area: header;
-}
-
-.list {
-    margin: 0;
-    padding: 0;
-}
-
-.list li {
-    list-style-type: none;
-    padding: 5px;
-    margin: 0;
-}
-
-.item {
-    text-decoration: none;
+.dialog_item {
     color: black;
+    padding: 1rem;
+    border: 1px solid transparent;
+    display: flex;
 }
 
-.item h4 {
-
-}
-
-.messages p {
-    padding: 5px 15px;
-    margin: 0;
+.dialog_item:hover {
+    background-color: #f2f3f5;
+    border: 1px solid #0000001f;
+    border-radius: 5px;
 }

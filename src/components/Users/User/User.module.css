@@ -1,0 +1,6 @@
+.user_item {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: .8rem 1rem;
+}

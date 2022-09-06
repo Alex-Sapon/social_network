@@ -1,0 +1,1 @@
+export {newsAsyncActions, newsReducer} from './news-reducer';

@@ -18,7 +18,7 @@ import {useAppDispatch, useAppSelector} from '../../assets/utils';
 import {selectAppIsInitialized} from './selectors';
 
 const UsersContainer = lazy(() => import('../Users/UsersContainer'));
-const MessagesContainer = lazy(() => import('../Messages/Messages'));
+const DialogsContainer = lazy(() => import('../Messages/Dialogs'));
 
 export const App = () => {
     const dispatch = useAppDispatch();
@@ -50,29 +50,26 @@ export const App = () => {
     }
 
     return (
-        <>
-            {/*<Header/>*/}
-            <Container sx={{mt: '3rem'}}>
-                <Grid container columns={12} columnGap={8}>
-                    <Grid item xs={3}>
-                        <Navbar/>
-                    </Grid>
-                    <Grid item xs>
-                        <Suspense fallback={<Preloader/>}>
-                            <Routes>
-                                <Route path={PATH.HOME} element={<Navigate to={PATH.LOGIN}/>}/>
-                                <Route path={PATH.PROFILE} element={<ProfileContainer/>}/>
-                                <Route path={PATH.MESSAGES} element={<MessagesContainer/>}/>
-                                <Route path={PATH.USERS} element={<UsersContainer/>}/>
-                                <Route path={PATH.NEWS} element={<News/>}/>
-                                <Route path={PATH.MUSIC} element={<Music/>}/>
-                                <Route path={PATH.SETTINGS} element={<Settings/>}/>
-                                <Route path={PATH.LOGIN} element={<Login/>}/>
-                            </Routes>
-                        </Suspense>
-                    </Grid>
+        <Container sx={{pt: '3rem'}}>
+            <Grid container columns={12} columnGap={8}>
+                <Grid item xs={3}>
+                    <Navbar/>
                 </Grid>
-            </Container>
-        </>
+                <Grid item xs>
+                    <Suspense fallback={<Preloader/>}>
+                        <Routes>
+                            <Route path={PATH.HOME} element={<Navigate to={PATH.LOGIN}/>}/>
+                            <Route path={PATH.PROFILE} element={<ProfileContainer/>}/>
+                            <Route path={PATH.MESSAGES} element={<DialogsContainer/>}/>
+                            <Route path={PATH.USERS} element={<UsersContainer/>}/>
+                            <Route path={PATH.NEWS} element={<News/>}/>
+                            <Route path={PATH.MUSIC} element={<Music/>}/>
+                            <Route path={PATH.SETTINGS} element={<Settings/>}/>
+                            <Route path={PATH.LOGIN} element={<Login/>}/>
+                        </Routes>
+                    </Suspense>
+                </Grid>
+            </Grid>
+        </Container>
     );
 };

@@ -1,0 +1,1 @@
+export {dialogsReducer, dialogsAsyncActions} from './dialogs-reducer';
