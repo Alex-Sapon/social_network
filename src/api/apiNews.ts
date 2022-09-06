@@ -9,10 +9,10 @@ export const newsAPI = {
         return instance.get<NewsResponseType>(`top-headlines/category/${category}/${country}.json`);
     },
     getAllNews(channel: string) {
-        return instance.get<any>(`everything/${channel}.json`);
+        return instance.get<NewsResponseType>(`everything/${channel}.json`);
     },
     getSourcesNews() {
-        return instance.get<any>(`sources.jsonn`);
+        return instance.get<NewsResponseType>(`sources.json`);
     },
 }
 

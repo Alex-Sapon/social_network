@@ -3,7 +3,7 @@ import {Button, Card, CardActions, CardContent, CardMedia, Typography} from "@mu
 import {NewsArticleType} from '../../../api/apiNews';
 
 
-export const NewsCard = ({title, description, url, urlToImage, publishedAt}: NewsArticleType) => {
+export const NewsCard = ({title, description, urlToImage, publishedAt}: NewsArticleType) => {
     return (
         <Card sx={{width: '100%', mb: '2rem'}}>
             <CardMedia
@@ -24,7 +24,6 @@ export const NewsCard = ({title, description, url, urlToImage, publishedAt}: New
                 </Typography>
             </CardContent>
             <CardActions>
-                <Button size="small">Back</Button>
                 <Button size="small">Read More</Button>
             </CardActions>
         </Card>
