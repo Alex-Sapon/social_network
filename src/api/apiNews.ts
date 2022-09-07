@@ -16,7 +16,7 @@ export const newsAPI = {
     },
 }
 
-export interface ParamsType {
+export type ParamsType = {
     page: number
 }
 
