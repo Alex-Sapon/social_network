@@ -1,0 +1,23 @@
+.chat_item {
+    width: fit-content;
+}
+
+.chat_text {
+    position: relative;
+    color: black;
+    padding: 0.3rem .8rem;
+    border-radius: 12px 12px 12px 0;
+    background-color: #fff;
+    min-height: 53px;
+}
+
+.chat_text::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    right: 100%;
+    display: block;
+    width: 34px;
+    height: 22px;
+    background: radial-gradient(70px at top left, transparent 49%, #fff 49%) no-repeat right bottom;
+}

@@ -1,5 +1,5 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
-import {newsAPI, NewsResponseType} from '../../api/apiNews';
+import {newsAPI, NewsResponseType} from './apiNews';
 import {AxiosError} from 'axios';
 
 export const fetchNews = createAsyncThunk<{ data: Omit<NewsResponseType, 'status'> },

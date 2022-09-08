@@ -1,7 +1,7 @@
 import {ResultCode} from '../../enums/result-code';
-import {usersAPI} from '../../api';
 import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {AxiosError} from 'axios';
+import {usersAPI} from './apiUsers';
 
 export const fetchUsers = createAsyncThunk<{ users: UserType[], totalCount: number, page: number },
     { page: number, count: number }, { rejectValue: string }>('users/fetchUsers', async ({

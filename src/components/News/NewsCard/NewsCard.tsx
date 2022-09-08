@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import {Button, Card, CardActions, CardContent, CardMedia, Typography} from '@mui/material';
-import {NewsArticleType} from '../../../api/apiNews';
+import {NewsArticleType} from '../apiNews';
 
 
 export const NewsCard = ({title, description, urlToImage, publishedAt, content}: NewsArticleType) => {

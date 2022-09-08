@@ -1,1 +1,0 @@
-export {MessageFormData} from './AddMessageForm';

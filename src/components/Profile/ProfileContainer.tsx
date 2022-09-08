@@ -27,11 +27,7 @@ const ProfileContainer = () => {
     }
 
     return (
-        <>
-            <Profile/>
-            {/*<Posts/>*/}
-        </>
-
+        <Profile/>
     )
 };
 

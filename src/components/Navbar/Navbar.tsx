@@ -17,7 +17,7 @@ export const Navbar = () => {
     return (
         <nav className={styles.nav}>
             <NavLink className={setActiveClass} to={`/profile/${id}`}><AccountCircleIcon/>My page</NavLink>
-            <NavLink className={setActiveClass} to="/messages"><MessageIcon/>Messages</NavLink>
+            <NavLink className={setActiveClass} to="/messages"><MessageIcon/>Chat</NavLink>
             <NavLink className={setActiveClass} to="/users"><GroupIcon/>Users</NavLink>
             <NavLink className={setActiveClass} to="/news"><NewspaperIcon/>News</NavLink>
             <NavLink className={setActiveClass} to="/music"><LibraryMusicIcon/>Music</NavLink>

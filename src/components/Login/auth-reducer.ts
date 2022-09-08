@@ -1,9 +1,10 @@
 import {stopSubmit} from 'redux-form';
 import {ResultCode} from '../../enums/result-code';
-import {authAPI, IUserParams} from '../../api';
-import {securityAPI} from '../../api/apiSecurity';
+import {IUserParams} from '../../api';
+import {securityAPI} from './apiSecurity';
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import {AxiosError} from 'axios';
+import {authAPI} from './apiAuth';
 
 export const getAuthUserData = createAsyncThunk<AuthStateType, void, { rejectValue: string }>
 ('auth/getAuthUserData', async (_, {rejectWithValue}) => {

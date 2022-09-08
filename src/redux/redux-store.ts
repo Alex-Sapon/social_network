@@ -1,7 +1,6 @@
 import {combineReducers} from 'redux';
 import thunk from 'redux-thunk';
 import {profileReducer} from '../components/Profile';
-import {dialogsReducer} from '../components/Messages';
 import {usersReducer} from '../components/Users/users-reducer';
 import {authReducer} from '../components/Login';
 import {reducer as formReducer} from 'redux-form';
@@ -11,7 +10,6 @@ import {newsReducer} from '../components/News';
 
 const rootReducer = combineReducers({
     profilePage: profileReducer,
-    dialogsPage: dialogsReducer,
     usersPage: usersReducer,
     auth: authReducer,
     app: appReducer,
@@ -31,8 +29,6 @@ export const store = configureStore({
 export type AppDispatch = typeof store.dispatch;
 
 export type AppStateType = ReturnType<typeof rootReducer>;
-
-// export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, AppStateType, unknown, ActionsType>;
 
 // @ts-ignore
 window.store = store;

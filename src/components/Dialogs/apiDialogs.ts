@@ -1,5 +1,4 @@
-import {instance} from './instanceApi';
-import {IResponse} from './types';
+import {instance} from '../../api/instanceApi';
 
 export const dialogsAPI = {
     getDialogs() {

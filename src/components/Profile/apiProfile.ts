@@ -1,5 +1,5 @@
-import { instance } from "./instanceApi";
-import {INewPhoto, IProfile, IResponse, IUpdateProfile} from './types';
+import { instance } from "../../api/instanceApi";
+import {INewPhoto, IProfile, IResponse, IUpdateProfile} from '../../api';
 
 export const profileAPI = {
     getProfile(userId: number) {

@@ -1,4 +1,4 @@
-import {instance} from './instanceApi';
+import {instance} from '../../api/instanceApi';
 
 export const securityAPI = {
     getCaptchaUrl() {

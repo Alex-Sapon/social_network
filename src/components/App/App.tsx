@@ -18,7 +18,7 @@ import {useAppDispatch, useAppSelector} from '../../assets/utils';
 import {selectAppIsInitialized} from './selectors';
 
 const UsersContainer = lazy(() => import('../Users/UsersContainer'));
-const DialogsContainer = lazy(() => import('../Messages/Dialogs'));
+const DialogsContainer = lazy(() => import('../Dialogs/Dialogs'));
 
 export const App = () => {
     const dispatch = useAppDispatch();
@@ -27,18 +27,6 @@ export const App = () => {
 
     useEffect(() => {
         dispatch(initializeApp());
-
-        window.addEventListener('unhandledrejection', () => {
-
-        });
-
-        return () => {
-            window.removeEventListener('unhandledrejection', () => {
-
-            });
-        }
-
-
     }, [dispatch])
 
     if (!isInitialized) {

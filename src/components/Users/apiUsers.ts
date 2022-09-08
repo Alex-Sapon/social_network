@@ -1,5 +1,5 @@
-import {instance} from './instanceApi';
-import {IResponse, IUserData} from './types';
+import {instance} from '../../api/instanceApi';
+import {IResponse, IUserData} from '../../api';
 
 export const usersAPI = {
     getUsers(params: IUsersParams) {

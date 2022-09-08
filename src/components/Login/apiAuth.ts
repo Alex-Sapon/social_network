@@ -1,5 +1,5 @@
-import {instance} from './instanceApi';
-import {IAuthData, IResponse, IUserParams} from './types';
+import {instance} from '../../api/instanceApi';
+import {IAuthData, IResponse, IUserParams} from '../../api';
 
 export const authAPI = {
     me() {

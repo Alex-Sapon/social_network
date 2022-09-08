@@ -2,9 +2,10 @@ import {v1} from 'uuid';
 import {AppStateType} from '../../redux/redux-store';
 import {ResultCode} from '../../enums/result-code';
 import {stopSubmit} from 'redux-form';
-import {INewPhoto, IProfile, IUpdateProfile, profileAPI} from '../../api';
+import {INewPhoto, IProfile, IUpdateProfile} from '../../api';
 import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {AxiosError} from 'axios';
+import {profileAPI} from './apiProfile';
 
 export const getUserProfile = createAsyncThunk<{ profile: IProfile }, number, { rejectValue: string }>
 ('profile/getUserProfile', async (userId: number, {rejectWithValue}) => {
