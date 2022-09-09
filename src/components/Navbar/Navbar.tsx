@@ -5,7 +5,6 @@ import MessageIcon from '@mui/icons-material/Message';
 import GroupIcon from '@mui/icons-material/Group';
 import NewspaperIcon from '@mui/icons-material/Newspaper';
 import LibraryMusicIcon from '@mui/icons-material/LibraryMusic';
-import SettingsIcon from '@mui/icons-material/Settings';
 import {useAppSelector} from '../../assets/utils';
 import {selectAuthId} from '../Login';
 
@@ -21,7 +20,6 @@ export const Navbar = () => {
             <NavLink className={setActiveClass} to="/users"><GroupIcon/>Users</NavLink>
             <NavLink className={setActiveClass} to="/news"><NewspaperIcon/>News</NavLink>
             <NavLink className={setActiveClass} to="/music"><LibraryMusicIcon/>Music</NavLink>
-            <NavLink className={setActiveClass} to="/settings"><SettingsIcon/>Settings</NavLink>
         </nav>
     )
 }

@@ -58,4 +58,3 @@ export default compose<ComponentType>(
     connect(mapStateToProps, {fetchUsers, followUnfollow}),
     withAuthRedirect,
 )(UsersContainer);
-

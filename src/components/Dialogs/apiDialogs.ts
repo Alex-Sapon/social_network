@@ -5,7 +5,7 @@ export const dialogsAPI = {
         return instance.get<IAllDialogs[]>(`dialogs`);
     },
     getDialogsMessages(userId: string, page: number, count: number) {
-      return instance.get(`dialogs/${userId}/messages?page=${page}&count=${count}`)
+      return instance.get(`dialogs/${userId}/messages?page=${page}&count=${count}`);
     },
     sendMessage(userId: string, message: string) {
         return instance.post(`dialogs/${userId}/messages`, message);

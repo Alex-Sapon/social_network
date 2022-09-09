@@ -6,7 +6,6 @@ import './app.css';
 import {Navbar} from '../Navbar/Navbar';
 import {News} from '../News/News';
 import Music from '../Music/Music';
-import Settings from '../Settings/Settings';
 import ProfileContainer from '../Profile/ProfileContainer';
 import {Login} from '../Login';
 
@@ -52,7 +51,6 @@ export const App = () => {
                             <Route path={PATH.USERS} element={<UsersContainer/>}/>
                             <Route path={PATH.NEWS} element={<News/>}/>
                             <Route path={PATH.MUSIC} element={<Music/>}/>
-                            <Route path={PATH.SETTINGS} element={<Settings/>}/>
                             <Route path={PATH.LOGIN} element={<Login/>}/>
                         </Routes>
                     </Suspense>

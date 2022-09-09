@@ -43,7 +43,7 @@ export const usersSlice = createSlice({
     initialState: {
         users: [] as UserType[],
         totalCount: 0,
-        count: 6,
+        count: 8,
         page: 1,
         isLoading: false,
         followingProgress: [] as number[],

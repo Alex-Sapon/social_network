@@ -4,20 +4,12 @@
 
 .chat_text {
     position: relative;
-    color: black;
-    padding: 0.3rem .8rem;
-    border-radius: 12px 12px 12px 0;
-    background-color: #fff;
+    background-color: #79c7c5;
     min-height: 53px;
-}
-
-.chat_text::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    right: 100%;
-    display: block;
-    width: 34px;
-    height: 22px;
-    background: radial-gradient(70px at top left, transparent 49%, #fff 49%) no-repeat right bottom;
+    display: inline-block;
+    margin-bottom: 5px;
+    color: #F9FBFF;
+    font-size: 0.7em;
+    padding: 10px 10px 10px 12px;
+    border-radius: 20px;
 }

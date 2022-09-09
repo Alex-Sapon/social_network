@@ -1,0 +1,9 @@
+.link {
+    color: rgba(81, 87, 250, 0.73);
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.link:hover {
+    color: #fd6e63;
+}

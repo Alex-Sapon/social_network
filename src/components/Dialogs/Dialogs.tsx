@@ -1,12 +1,12 @@
 import React, {ComponentType, KeyboardEvent, useEffect, useRef, useState} from 'react';
-import {List} from '@mui/material';
+import {ButtonProps, List} from '@mui/material';
 import {Dialog} from './Dialog/Dialog';
-import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import SendIcon from '@mui/icons-material/Send';
 import styles from './Dialogs.module.css';
 import {compose} from 'redux';
 import {withAuthRedirect} from '../../hoc/withAuthRedirect';
+import styled from '@emotion/styled';
 
 export type MessagesType =   {
     message: string
@@ -48,24 +48,32 @@ const DialogsContainer = () => {
 
     return (
         <div className={styles.chat_container}>
+            <div className={styles.logo}/>
             <List className={styles.chat_list}>
                 {messages.map((message, i) => <Dialog key={i} {...message}/>)}
                 <div ref={messageBottomRef}/>
             </List>
             <div className={styles.chat_send} >
-                <TextField
-                    fullWidth
+                <input
+                    placeholder="Type a message..."
                     value={message}
-                    size="small"
-                    sx={{mr: '2rem', backgroundColor: 'white'}}
-                    variant="outlined"
                     onKeyPress={onSendKeyPress}
                     onChange={(e) => setMessage(e.currentTarget.value)}
                 />
-                <Button variant="contained" endIcon={<SendIcon />} onClick={onSendClick}>Send</Button>
+                <ColorButton variant="outlined" endIcon={<SendIcon />} onClick={onSendClick}>Send</ColorButton>
             </div>
         </div>
     )
 };
 
 export default compose<ComponentType>(withAuthRedirect)(DialogsContainer);
+
+const ColorButton = styled(Button)<ButtonProps>(() => ({
+    color: '#79C7C5',
+    backgroundColor: '#e6f4f6',
+    borderColor: '#e6f4f6',
+    '&:hover': {
+        backgroundColor: '#e6f4f6',
+        borderColor: '#79C7C5',
+    },
+}));
