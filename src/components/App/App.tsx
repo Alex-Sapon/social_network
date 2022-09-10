@@ -3,9 +3,9 @@ import {Navigate, Route, Routes} from 'react-router-dom';
 import {Box, CircularProgress, Container, Grid} from '@mui/material';
 import './app.css';
 
-import {Navbar} from '../Navbar/Navbar';
-import {News} from '../News/News';
-import Music from '../Music/Music';
+import {Navbar} from '../Navbar';
+import {News} from '../News';
+import {Music} from '../Music';
 import ProfileContainer from '../Profile/ProfileContainer';
 import {Login} from '../Login';
 

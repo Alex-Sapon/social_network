@@ -7,6 +7,7 @@ import NewspaperIcon from '@mui/icons-material/Newspaper';
 import LibraryMusicIcon from '@mui/icons-material/LibraryMusic';
 import {useAppSelector} from '../../assets/utils';
 import {selectAuthId} from '../Login';
+import React from 'react';
 
 export const Navbar = () => {
     const setActiveClass = (navData: { isActive: boolean }): string => navData.isActive ? styles.active : styles.item;

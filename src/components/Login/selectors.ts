@@ -1,4 +1,4 @@
-import {AppStateType} from '../../redux/redux-store';
+import {AppStateType} from '../App/redux-store';
 
 export const selectAuthId = (state: AppStateType) => state.auth.authParams.id;
 export const selectAuthCaptcha = (state: AppStateType) => state.auth.captcha;

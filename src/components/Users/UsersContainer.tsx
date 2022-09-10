@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {compose} from 'redux';
 import {Users} from './Users';
 import {fetchUsers, followUnfollow, UserType} from './users-reducer';
-import {AppStateType} from '../../redux/redux-store';
+import {AppStateType} from '../App/redux-store';
 import {withAuthRedirect} from '../../hoc/withAuthRedirect';
 import {
     getFollowingProgress, getIsFetching, getPage, getPageSize, getTotalCount, getUsers

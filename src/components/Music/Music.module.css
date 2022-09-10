@@ -1,0 +1,18 @@
+.music_list {
+    display: grid;
+    row-gap: 10px;
+    background-color: #e6f4f6;
+    border: 2px solid #bce5eb;
+    max-height: 85vh;
+    padding: 2rem;
+    border-radius: 10px;
+    overflow-y: auto;
+}
+
+.music_list audio {
+    margin: 0 auto;
+    width: 70%;
+    border: 2px solid #bce5eb;
+    border-radius: 25px;
+    height: 54px;
+}

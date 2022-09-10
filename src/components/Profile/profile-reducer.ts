@@ -1,5 +1,5 @@
 import {v1} from 'uuid';
-import {AppStateType} from '../../redux/redux-store';
+import {AppStateType} from '../App/redux-store';
 import {ResultCode} from '../../enums/result-code';
 import {stopSubmit} from 'redux-form';
 import {INewPhoto, IProfile, IUpdateProfile} from '../../api';

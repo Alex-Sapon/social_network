@@ -1,5 +1,5 @@
 import {useNavigate} from 'react-router-dom';
-import {AppStateType} from '../redux/redux-store';
+import {AppStateType} from '../components/App/redux-store';
 import {connect} from 'react-redux';
 import {ComponentType, useEffect} from 'react';
 import {PATH} from '../enums/path';
@@ -28,7 +28,5 @@ export function withAuthRedirect<T>(Component: ComponentType<T>) {
         return <Component {...restProps as T}/>;
     }
 
-    const ConnectedAuthRedirectComponent = connect(mapStateToProps, {})(RedirectComponent);
-
-    return ConnectedAuthRedirectComponent;
-};
+    return connect(mapStateToProps, {})(RedirectComponent);
+}
